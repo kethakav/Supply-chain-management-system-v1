@@ -26,3 +26,4 @@ INSERT INTO `product` VALUES (1,'Product_1',100,50,'https://image.url/product1')
 INSERT INTO `store` VALUES (1,'New York',3),(2,'Los Angeles',4),(3,'Chicago',5),(4,'Houston',3),(5,'Phoenix',2);
 
 
+-- there are 5 other tablest to add dummy data
