@@ -1,13 +1,15 @@
+DROP DATABASE scms;
+CREATE DATABASE scms;
+USE scms;
 CREATE TABLE `Store` (
-  `store_id` INT,
+  `store_id` INT AUTO_INCREMENT,
   `store_city` VARCHAR(50),
   `truck_count` INT,
   PRIMARY KEY (`store_id`)
 );
 
-
 CREATE TABLE `Product` (
-  `product_id` INT,
+  `product_id` INT AUTO_INCREMENT,
   `product_name` VARCHAR(50),
   `product_price` INT,
   `Product_capacity` INT,
@@ -17,7 +19,7 @@ CREATE TABLE `Product` (
 
 
 CREATE TABLE `Customer` (
-  `customer_id` INT,
+  `customer_id` INT AUTO_INCREMENT,
   `user_name` VARCHAR(20),
   `password` VARCHAR(16),
   `customer_first_name` VARCHAR(20),
@@ -33,7 +35,7 @@ CREATE TABLE `Customer` (
 
 
 CREATE TABLE `HR_Manager` (
-  `hr_manager_id` INT,
+  `hr_manager_id` INT AUTO_INCREMENT,
   `user_name` VARCHAR(20),
   `password` VARCHAR(16),
   `manager_first_name` VARCHAR(100),
@@ -46,7 +48,7 @@ CREATE TABLE `HR_Manager` (
 
 
 CREATE TABLE `FinanceandOrder_Manager` (
-  `finance_manager_id` INT,
+  `finance_manager_id` INT AUTO_INCREMENT,
   `user_name` VARCHAR(20),
   `password` VARCHAR(16),
   `manager_first_name` VARCHAR(100),
@@ -62,7 +64,7 @@ CREATE TABLE `FinanceandOrder_Manager` (
 
 
 CREATE TABLE `Assistant_Driver` (
-  `ast_driver_id` INT,
+  `ast_driver_id` INT AUTO_INCREMENT,
   `user_name` VARCHAR(20),
   `password` VARCHAR(16),
   `ast_driver_first_name` VARCHAR(100),
@@ -79,7 +81,7 @@ CREATE TABLE `Assistant_Driver` (
 
 
 CREATE TABLE `Driver` (
-  `driver_id` INT,
+  `driver_id` INT AUTO_INCREMENT,
   `user_name` VARCHAR(20),
   `password` VARCHAR(16),
   `driver_first_name` VARCHAR(100),
@@ -96,7 +98,7 @@ CREATE TABLE `Driver` (
 
 
 CREATE TABLE `Manager` (
-  `manager_id` INT,
+  `manager_id` INT AUTO_INCREMENT,
   `store_id` INT,
   `user_name` VARCHAR(20),
   `password` VARCHAR(16),
@@ -112,7 +114,7 @@ CREATE TABLE `Manager` (
 
 
 CREATE TABLE `Train` (
-  `train_id` INT,
+  `train_id` INT AUTO_INCREMENT,
   `destination_store_id` INT,
   `total_capacity` INT,
   `departure` DATETIME,
@@ -124,7 +126,7 @@ CREATE TABLE `Train` (
 
 
 CREATE TABLE `Train_delivery` (
-  `train_delivery_id` INT,
+  `train_delivery_id` INT AUTO_INCREMENT,
   `train_id` INT,
   `allocated_capacity` INT,
   PRIMARY KEY (`train_delivery_id`),
@@ -134,7 +136,7 @@ CREATE TABLE `Train_delivery` (
 
 
 CREATE TABLE `Truck` (
-  `truck_id` INT,
+  `truck_id` INT AUTO_INCREMENT,
   `store_id` INT,
   `vehicle_number` INT,
   PRIMARY KEY (`truck_id`),
@@ -143,7 +145,7 @@ CREATE TABLE `Truck` (
 
 
 CREATE TABLE `Route` (
-  `route_id` INT,
+  `route_id` INT AUTO_INCREMENT,
   `store_id` INT,
   `end_point` VARCHAR(50),
   `route_description` VARCHAR(500),
@@ -156,7 +158,7 @@ CREATE TABLE `Route` (
 
 
 CREATE TABLE `Truck_Delivery` (
-  `delivery_id` INT,
+  `delivery_id` INT AUTO_INCREMENT,
   `truck_id` INT,
   `driver_id` INT,
   `ast_driver_id` INT,
@@ -173,23 +175,23 @@ CREATE TABLE `Truck_Delivery` (
 
 
 CREATE TABLE `Order` (
-  `order_id` INT,
+  `order_id` INT AUTO_INCREMENT,
   `customer_id` INT,
   `ordered_date_time` DATETIME,
-  `total_amount` INT,
+  `total_amount` INT DEFAULT 0,
   `payment_documents` VARCHAR(1000),
-  `order_capacity` INT,
+  `order_capacity` INT DEFAULT 0,
   `expecting_delivery_date` DATE,
   `delivery_address` VARCHAR(1000),
   `nearest_store_id` INT,
   `route_description_input` VARCHAR(1000),
   `finance_manager_id` INT,
-  `confirm_payments` BOOLEAN,
-  `sent_by_train` BOOLEAN,
+  `confirm_payments` BOOLEAN DEFAULT false,
+  `sent_by_train` BOOLEAN DEFAULT false,
   `train_delivery_id` INT,
-  `recieved_to_store` BOOLEAN,
+  `recieved_to_store` BOOLEAN DEFAULT false,
   `delivery_id` INT,
-  `delivered_confirmation` BOOLEAN,
+  `delivered_confirmation` BOOLEAN DEFAULT false,
   `delivered_date_time` DATETIME,
   PRIMARY KEY (`order_id`),
   FOREIGN KEY (`delivery_id`) REFERENCES `Truck_Delivery`(`delivery_id`),
@@ -200,7 +202,7 @@ CREATE TABLE `Order` (
 
 
 CREATE TABLE `Ordered_products` (
-  `order_id` INT,
+  `order_id` INT AUTO_INCREMENT,
   `product_id` INT,
   `quantity` INT,
   FOREIGN KEY (`product_id`) REFERENCES `Product`(`product_id`),
