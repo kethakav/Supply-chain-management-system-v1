@@ -1,0 +1,23 @@
+//Get Assigned Deliveries for an Assistant Driver:
+
+DELIMITER //
+CREATE PROCEDURE GetAssignedDeliveriesForAssistantDriver(IN astDriverId INT)
+BEGIN
+    SELECT td.delivery_id, td.truck_id, td.route_id, r.end_point, r.route_description, r.distance, r.max_time
+    FROM Truck_Delivery td
+    JOIN Route r ON td.route_id = r.route_id
+    WHERE td.ast_driver_id = astDriverId;
+END //
+DELIMITER ;
+
+//Get Driver for a Specific Delivery:
+
+DELIMITER //
+CREATE PROCEDURE GetDriverForDelivery(IN deliveryId INT)
+BEGIN
+    SELECT d.driver_id, d.driver_first_name, d.driver_last_name, d.driver_contact, d.driver_email
+    FROM Truck_Delivery td
+    JOIN Driver d ON td.driver_id = d.driver_id
+    WHERE td.delivery_id = deliveryId;
+END //
+DELIMITER ;
