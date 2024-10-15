@@ -266,7 +266,7 @@ VALUES
 (14, 14, 14, 14, 14, 5);
 -- ******************************************************************************************
 -- Train_Delivery
-INSERT INTO train_dellivery (train_delivery_id, train_id, allocated_capacity)
+INSERT INTO train_delivery (train_delivery_id, train_id, allocated_capacity)
 VALUES
 (1,1,5),
 (2,1,4),
