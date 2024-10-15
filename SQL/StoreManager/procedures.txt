@@ -1,0 +1,186 @@
+//procedure to get truck information according to store id
+CREATE PROCEDURE GetTrucksByStore(IN storeId INT)
+BEGIN
+    SELECT 
+        t.truck_id, 
+        t.store_id, 
+        t.vehicle_number, 
+        s.store_city, 
+        s.truck_count
+    FROM 
+        Truck t
+    JOIN 
+        Store s ON t.store_id = s.store_id
+    WHERE 
+        t.store_id = storeId;
+END;
+
+//procedure to get the information of all drivers of a given store
+DELIMITER $$
+
+CREATE PROCEDURE GetDriversByStore(IN p_store_id INT)
+BEGIN
+    SELECT 
+        d.driver_id,
+        d.user_name,
+        d.driver_first_name,
+        d.driver_last_name,
+        d.driver_contact,
+        d.driver_email,
+        d.driver_image_url,
+        d.store_id,
+        s.store_city,
+        d.worked_hours
+    FROM 
+        Driver d
+    JOIN 
+        Store s ON d.store_id = s.store_id
+    WHERE 
+        d.store_id = p_store_id;
+END $$
+
+DELIMITER ;
+
+//procedure for getting the information of all assistant drivers
+DELIMITER $$
+
+CREATE PROCEDURE GetAssistantDriversByStore(IN p_store_id INT)
+BEGIN
+    SELECT 
+        ad.ast_driver_id,
+        ad.user_name,
+        ad.ast_driver_first_name,
+        ad.ast_driver_last_name,
+        ad.ast_driver_contact,
+        ad.ast_driver_email,
+        ad.ast_driver_image_url,
+        ad.store_id,
+        s.store_city,
+        ad.worked_hours
+    FROM 
+        Assistant_Driver ad
+    JOIN 
+        Store s ON ad.store_id = s.store_id
+    WHERE 
+        ad.store_id = p_store_id;
+END $$
+
+DELIMITER ;
+
+
+//procedure for getting all the active orders for the store(orders which have not yet been delivered)
+DELIMITER $$
+
+CREATE PROCEDURE GetActiveOrdersByStore(IN p_store_id INT)
+BEGIN
+    SELECT 
+        o.order_id,
+        o.customer_id,
+        o.ordered_date_time,
+        o.total_amount,
+        o.order_capacity,
+        o.expecting_delivery_date,
+        o.delivery_address,
+        o.route_description_input,
+        o.confirm_payments,
+        o.sent_by_train,
+        o.recieved_to_store,
+        o.delivered_confirmation,
+        c.customer_first_name,
+        c.customer_last_name,
+        c.customer_contact,
+        c.customer_email
+    FROM 
+        `Order` o
+    JOIN 
+        Customer c ON o.customer_id = c.customer_id
+    WHERE 
+        o.nearest_store_id = p_store_id
+        AND o.delivered_confirmation = FALSE;
+END $$
+
+DELIMITER ;
+
+//procedure to get available drivers and assistant drivers
+DELIMITER $$
+
+CREATE PROCEDURE GetAvailableDriversAndAssistantDrivers()
+BEGIN
+    -- Fetch available drivers who are not assigned to any active deliveries
+    SELECT 
+        d.driver_id,
+        d.user_name,
+        d.driver_first_name,
+        d.driver_last_name,
+        d.driver_contact,
+        d.driver_email,
+        d.driver_image_url,
+        d.store_id,
+        s.store_city,
+        d.worked_hours
+    FROM 
+        Driver d
+    JOIN 
+        Store s ON d.store_id = s.store_id
+    LEFT JOIN 
+        Truck_Delivery td ON d.driver_id = td.driver_id
+    WHERE 
+        td.delivery_id IS NULL;  -- If no matching delivery, driver is available
+
+    -- Fetch available assistant drivers who are not assigned to any active deliveries
+    SELECT 
+        ad.ast_driver_id,
+        ad.user_name,
+        ad.ast_driver_first_name,
+        ad.ast_driver_last_name,
+        ad.ast_driver_contact,
+        ad.ast_driver_email,
+        ad.ast_driver_image_url,
+        ad.store_id,
+        s.store_city,
+        ad.worked_hours
+    FROM 
+        Assistant_Driver ad
+    JOIN 
+        Store s ON ad.store_id = s.store_id
+    LEFT JOIN 
+        Truck_Delivery td ON ad.ast_driver_id = td.ast_driver_id
+    WHERE 
+        td.delivery_id IS NULL;  -- If no matching delivery, assistant driver is available
+END $$
+
+DELIMITER ;
+
+//procedure to create truck deliveries
+DELIMITER $$
+
+CREATE PROCEDURE CreateTruckDelivery(
+    IN p_truck_id INT,
+    IN p_driver_id INT,
+    IN p_ast_driver_id INT,
+    IN p_route_id INT,
+    IN p_manager_id INT,
+    IN p_sent_datetime DATETIME
+)
+BEGIN
+    -- Insert the new delivery into the Truck_Delivery table
+    INSERT INTO Truck_Delivery (
+        truck_id, 
+        driver_id, 
+        ast_driver_id, 
+        route_id, 
+        manager_id, 
+        sent_datetime
+    )
+    VALUES (
+        p_truck_id, 
+        p_driver_id, 
+        p_ast_driver_id, 
+        p_route_id, 
+        p_manager_id, 
+        p_sent_datetime
+    );
+END $$
+
+DELIMITER ;
+
