@@ -1,0 +1,95 @@
+//procedure to get unconfirmed orders
+
+
+DELIMITER $$
+
+CREATE PROCEDURE GetUnconfirmedPayments()
+BEGIN
+    SELECT * 
+    FROM `Order`
+    WHERE confirm_payments = FALSE;
+END$$
+
+DELIMITER ;
+
+//procedure to get confirmed orders
+
+
+DELIMITER $$
+
+CREATE PROCEDURE GetConfirmedPayments()
+BEGIN
+    SELECT * 
+    FROM `Order`
+    WHERE confirm_payments = 1;
+END$$
+
+DELIMITER 
+
+//procedure to get all orders(Confirmed and Unconfirmed)
+
+DELIMITER $$
+
+CREATE PROCEDURE GetPayments()
+BEGIN
+    SELECT * 
+    FROM `Order`;
+   
+END$$
+
+DELIMITER ;
+
+//procedure to get all train data
+
+
+DELIMITER $$
+
+CREATE PROCEDURE Gettrains()
+BEGIN
+    SELECT * 
+    FROM `train`;
+   
+END$$
+
+DELIMITER ;
+
+// procedure to assign a train for a given order ID and updating the train delivery according to that
+
+DELIMITER $$
+
+CREATE PROCEDURE AssignTrainDelivery(
+    IN p_order_id INT, 
+    IN p_train_id INT
+)
+BEGIN
+    -- Check if the payment is confirmed
+    DECLARE v_nearest_store_id INT;
+    DECLARE v_confirm_payments BOOLEAN;
+
+    -- Fetch the payment status and nearest_store_id for the order
+    SELECT confirm_payments, nearest_store_id
+    INTO v_confirm_payments, v_nearest_store_id
+    FROM `Order`
+    WHERE order_id = p_order_id;
+
+    -- If payment is confirmed, proceed with the updates
+    IF v_confirm_payments = 1 THEN
+        -- Update the Order table
+        UPDATE `Order`
+        SET train_delivery_id = p_train_id, 
+            sent_by_train = 1
+        WHERE order_id = p_order_id;
+
+        -- Insert into the train_delivery table
+        INSERT INTO train_delivery ( train_id, allocated_capacity,store_id)
+        VALUES (v_nearest_store_id, p_train_id, 0);
+        
+    ELSE
+        -- If payment is not confirmed, raise an error
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Payment not confirmed for this order.';
+    END IF;
+    
+END$$
+
+DELIMITER ;
