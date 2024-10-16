@@ -1,4 +1,4 @@
-//Get Assigned Deliveries for a Driver:
+-- Get Assigned Deliveries for a Driver:
 
 DELIMITER //
 CREATE PROCEDURE GetAssignedDeliveriesForDriver(IN driverId INT)
@@ -10,7 +10,7 @@ BEGIN
 END //
 DELIMITER ;
 
-//Get Assistant Driver for a Specific Delivery:
+-- Get Assistant Driver for a Specific Delivery:
 
 DELIMITER //
 CREATE PROCEDURE GetAssistantDriverForDelivery(IN deliveryId INT)
@@ -22,7 +22,7 @@ BEGIN
 END //
 DELIMITER ;
 
-//Confirm Order Delivery:
+-- Confirm Order Delivery:
 
 DELIMITER //
 CREATE PROCEDURE ConfirmOrderDelivery(IN orderId INT)

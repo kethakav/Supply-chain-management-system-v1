@@ -1,4 +1,4 @@
-//procedure to get truck information according to store id
+-- procedure to get truck information according to store id
 CREATE PROCEDURE GetTrucksByStore(IN storeId INT)
 BEGIN
     SELECT 
@@ -15,7 +15,7 @@ BEGIN
         t.store_id = storeId;
 END;
 
-//procedure to get the information of all drivers of a given store
+-- procedure to get the information of all drivers of a given store
 DELIMITER $$
 
 CREATE PROCEDURE GetDriversByStore(IN p_store_id INT)
@@ -41,7 +41,7 @@ END $$
 
 DELIMITER ;
 
-//procedure for getting the information of all assistant drivers
+-- procedure for getting the information of all assistant drivers
 DELIMITER $$
 
 CREATE PROCEDURE GetAssistantDriversByStore(IN p_store_id INT)
@@ -68,7 +68,7 @@ END $$
 DELIMITER ;
 
 
-//procedure for getting all the active orders for the store(orders which have not yet been delivered)
+-- procedure for getting all the active orders for the store(orders which have not yet been delivered)
 DELIMITER $$
 
 CREATE PROCEDURE GetActiveOrdersByStore(IN p_store_id INT)
@@ -101,7 +101,7 @@ END $$
 
 DELIMITER ;
 
-//procedure to get available drivers and assistant drivers
+-- procedure to get available drivers and assistant drivers
 DELIMITER $$
 
 CREATE PROCEDURE GetAvailableDriversAndAssistantDrivers()
@@ -151,7 +151,7 @@ END $$
 
 DELIMITER ;
 
-//procedure to create truck deliveries
+-- procedure to create truck deliveries
 DELIMITER $$
 
 CREATE PROCEDURE CreateTruckDelivery(
