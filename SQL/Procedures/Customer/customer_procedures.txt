@@ -1,0 +1,57 @@
+-- Procedures for customer
+DELIMITER //
+
+-- Returns all products in the system
+CREATE PROCEDURE get_all_products()
+BEGIN
+    SELECT * FROM product;
+END //
+
+-- places an empty order for a customer
+CREATE PROCEDURE place_order(
+    IN customer_id INT,
+    IN delivery_address VARCHAR(1000),
+    IN nearest_store_id INT)
+BEGIN
+    -- Insert into the `Order` table
+    INSERT INTO `Order` (
+        customer_id,
+        ordered_date_time,
+        expecting_delivery_date,
+        delivery_address,
+        nearest_store_id
+    )
+    VALUES (
+        customer_id, 
+        now(),
+        DATE(DATE_ADD(NOW(), INTERVAL 7 DAY)),
+        delivery_address, 
+        nearest_store_id
+    );
+END //
+
+-- Adds a product to a given order
+CREATE PROCEDURE add_product_to_order(
+    IN order_id INT,
+    IN product_id INT,
+    IN quantity INT)
+BEGIN
+    INSERT INTO `Ordered_products` (order_id, product_id, quantity)
+    VALUES (order_id, product_id, quantity);
+END//
+
+CREATE PROCEDURE get_pending_orders(IN customer_id_input INT)
+BEGIN
+    SELECT * 
+    FROM `Order`
+    WHERE (`customer_id` = customer_id_input AND `delivered_confirmation` = false);
+END//
+
+CREATE PROCEDURE get_history_orders(IN customer_id_input INT)
+BEGIN
+    SELECT * 
+    FROM `Order`
+    WHERE (`customer_id` = customer_id_input AND `delivered_confirmation` = true);
+END//
+
+DELIMITER ;
