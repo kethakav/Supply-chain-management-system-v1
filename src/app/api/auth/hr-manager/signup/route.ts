@@ -60,7 +60,9 @@ export async function POST(req: Request) {
         return NextResponse.json({
             message: 'HR manager registered successfully',
             user: {
-                ...userData[0],
+                id: userData[0].customer_id,
+                name: `${userData[0].customer_first_name} ${userData[0].customer_last_name}`,
+                email: userData[0].customer_email,
                 type: 'hrManager'
             }
         }, { status: 201 });

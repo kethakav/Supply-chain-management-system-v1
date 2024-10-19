@@ -58,12 +58,20 @@ export async function POST(req: Request) {
         if (!userData[0]) {
             throw new Error('User data not found after registration');
         }
+        // return NextResponse.json({
+        //     id: userInfo.id,
+        //     name: `${userInfo.firstName} ${userInfo.lastName}`,
+        //     email: userInfo.email,
+        //     type: userInfo.type,
+        // });
 
         // Return the user data along with a success message
         return NextResponse.json({
             message: 'Retailer registered successfully',
             user: {
-                ...userData[0],
+                id: userData[0].customer_id,
+                name: `${userData[0].customer_first_name} ${userData[0].customer_last_name}`,
+                email: userData[0].customer_email,
                 type: 'retailer'
             }
         }, { status: 201 });
