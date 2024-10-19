@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
+import argon2 from 'argon2';
+
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -13,20 +15,28 @@ export async function POST(req: Request) {
     const { username, customer_email, password, customer_first_name, customer_last_name, customer_contact, customer_address } = await req.json();
 
     try {
-        // Step 1: Check if the username already exists
-        const [existingUser] = await pool.query<mysql.RowDataPacket[]>(
-            `SELECT COUNT(*) as count FROM Customer WHERE user_name = ?`,
+        // Step 1: Identify if the username exists in any table
+        const [rows]: any = await pool.query(
+            `SELECT identify_table(?) AS table_name`,
             [username]
         );
+        const table = rows[0]?.table_name;
 
-        if (existingUser[0].count > 0) {
-            return NextResponse.json({ error: 'Username already exists' }, { status: 409 }); // 409 Conflict
+        // Log the identified table (for debugging purposes)
+        console.log(`Identified table for username ${username}: ${table}`);
+
+        if (table && table !== 'Unknown') {
+            // If the username already exists in one of the tables, return a conflict error
+            return NextResponse.json({ error: 'Username already exists in another table' }, { status: 409 }); // 409 Conflict
         }
+
+        // Step 2: Hash the password using argon2
+        const hashedPassword = await argon2.hash(password);
 
         // Step 2: Proceed with user registration using the stored procedure
         const [result] = await pool.query(
             `CALL RegisterRetailerCustomer(?, ?, ?, ?, ?, ?, ?)`,
-            [username, password, customer_first_name, customer_last_name, customer_contact, customer_email, customer_address]
+            [username, hashedPassword, customer_first_name, customer_last_name, customer_contact, customer_email, customer_address]
         );
 
         // Step 3: Fetch the newly created user data
@@ -49,7 +59,7 @@ export async function POST(req: Request) {
             throw new Error('User data not found after registration');
         }
 
-        // Return the user data along with success message
+        // Return the user data along with a success message
         return NextResponse.json({
             message: 'Retailer registered successfully',
             user: {

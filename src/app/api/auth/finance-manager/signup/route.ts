@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
+import argon2 from 'argon2';
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -13,23 +14,31 @@ export async function POST(req: Request) {
     const { username, fm_email, password, fm_first_name, fm_last_name, fm_contact } = await req.json();
 
     try {
-        // Step 1: Check if the username already exists
-        const [existingUser] = await pool.query<mysql.RowDataPacket[]>(
-            `SELECT COUNT(*) as count FROM financeandorder_manager WHERE user_name = ?`,
+        // Step 1: Identify if the username exists in any table
+        const [rows]: any = await pool.query(
+            `SELECT identify_table(?) AS table_name`,
             [username]
         );
+        const table = rows[0]?.table_name;
 
-        if (existingUser[0].count > 0) {
-            return NextResponse.json({ error: 'Username already exists' }, { status: 409 }); // 409 Conflict
+        // Log the identified table (for debugging purposes)
+        console.log(`Identified table for username ${username}: ${table}`);
+
+        if (table && table !== 'Unknown') {
+            // If the username already exists in one of the tables, return a conflict error
+            return NextResponse.json({ error: 'Username already exists in another table' }, { status: 409 }); // 409 Conflict
         }
 
-        // Step 2: Proceed with user registration using the stored procedure
+        // Step 2: Hash the password using argon2
+        const hashedPassword = await argon2.hash(password);
+
+        // Step 3: Proceed with user registration using the stored procedure with the hashed password
         const [result] = await pool.query(
             `CALL RegisterFinanceManager(?, ?, ?, ?, ?, ?)`,
-            [username, password, fm_first_name, fm_last_name, fm_contact, fm_email]
+            [username, hashedPassword, fm_first_name, fm_last_name, fm_contact, fm_email]
         );
 
-        // Step 3: Fetch the newly created user data
+        // Step 4: Fetch the newly created user data
         const [userData] = await pool.query<mysql.RowDataPacket[]>(
             `SELECT 
                 finance_manager_id,
