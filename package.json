@@ -12,6 +12,7 @@
     "apexcharts": "^3.45.2",
     "flatpickr": "^4.6.13",
     "jsvectormap": "^1.5.3",
+    "mysql2": "^3.11.3",
     "next": "^14.1.4",
     "next-auth": "^4.24.8",
     "react": "^18",
