@@ -21,7 +21,7 @@ CREATE TABLE `Product` (
 CREATE TABLE `Customer` (
   `customer_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `customer_first_name` VARCHAR(20),
   `customer_last_name` VARCHAR(20),
   `customer_type` VARCHAR(20),
@@ -37,7 +37,7 @@ CREATE TABLE `Customer` (
 CREATE TABLE `HR_Manager` (
   `hr_manager_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `manager_first_name` VARCHAR(100),
   `manager_last_name` VARCHAR(100),
   `manager_contact` INT,
@@ -50,7 +50,7 @@ CREATE TABLE `HR_Manager` (
 CREATE TABLE `FinanceandOrder_Manager` (
   `finance_manager_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `manager_first_name` VARCHAR(100),
   `manager_last_name` VARCHAR(100),
   `manager_contact` INT,
@@ -66,7 +66,7 @@ CREATE TABLE `FinanceandOrder_Manager` (
 CREATE TABLE `Assistant_Driver` (
   `ast_driver_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `ast_driver_first_name` VARCHAR(100),
   `ast_driver_last_name` VARCHAR(100),
   `ast_driver_contact` INT,
@@ -83,7 +83,7 @@ CREATE TABLE `Assistant_Driver` (
 CREATE TABLE `Driver` (
   `driver_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `driver_first_name` VARCHAR(100),
   `driver_last_name` VARCHAR(100),
   `driver_contact` INT,
@@ -101,7 +101,7 @@ CREATE TABLE `Manager` (
   `manager_id` INT NOT NULL AUTO_INCREMENT,
   `store_id` INT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `manager_first_name` VARCHAR(100),
   `manager_last_name` VARCHAR(100),
   `manager_contact` INT,
