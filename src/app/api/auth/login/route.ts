@@ -10,10 +10,10 @@ export async function POST(req: Request) {
     let connection;
     try {
         connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'scms_test'
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: process.env.DB_NAME
         });
     } catch (error) {
         console.error('Database connection error:', error);

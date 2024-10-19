@@ -4,10 +4,10 @@ import argon2 from 'argon2';
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'scms_test'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
 });
 
 export async function POST(req: Request) {
@@ -60,9 +60,9 @@ export async function POST(req: Request) {
         return NextResponse.json({
             message: 'HR manager registered successfully',
             user: {
-                id: userData[0].customer_id,
-                name: `${userData[0].customer_first_name} ${userData[0].customer_last_name}`,
-                email: userData[0].customer_email,
+                id: userData[0].hr_manager_id,
+                name: `${userData[0].manager_first_name} ${userData[0].manager_last_name}`,
+                email: userData[0].manager_email,
                 type: 'hrManager'
             }
         }, { status: 201 });

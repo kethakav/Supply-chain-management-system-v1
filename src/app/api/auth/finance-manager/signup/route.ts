@@ -1,16 +1,20 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import argon2 from 'argon2';
+// import dotenv from 'dotenv';
+ 
+// dotenv.config();
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'scms_test'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
 });
 
 export async function POST(req: Request) {
+    console.log(process.env.DB_HOST);
     const { username, fm_email, password, fm_first_name, fm_last_name, fm_contact } = await req.json();
 
     try {
@@ -60,9 +64,9 @@ export async function POST(req: Request) {
         return NextResponse.json({
             message: 'Finance and order manager registered successfully',
             user: {
-                id: userData[0].customer_id,
-                name: `${userData[0].customer_first_name} ${userData[0].customer_last_name}`,
-                email: userData[0].customer_email,
+                id: userData[0].finance_manager_id,
+                name: `${userData[0].manager_first_name} ${userData[0].manager_last_name}`,
+                email: userData[0].manager_email,
                 type: 'financeManager'
             }
         }, { status: 201 });
