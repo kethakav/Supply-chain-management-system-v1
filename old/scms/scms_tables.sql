@@ -2,14 +2,14 @@ DROP DATABASE scms;
 CREATE DATABASE scms;
 USE scms;
 CREATE TABLE `Store` (
-  `store_id` INT AUTO_INCREMENT,
+  `store_id` INT NOT NULL AUTO_INCREMENT,
   `store_city` VARCHAR(50),
   `truck_count` INT,
   PRIMARY KEY (`store_id`)
 );
 
 CREATE TABLE `Product` (
-  `product_id` INT AUTO_INCREMENT,
+  `product_id` INT NOT NULL AUTO_INCREMENT,
   `product_name` VARCHAR(50),
   `product_price` INT,
   `Product_capacity` INT,
@@ -19,9 +19,9 @@ CREATE TABLE `Product` (
 
 
 CREATE TABLE `Customer` (
-  `customer_id` INT AUTO_INCREMENT,
+  `customer_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `customer_first_name` VARCHAR(20),
   `customer_last_name` VARCHAR(20),
   `customer_type` VARCHAR(20),
@@ -35,9 +35,9 @@ CREATE TABLE `Customer` (
 
 
 CREATE TABLE `HR_Manager` (
-  `hr_manager_id` INT AUTO_INCREMENT,
+  `hr_manager_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `manager_first_name` VARCHAR(100),
   `manager_last_name` VARCHAR(100),
   `manager_contact` INT,
@@ -48,9 +48,9 @@ CREATE TABLE `HR_Manager` (
 
 
 CREATE TABLE `FinanceandOrder_Manager` (
-  `finance_manager_id` INT AUTO_INCREMENT,
+  `finance_manager_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `manager_first_name` VARCHAR(100),
   `manager_last_name` VARCHAR(100),
   `manager_contact` INT,
@@ -64,9 +64,9 @@ CREATE TABLE `FinanceandOrder_Manager` (
 
 
 CREATE TABLE `Assistant_Driver` (
-  `ast_driver_id` INT AUTO_INCREMENT,
+  `ast_driver_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `ast_driver_first_name` VARCHAR(100),
   `ast_driver_last_name` VARCHAR(100),
   `ast_driver_contact` INT,
@@ -81,9 +81,9 @@ CREATE TABLE `Assistant_Driver` (
 
 
 CREATE TABLE `Driver` (
-  `driver_id` INT AUTO_INCREMENT,
+  `driver_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `driver_first_name` VARCHAR(100),
   `driver_last_name` VARCHAR(100),
   `driver_contact` INT,
@@ -98,10 +98,10 @@ CREATE TABLE `Driver` (
 
 
 CREATE TABLE `Manager` (
-  `manager_id` INT AUTO_INCREMENT,
+  `manager_id` INT NOT NULL AUTO_INCREMENT,
   `store_id` INT,
   `user_name` VARCHAR(20),
-  `password` VARCHAR(16),
+  `password` VARCHAR(100),
   `manager_first_name` VARCHAR(100),
   `manager_last_name` VARCHAR(100),
   `manager_contact` INT,
@@ -114,7 +114,7 @@ CREATE TABLE `Manager` (
 
 
 CREATE TABLE `Train` (
-  `train_id` INT AUTO_INCREMENT,
+  `train_id` INT NOT NULL AUTO_INCREMENT,
   `destination_store_id` INT,
   `total_capacity` INT,
   `departure` DATETIME,
@@ -126,7 +126,7 @@ CREATE TABLE `Train` (
 
 
 CREATE TABLE `Train_delivery` (
-  `train_delivery_id` INT AUTO_INCREMENT,
+  `train_delivery_id` INT NOT NULL AUTO_INCREMENT,
   `train_id` INT,
   `allocated_capacity` INT,
   PRIMARY KEY (`train_delivery_id`),
@@ -136,7 +136,7 @@ CREATE TABLE `Train_delivery` (
 
 
 CREATE TABLE `Truck` (
-  `truck_id` INT AUTO_INCREMENT,
+  `truck_id` INT NOT NULL AUTO_INCREMENT,
   `store_id` INT,
   `vehicle_number` INT,
   PRIMARY KEY (`truck_id`),
@@ -145,7 +145,7 @@ CREATE TABLE `Truck` (
 
 
 CREATE TABLE `Route` (
-  `route_id` INT AUTO_INCREMENT,
+  `route_id` INT NOT NULL AUTO_INCREMENT,
   `store_id` INT,
   `end_point` VARCHAR(50),
   `route_description` VARCHAR(500),
@@ -158,7 +158,7 @@ CREATE TABLE `Route` (
 
 
 CREATE TABLE `Truck_Delivery` (
-  `delivery_id` INT AUTO_INCREMENT,
+  `delivery_id` INT NOT NULL AUTO_INCREMENT,
   `truck_id` INT,
   `driver_id` INT,
   `ast_driver_id` INT,
@@ -175,7 +175,7 @@ CREATE TABLE `Truck_Delivery` (
 
 
 CREATE TABLE `Order` (
-  `order_id` INT AUTO_INCREMENT,
+  `order_id` INT NOT NULL AUTO_INCREMENT,
   `customer_id` INT,
   `ordered_date_time` DATETIME,
   `total_amount` INT DEFAULT 0,
@@ -202,7 +202,7 @@ CREATE TABLE `Order` (
 
 
 CREATE TABLE `Ordered_products` (
-  `order_id` INT AUTO_INCREMENT,
+  `order_id` INT NOT NULL AUTO_INCREMENT,
   `product_id` INT,
   `quantity` INT,
   FOREIGN KEY (`product_id`) REFERENCES `Product`(`product_id`),
