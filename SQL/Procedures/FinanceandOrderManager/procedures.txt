@@ -1,10 +1,9 @@
-//procedure to get unconfirmed orders
-
-
+-- Procedure to get unconfirmed orders
 DELIMITER $$
 
 CREATE PROCEDURE GetUnconfirmedPayments()
 BEGIN
+    -- Select all orders where payments are not confirmed
     SELECT * 
     FROM `Order`
     WHERE confirm_payments = FALSE;
@@ -12,57 +11,52 @@ END$$
 
 DELIMITER ;
 
-//procedure to get confirmed orders
-
-
+-- Procedure to get confirmed orders
 DELIMITER $$
 
 CREATE PROCEDURE GetConfirmedPayments()
 BEGIN
+    -- Select all orders where payments are confirmed
     SELECT * 
     FROM `Order`
     WHERE confirm_payments = 1;
 END$$
 
-DELIMITER 
+DELIMITER ;
 
-//procedure to get all orders(Confirmed and Unconfirmed)
-
+-- Procedure to get all orders (both confirmed and unconfirmed)
 DELIMITER $$
 
 CREATE PROCEDURE GetPayments()
 BEGIN
+    -- Select all records from the Order table
     SELECT * 
     FROM `Order`;
-   
 END$$
 
 DELIMITER ;
 
-//procedure to get all train data
-
-
+-- Procedure to get all train data
 DELIMITER $$
 
-CREATE PROCEDURE Gettrains()
+CREATE PROCEDURE GetTrains()
 BEGIN
+    -- Select all records from the train table
     SELECT * 
     FROM `train`;
-   
 END$$
 
 DELIMITER ;
 
-// procedure to assign a train for a given order ID and updating the train delivery according to that
-
+-- Procedure to assign a train for a given order ID and update the train delivery
 DELIMITER $$
 
 CREATE PROCEDURE AssignTrainDelivery(
-    IN p_order_id INT, 
-    IN p_train_id INT
+    IN p_order_id INT,  -- Order ID to assign the train to
+    IN p_train_id INT   -- Train ID to assign
 )
 BEGIN
-    -- Check if the payment is confirmed
+    -- Declare variables to store payment status and nearest store ID
     DECLARE v_nearest_store_id INT;
     DECLARE v_confirm_payments BOOLEAN;
 
@@ -72,17 +66,17 @@ BEGIN
     FROM `Order`
     WHERE order_id = p_order_id;
 
-    -- If payment is confirmed, proceed with the updates
+    -- If payment is confirmed, proceed with updates
     IF v_confirm_payments = 1 THEN
-        -- Update the Order table
+        -- Update the Order table to assign the train delivery and mark as sent by train
         UPDATE `Order`
         SET train_delivery_id = p_train_id, 
             sent_by_train = 1
         WHERE order_id = p_order_id;
 
-        -- Insert into the train_delivery table
-        INSERT INTO train_delivery ( train_id, allocated_capacity,store_id)
-        VALUES (v_nearest_store_id, p_train_id, 0);
+        -- Insert the assigned train and capacity allocation into the train_delivery table
+        INSERT INTO train_delivery (train_id, store_id, allocated_capacity)
+        VALUES (p_train_id, v_nearest_store_id, 0);
         
     ELSE
         -- If payment is not confirmed, raise an error
@@ -90,6 +84,32 @@ BEGIN
         SET MESSAGE_TEXT = 'Payment not confirmed for this order.';
     END IF;
     
+END$$
+
+DELIMITER ;
+
+-- Procedure to register a new finance and order manager
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE RegisterFinanceManager(
+    IN fm_user_name VARCHAR(20),  -- Username of the new finance manager
+    IN fm_password VARCHAR(100),  -- Password for the new finance manager
+    IN fm_first_name VARCHAR(20), -- First name of the new finance manager
+    IN fm_last_name VARCHAR(20),  -- Last name of the new finance manager
+    IN fm_contact INT,            -- Contact number of the new finance manager
+    IN fm_email VARCHAR(50)       -- Email of the new finance manager
+)
+BEGIN
+    -- Insert the provided data into the financeandorder_manager table
+    INSERT INTO financeandorder_manager (
+        user_name, 
+        password, 
+        manager_first_name, 
+        manager_last_name, 
+        manager_contact, 
+        manager_email
+    )
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email);
 END$$
 
 DELIMITER ;
