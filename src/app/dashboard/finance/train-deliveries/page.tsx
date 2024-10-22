@@ -1,7 +1,7 @@
 "use client";
 
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
 import TableOne from "@/components/Tables/TableOne";
 import TableTwo from "@/components/Tables/TableTwo";
@@ -73,7 +73,7 @@ const trainData: Train[] = [
 export default function Home() {
     return (
       <>
-        <DefaultLayout>
+        <DashboardLayout>
             <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
                 <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
                     Manage Trains
@@ -165,7 +165,7 @@ export default function Home() {
                 </div>
                 </div>
           {/* <TableTwo /> */}
-        </DefaultLayout>
+        </DashboardLayout>
       </>
     );
 }
