@@ -1,6 +1,6 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterRetailerCustomer`(
     IN p_user_name VARCHAR(20),
-    IN p_password VARCHAR(16),
+    IN p_password VARCHAR(100),
     IN p_first_name VARCHAR(20),
     IN p_last_name VARCHAR(20),
     IN p_contact INT,
