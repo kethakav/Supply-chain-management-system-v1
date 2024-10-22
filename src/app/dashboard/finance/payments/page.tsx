@@ -1,7 +1,7 @@
 "use client";
 
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
 import SwitcherFour from "@/components/FormElements/Switchers/SwitcherFour";
 import SwitcherOne from "@/components/FormElements/Switchers/SwitcherOne";
@@ -74,7 +74,7 @@ const brandData: OrderData[] = [
   export default function Home() {
     return (
       <>
-        <DefaultLayout>
+        <DashboardLayout>
             {/* <div className="rounded-[10px] border border-stroke bg-white shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-dark-3">
                     <h3 className="font-medium text-dark dark:text-white">
@@ -203,7 +203,7 @@ const brandData: OrderData[] = [
                     ))}
                 </div>
                 </div>
-        </DefaultLayout>
+        </DashboardLayout>
       </>
     );
   }
