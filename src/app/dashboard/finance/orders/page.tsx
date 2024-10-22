@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
 import TableOne from "@/components/Tables/TableOne";
 import TableTwo from "@/components/Tables/TableTwo";
@@ -52,7 +52,7 @@ const productData: Product[] = [
   export default function Home() {
     return (
       <>
-        <DefaultLayout>
+        <DashboardLayout>
             <h1>This is the orders page</h1>
             <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
                 <div className="px-4 py-6 md:px-6 xl:px-9">
@@ -122,7 +122,7 @@ const productData: Product[] = [
                     </div>
                 ))}
                 </div>
-        </DefaultLayout>
+        </DashboardLayout>
       </>
     );
   }

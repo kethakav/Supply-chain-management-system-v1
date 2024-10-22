@@ -1,7 +1,7 @@
 "use client";
 
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import InputGroup from "@/components/FormElements/InputGroup";
@@ -15,7 +15,7 @@ import DatePickerTwo from "@/components/FormElements/DatePicker/DatePickerTwo";
 
   export default function Home() {
     return (
-        <DefaultLayout>
+        <DashboardLayout>
           {/* <Breadcrumb pageName="Form Layout" /> */}
     
           <div className="grid grid-cols-1 gap-9 sm:grid-cols-1">
@@ -64,6 +64,6 @@ import DatePickerTwo from "@/components/FormElements/DatePicker/DatePickerTwo";
     
            
           </div>
-        </DefaultLayout>
+        </DashboardLayout>
       );
   }

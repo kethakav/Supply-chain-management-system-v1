@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   export default function Home() {
     return (
       <>
-        <DefaultLayout>
+        <DashboardLayout>
           <h1>This is the Customer overview page</h1>
-        </DefaultLayout>
+        </DashboardLayout>
       </>
     );
   }

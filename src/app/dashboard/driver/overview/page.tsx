@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
 import TableThree from "@/components/Tables/TableThree";
 import TableTwo from "@/components/Tables/TableTwo";
@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   export default function Home() {
     return (
       <>
-        <DefaultLayout>
+        <DashboardLayout>
           {/* <h1>This is the Driver overview page</h1> */}
           <TableTwo />
-        </DefaultLayout>
+        </DashboardLayout>
       </>
     );
   }
