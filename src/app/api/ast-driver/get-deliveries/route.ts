@@ -3,9 +3,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse, NextRequest } from 'next/server';
 import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
