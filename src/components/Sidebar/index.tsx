@@ -31,9 +31,9 @@ const menuItemsByUserType = {
   ],
   storeManager: [
     { label: "Overview", route: "/dashboard/store/overview" },
+    { label: "Receive Inventory", route: "/dashboard/store/receive" },
+    { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },
     { label: "Delivery Scheduling", route: "/dashboard/store/scheduling" },
-    { label: "Delivery Confirmation", route: "/dashboard/store/delivery-confirmation" },
-    { label: "Inventory Management", route: "/dashboard/store/inventory" },
     { label: "Communication Tools", route: "/dashboard/store/communication" },
   ],
   driver: [

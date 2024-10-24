@@ -1,22 +1,26 @@
-import { useState } from "react";
+import React from "react";
 
-const SwitcherOne = () => {
-  const [enabled, setEnabled] = useState<boolean>(false);
+// Define the props type for the SwitcherOne component
+interface SwitcherOneProps {
+  enabled: boolean;  // Prop for the toggle state
+  onToggle: () => void;  // Prop for the toggle function
+  id: string;  // Add a unique ID prop
+}
 
+const SwitcherOne: React.FC<SwitcherOneProps> = ({ enabled, onToggle, id }) => {
   return (
     <div>
       <label
-        htmlFor="toggle1"
+        htmlFor={id} // Use the passed ID for the switch
         className="flex cursor-pointer select-none items-center"
       >
         <div className="relative">
           <input
             type="checkbox"
-            id="toggle1"
+            id={id} // Use the passed ID for the input
             className="sr-only"
-            onChange={() => {
-              setEnabled(!enabled);
-            }}
+            checked={enabled} // Set checked based on enabled prop
+            onChange={onToggle} // Call onToggle when changed
           />
           <div className="block h-8 w-14 rounded-full bg-gray-3 dark:bg-[#5A616B]"></div>
           <div
