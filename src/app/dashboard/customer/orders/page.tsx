@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React from "react";
+import OrderStatus from "@/components/OrderStatus";
 
 export const metadata: Metadata = {
     title:
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
     return (
       <>
         <DashboardLayout>
-          <h1>This is the orders page</h1>
+          {/* <h1>This is the orders page</h1> */}
+          <OrderStatus currentStage={2} />
         </DashboardLayout>
       </>
     );
