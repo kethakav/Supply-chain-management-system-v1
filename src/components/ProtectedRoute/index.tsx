@@ -8,12 +8,12 @@ interface ProtectedRouteProps {
 }
 
 const routePermissions = {
-  hrManager: ['/dashboard/hr'],
-  financeManager: ['/dashboard/finance'],
-  storeManager: ['/dashboard/store'],
-  driver: ['/dashboard/driver'],
-  assistantDriver: ['/dashboard/assistant-driver'],
-  customer: ['/dashboard/customer', '/orders'],
+  hrManager: ['/dashboard/hr', '/profile'],
+  financeManager: ['/dashboard/finance', '/profile'],
+  storeManager: ['/dashboard/store', '/profile'],
+  driver: ['/dashboard/driver', '/profile'],
+  assistantDriver: ['/dashboard/assistant-driver', '/profile'],
+  customer: ['/dashboard/customer', '/orders', '/profile'],
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
