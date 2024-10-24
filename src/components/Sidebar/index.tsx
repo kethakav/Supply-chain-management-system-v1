@@ -16,120 +16,42 @@ interface SidebarProps {
 // Define menu items for each user type
 const menuItemsByUserType = {
   hrManager: [
-    {
-      label: "Overview",
-      route: "/dashboard/hr/overview",
-    },
-    {
-      label: "Employee Management",
-      route: "/dashboard/hr/employees",
-    },
-    {
-      label: "Asset Management",
-      route: "/dashboard/hr/assets",
-    },
-    {
-      label: "Store Management",
-      route: "/dashboard/hr/stores",
-    },
-    {
-      label: "Reports Section",
-      route: "/dashboard/hr/reports",
-    },
+    { label: "Overview", route: "/dashboard/hr/overview" },
+    { label: "Finance & Order Managers", route: "/dashboard/hr/finance" },
+    { label: "Store Managers", route: "/dashboard/hr/store-mg" },
+    { label: "Driver Management", route: "/dashboard/hr/driver" },
+    { label: "Assistant Driver Management", route: "/dashboard/hr/ast-driver" },
+    { label: "Store Management", route: "/dashboard/hr/store" },
+    { label: "Truck Management", route: "/dashboard/hr/truck" },
   ],
   financeManager: [
-    {
-      label: "Overview",
-      route: "/dashboard/finance/overview",
-    },
-    {
-      label: "Payment Confirmation",
-      route: "/dashboard/finance/payments",
-    },
-    // {
-    //   label: "Order Overview",
-    //   route: "/dashboard/finance/orders",
-    // },
-    {
-      label: "Train Deliveries",
-      route: "/dashboard/finance/train-deliveries",
-    },
-    // {
-    //   label: "Delivery Status",
-    //   route: "/dashboard/finance/delivery-status",
-    // },
+    { label: "Overview", route: "/dashboard/finance/overview" },
+    { label: "Payment Confirmation", route: "/dashboard/finance/payments" },
+    { label: "Train Deliveries", route: "/dashboard/finance/train-deliveries" },
   ],
   storeManager: [
-    {
-      label: "Overview",
-      route: "/dashboard/store/overview",
-    },
-    {
-      label: "Delivery Scheduling",
-      route: "/dashboard/store/scheduling",
-    },
-    {
-      label: "Delivery Confirmation",
-      route: "/dashboard/store/delivery-confirmation",
-    },
-    {
-      label: "Inventory Management",
-      route: "/dashboard/store/inventory",
-    },
-    {
-      label: "Communication Tools",
-      route: "/dashboard/store/communication",
-    },
+    { label: "Overview", route: "/dashboard/store/overview" },
+    { label: "Delivery Scheduling", route: "/dashboard/store/scheduling" },
+    { label: "Delivery Confirmation", route: "/dashboard/store/delivery-confirmation" },
+    { label: "Inventory Management", route: "/dashboard/store/inventory" },
+    { label: "Communication Tools", route: "/dashboard/store/communication" },
   ],
   driver: [
-    {
-      label: "Overview",
-      route: "/dashboard/driver/overview",
-    },
-    {
-      label: "Assigned Deliveries",
-      route: "/dashboard/driver/deliveries",
-    },
-    {
-      label: "Route Details",
-      route: "/dashboard/driver/route",
-    },
-    {
-      label: "Delivery Confirmation",
-      route: "/dashboard/driver/confirmation",
-    },
-    {
-      label: "Hours Worked",
-      route: "/dashboard/driver/hours",
-    },
+    { label: "Overview", route: "/dashboard/driver/overview" },
+    { label: "Assigned Deliveries", route: "/dashboard/driver/deliveries" },
+    { label: "Route Details", route: "/dashboard/driver/route" },
+    { label: "Delivery Confirmation", route: "/dashboard/driver/confirmation" },
+    { label: "Hours Worked", route: "/dashboard/driver/hours" },
   ],
   assistantDriver: [
-    {
-      label: "Overview",
-      route: "/dashboard/assistant-driver/overview",
-    },
-    {
-      label: "Assigned Deliveries",
-      route: "/dashboard/assistant-driver/deliveries",
-    },
-    {
-      label: "Hours Worked",
-      route: "/dashboard/assistant-driver/hours",
-    },
+    { label: "Overview", route: "/dashboard/assistant-driver/overview" },
+    { label: "Assigned Deliveries", route: "/dashboard/assistant-driver/deliveries" },
+    { label: "Hours Worked", route: "/dashboard/assistant-driver/hours" },
   ],
   customer: [
-    {
-      label: "Overview",
-      route: "/dashboard/customer/overview",
-    },
-    {
-      label: "Order Status",
-      route: "/dashboard/customer/orders",
-    },
-    {
-      label: "Order History",
-      route: "/dashboard/customer/history",
-    },
+    { label: "Overview", route: "/dashboard/customer/overview" },
+    { label: "Order Status", route: "/dashboard/customer/orders" },
+    { label: "Order History", route: "/dashboard/customer/history" },
   ],
 };
 
@@ -150,8 +72,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   }, []);
 
   // Get menu items based on user type
-  // const menuItems = menuItemsByUserType[user.type] || [];
-    // Get menu items based on user type
   const menuItems = menuItemsByUserType[user.type as keyof typeof menuItemsByUserType] || [];
 
   return (
@@ -220,6 +140,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   item={menuItem}
                   pageName={pageName}
                   setPageName={setPageName}
+                  closeSidebar={() => setSidebarOpen(false)} // Close sidebar on item click
                 />
               ))}
             </ul>
