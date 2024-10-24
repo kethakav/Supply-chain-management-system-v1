@@ -72,7 +72,7 @@ export async function POST(req: Request) {
                 id: userData[0].customer_id,
                 name: `${userData[0].customer_first_name} ${userData[0].customer_last_name}`,
                 email: userData[0].customer_email,
-                type: 'retailer'
+                type: 'customer'
             }
         }, { status: 201 });
 

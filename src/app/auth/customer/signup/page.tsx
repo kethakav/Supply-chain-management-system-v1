@@ -37,7 +37,7 @@ const CustomerSignup = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/customer/retailer/signup", {
+      const response = await fetch("/api/auth/customer/end/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
