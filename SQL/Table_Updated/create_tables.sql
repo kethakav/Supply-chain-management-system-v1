@@ -175,7 +175,7 @@ CREATE TABLE `Truck_Delivery` (
 );
 
 
-CREATE TABLE `Order` (
+CREATE TABLE `Orders` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `customer_id` INT,
   `ordered_date_time` DATETIME,

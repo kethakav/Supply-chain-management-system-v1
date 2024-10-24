@@ -276,7 +276,7 @@ VALUES
 (7,5,14);
 -- ******************************************************************************************
 -- Order 
-INSERT INTO `Order` (order_id, customer_id, ordered_date_time, total_amount, payment_documents, order_capacity, expecting_delivery_date, delivery_address, nearest_store_id, route_description_input, finance_manager_id, confirm_payments, sent_by_train, train_delivery_id, recieved_to_store, delivery_id, delivered_confirmation, delivered_date_time) VALUES
+INSERT INTO `Orders` (order_id, customer_id, ordered_date_time, total_amount, payment_documents, order_capacity, expecting_delivery_date, delivery_address, nearest_store_id, route_description_input, finance_manager_id, confirm_payments, sent_by_train, train_delivery_id, recieved_to_store, delivery_id, delivered_confirmation, delivered_date_time) VALUES
 -- Delivered orders
 (1, 1, '2024-10-01 08:30:00', 17500, 'online_payment_201.jpg', 2, '2024-10-04', '45, Sedawatta Road, Kelaniya', 1, 'From Technical Junction, pass Panchikawatta, then continue along Baseline Road to reach Kelaniya', 1, 1, 1, 1, 1, 1, 1, '2024-10-05 12:30:00'),
 (2, 2, '2024-10-01 09:45:00', 18000, 'bank_transfer_102.jpg', 3, '2024-10-05', '15, Galle Road, Moratuwa', 1, 'From Mount Lavinia, continue along Galle Road to reach the address in Moratuwa', 1, 1, 1, 1, 1, 2, 1, '2024-10-05 2:30:00'),
