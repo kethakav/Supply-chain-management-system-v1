@@ -130,10 +130,6 @@ const menuItemsByUserType = {
       label: "Order History",
       route: "/dashboard/customer/history",
     },
-    {
-      label: "Support Section",
-      route: "/dashboard/customer/support",
-    },
   ],
 };
 
