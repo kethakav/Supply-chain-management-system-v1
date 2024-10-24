@@ -13,7 +13,7 @@ const routePermissions = {
   storeManager: ['/dashboard/store'],
   driver: ['/dashboard/driver'],
   assistantDriver: ['/dashboard/assistant-driver'],
-  customer: ['/dashboard/customer'],
+  customer: ['/dashboard/customer', '/orders'],
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
