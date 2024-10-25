@@ -113,15 +113,18 @@ CREATE TABLE `Manager` (
 
 
 
-CREATE TABLE `Train` (
-  `train_id` INT NOT NULL AUTO_INCREMENT,
-  `destination_store_id` INT,
-  `total_capacity` INT,
-  `departure` DATETIME,
-  `arrival` DATETIME,
+CREATE TABLE `train` (
+  `train_id` int NOT NULL AUTO_INCREMENT,
+  `destination_store_id` int DEFAULT NULL,
+  `total_capacity` int DEFAULT NULL,
+  `departure_day` varchar(50) DEFAULT NULL,
+  `departure_time` time DEFAULT NULL,
+  `arrival_day` varchar(50) DEFAULT NULL,
+  `arrival_time` time DEFAULT NULL,
   PRIMARY KEY (`train_id`),
-  FOREIGN KEY (`destination_store_id`) REFERENCES `Store`(`store_id`)
-);
+  KEY `destination_store_id` (`destination_store_id`),
+  CONSTRAINT `train_ibfk_1` FOREIGN KEY (`destination_store_id`) REFERENCES `store` (`store_id`)
+) ;
 
 
 
