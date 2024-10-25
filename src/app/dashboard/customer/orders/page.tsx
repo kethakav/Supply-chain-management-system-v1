@@ -54,9 +54,9 @@ export default function Home() {
   
         console.log("Orders Array:", ordersArray); // Log the extracted orders array
   
-        setOrders(ordersArray);
+        setOrders(ordersArray); // Set all orders to state
   
-        // Set the current order based on the first order (if available)
+        // Optionally set the current order based on the first order (if available)
         if (ordersArray.length > 0) {
           setCurrentOrder(ordersArray[0]); // Set the first order as the current order
           console.log("Current Order Set:", ordersArray[0]); // Log the current order
@@ -73,17 +73,20 @@ export default function Home() {
 
   return (
     <DashboardLayout>
-      {/* Pass the current order details to the OrderStatus component */}
-      {currentOrder ? (
-        <OrderStatus
-          currentStage={currentOrder.stage}
-          orderId={currentOrder.order_id}
-          orderedDateTime={currentOrder.ordered_date_time}
-          totalAmount={currentOrder.total_amount}
-          paymentDocuments={currentOrder.payment_documents}
-          expectingDeliveryDate={currentOrder.expecting_delivery_date}
-          orderCapacity={currentOrder.order_capacity}
-        />
+      {/* Check if there are orders to display */}
+      {orders.length > 0 ? (
+        orders.map((order) => (
+          <OrderStatus
+            key={order.order_id} // Use order_id as a unique key
+            currentStage={order.stage}
+            orderId={order.order_id}
+            orderedDateTime={order.ordered_date_time}
+            totalAmount={order.total_amount}
+            paymentDocuments={order.payment_documents}
+            expectingDeliveryDate={order.expecting_delivery_date}
+            orderCapacity={order.order_capacity}
+          />
+        ))
       ) : (
         <p>No current orders found.</p>
       )}
