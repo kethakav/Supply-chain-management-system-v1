@@ -16,7 +16,7 @@ BEGIN
     SET @order_id = LAST_INSERT_ID();
     
     INSERT INTO ordered_products(order_id, product_id, quantity, price)
-    SELECT @order_id, c.product_id, c.quantity, c.quantity * p.product_price
+    SELECT @order_id, c.product_id, c.quantity * p.product_product_capacity , c.quantity * p.product_price
     FROM cart c
     JOIN product p on c.product_id = p.product_id
     WHERE c.customer_id = in_customer_id ;
