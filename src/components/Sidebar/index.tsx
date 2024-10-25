@@ -52,6 +52,7 @@ const menuItemsByUserType = {
     { label: "Overview", route: "/dashboard/customer/overview" },
     { label: "Order Status", route: "/dashboard/customer/orders" },
     { label: "Order History", route: "/dashboard/customer/history" },
+    { label: "Cart", route: "/dashboard/customer/cart" },
   ],
 };
 
