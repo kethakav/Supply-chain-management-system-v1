@@ -185,6 +185,7 @@ CREATE TABLE `Orders` (
   `expecting_delivery_date` DATE,
   `delivery_address` VARCHAR(1000),
   `nearest_store_id` INT,
+  `route_id` INT,
   `route_description_input` VARCHAR(1000),
   `finance_manager_id` INT,
   `confirm_payments` BOOLEAN DEFAULT false,
@@ -198,6 +199,7 @@ CREATE TABLE `Orders` (
   FOREIGN KEY (`delivery_id`) REFERENCES `Truck_Delivery`(`delivery_id`),
   FOREIGN KEY (`finance_manager_id`) REFERENCES `FinanceandOrder_Manager`(`finance_manager_id`),
   FOREIGN KEY (`nearest_store_id`) REFERENCES `Store`(`store_id`),
+  FOREIGN KEY (`route_id`) REFERENCES `Route`(`route_id`),
   FOREIGN KEY (`train_delivery_id`) REFERENCES `Train_delivery`(`train_delivery_id`)
 );
 
@@ -206,8 +208,9 @@ CREATE TABLE `Ordered_products` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `product_id` INT,
   `quantity` INT,
+  `price` INT,
   FOREIGN KEY (`product_id`) REFERENCES `Product`(`product_id`),
-  FOREIGN KEY (`order_id`) REFERENCES `Order`(`order_id`)
+  FOREIGN KEY (`order_id`) REFERENCES `Orders`(`order_id`)
 );
 
 
