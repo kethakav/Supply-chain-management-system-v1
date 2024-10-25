@@ -183,7 +183,6 @@ CREATE TABLE `Orders` (
   `payment_documents` VARCHAR(1000),
   `order_capacity` INT DEFAULT 0,
   `expecting_delivery_date` DATE,
-  `delivery_address` VARCHAR(1000),
   `nearest_store_id` INT,
   `route_id` INT,
   `route_description_input` VARCHAR(1000),
