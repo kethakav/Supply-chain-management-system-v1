@@ -1,0 +1,8 @@
+DELIMITER //
+
+CREATE PROCEDURE show_cart(customer_ID INT)
+BEGIN
+	SELECT * FROM cart ;
+END //
+
+DELIMITER ;
