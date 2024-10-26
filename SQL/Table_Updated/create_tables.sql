@@ -169,6 +169,7 @@ CREATE TABLE `Truck_Delivery` (
   `route_id` INT,
   `store_id` INT,
   `sent_datetime` DATETIME,
+  `compleated` BOOLEAN,
   PRIMARY KEY (`delivery_id`),
   FOREIGN KEY (`ast_driver_id`) REFERENCES `Assistant_Driver`(`ast_driver_id`),
   FOREIGN KEY (`route_id`) REFERENCES `Route`(`route_id`),
