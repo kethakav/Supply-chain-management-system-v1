@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterAstDriver`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO assistant_driver (user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, store_id, worked_hours, availability)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id, 0, 1);
+END

@@ -1,4 +1,4 @@
-// app/api/finance-managers/route.ts
+// app/api/drivers/route.ts
 
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
@@ -22,16 +22,16 @@ export async function POST(request: Request) {
     }
 
     // Call the procedure with the store_id parameter
-    const [rows] = await pool.query<mysql.RowDataPacket[]>(`CALL GetManagersByStoreId(?)`, [store_id]);
+    const [rows] = await pool.query<mysql.RowDataPacket[]>(`CALL GetTrucksByStore(?)`, [store_id]);
 
     // Assuming the procedure returns the results in the first result set
-    const managers = rows[0];
+    const drivers = rows[0];
 
-    return NextResponse.json(managers);
+    return NextResponse.json(drivers);
   } catch (error) {
-    console.error("Error fetching managers:", error);
+    console.error("Error fetching drivers:", error);
     return NextResponse.json(
-      { error: "Failed to fetch managers" },
+      { error: "Failed to fetch drivers" },
       { status: 500 }
     );
   }

@@ -18,11 +18,11 @@ const menuItemsByUserType = {
   hrManager: [
     { label: "Overview", route: "/dashboard/hr/overview" },
     { label: "Finance & Order Managers", route: "/dashboard/hr/finance" },
-    { label: "Store Managers", route: "/dashboard/hr/store-mg" },
-    { label: "Driver Management", route: "/dashboard/hr/driver" },
-    { label: "Assistant Driver Management", route: "/dashboard/hr/ast-driver" },
+    // { label: "Store Managers", route: "/dashboard/hr/store-mg" },
+    // { label: "Driver Management", route: "/dashboard/hr/driver" },
+    // { label: "Assistant Driver Management", route: "/dashboard/hr/ast-driver" },
     { label: "Store Management", route: "/dashboard/hr/store" },
-    { label: "Truck Management", route: "/dashboard/hr/truck" },
+    // { label: "Truck Management", route: "/dashboard/hr/truck" },
   ],
   financeManager: [
     { label: "Overview", route: "/dashboard/finance/overview" },
