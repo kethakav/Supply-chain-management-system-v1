@@ -167,7 +167,7 @@ CREATE TABLE `Truck_Delivery` (
   `driver_id` INT,
   `ast_driver_id` INT,
   `route_id` INT,
-  `manager_id` INT,
+  `store_id` INT,
   `sent_datetime` DATETIME,
   PRIMARY KEY (`delivery_id`),
   FOREIGN KEY (`ast_driver_id`) REFERENCES `Assistant_Driver`(`ast_driver_id`),
