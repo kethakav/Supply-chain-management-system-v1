@@ -174,8 +174,7 @@ CREATE TABLE `Truck_Delivery` (
   FOREIGN KEY (`ast_driver_id`) REFERENCES `Assistant_Driver`(`ast_driver_id`),
   FOREIGN KEY (`route_id`) REFERENCES `Route`(`route_id`),
   FOREIGN KEY (`driver_id`) REFERENCES `Driver`(`driver_id`),
-  FOREIGN KEY (`truck_id`) REFERENCES `Truck`(`truck_id`),
-  FOREIGN KEY (`manager_id`) REFERENCES `Manager`(`manager_id`)
+  FOREIGN KEY (`truck_id`) REFERENCES `Truck`(`truck_id`)
 );
 
 

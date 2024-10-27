@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE PROCEDURE ready_to_send()
+CREATE PROCEDURE get_ready_to_send_orders()
 BEGIN
 	
     SELECT * FROM Orders
