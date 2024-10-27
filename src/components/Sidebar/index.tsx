@@ -133,9 +133,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
           {/* <!-- Sidebar Menu --> */}
           <nav className="mt-1 px-4 lg:px-6">
-            <h3 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">
+            {/* <h3 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">
               MAIN MENU
-            </h3>
+            </h3> */}
             <ul className="mb-6 flex flex-col gap-2">
               {menuItems.map((menuItem, menuIndex) => (
                 <SidebarItem

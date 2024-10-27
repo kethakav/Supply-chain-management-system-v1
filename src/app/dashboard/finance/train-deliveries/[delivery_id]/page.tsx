@@ -355,8 +355,18 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
               </tbody>
             </table>
           </div>
+          
         </div>
+        
       </div>
+      <div className="p-6 bg-white shadow-lg rounded-lg dark:bg-gray-dark dark:shadow-card">
+        <ButtonDefault 
+                            label="Send Train" 
+                            onClick={() => console.log("Send Train") }
+                            customClasses="bg-red text-white rounded-full px-4 py-2"
+                            />
+      </div>
+      
     </DashboardLayout>
   );
 };
