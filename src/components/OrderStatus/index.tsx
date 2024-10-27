@@ -9,7 +9,6 @@ interface OrderStatusProps {
   orderId: number;
   orderedDateTime: string; // Assuming ISO format for datetime
   totalAmount: number;
-  paymentDocuments: string;
   expectingDeliveryDate: string; // Assuming YYYY-MM-DD format
   orderCapacity: number;
 }
@@ -21,7 +20,6 @@ const OrderStatus: React.FC<OrderStatusProps> = ({
   orderId,
   orderedDateTime,
   totalAmount,
-  paymentDocuments,
   expectingDeliveryDate,
   orderCapacity,
 }) => {
@@ -44,7 +42,6 @@ const OrderStatus: React.FC<OrderStatusProps> = ({
       <div className="mb-4">
         <p><strong>Ordered Date:</strong> {new Date(orderedDateTime).toLocaleString()}</p>
         <p><strong>Total Amount:</strong> ${totalAmount}</p>
-        <p><strong>Payment Documents:</strong> {paymentDocuments || "N/A"}</p>
         <p><strong>Expected Delivery:</strong> {new Date(expectingDeliveryDate).toLocaleDateString()}</p>
         <p><strong>Order Capacity:</strong> {orderCapacity}</p>
       </div>

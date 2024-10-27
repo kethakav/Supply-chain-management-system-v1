@@ -82,7 +82,6 @@ export default function Home() {
             orderId={order.order_id}
             orderedDateTime={order.ordered_date_time}
             totalAmount={order.total_amount}
-            paymentDocuments={order.payment_documents}
             expectingDeliveryDate={order.expecting_delivery_date}
             orderCapacity={order.order_capacity}
           />

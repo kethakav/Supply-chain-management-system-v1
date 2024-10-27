@@ -7,37 +7,73 @@ import OrderStatus from "@/components/OrderStatus";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 interface OrderDetails {
-  id: string;
-  status: number;
+  id: number;
+  status: number; // You might want to set a default status or modify based on your use case
   items: Array<{ id: number; name: string; quantity: number; price: number }>;
   totalAmount: number;
+  orderedDateTime: string;
+  paymentDocuments: string; // You might want to handle this based on your response
+  expectingDeliveryDate: string;
+  orderCapacity: number;
 }
 
-// Mock API call to fetch order details (replace with real API call)
-async function fetchOrderDetails(orderId: string): Promise<OrderDetails> {
-  const mockData = {
-    id: orderId,
-    status: 3, // current stage of the order
-    items: [
-      { id: 1, name: "Product 1", quantity: 2, price: 100 },
-      { id: 2, name: "Product 2", quantity: 1, price: 50 },
-    ],
-    totalAmount: 250,
+// Fetch order details from the API
+async function fetchOrderDetails(orderId: number): Promise<OrderDetails> {
+  const response = await fetch(`/api/get-order-details`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ orderId }),
+  });
+  
+  if (!response.ok) {
+    throw new Error("Failed to fetch order details");
+  }
+  
+  const data = await response.json();
+
+  // Adjusting the response structure based on your API response
+  const orderItems = data[0]; // The first element contains the order items
+  if (!orderItems || orderItems.length === 0) {
+    throw new Error("No order items found");
+  }
+
+  // Assuming you want to set the first item's status and other details
+  const firstOrder = orderItems[0];
+  
+  return {
+    id: firstOrder.order_id,
+    status: firstOrder.status || 0, // Default status if not provided
+    items: orderItems.map((item: { product_id: number; product_name: string; quantity: number; product_price: number }) => ({
+      id: item.product_id,
+      name: item.product_name,
+      quantity: item.quantity,
+      price: item.product_price,
+    })),
+    totalAmount: firstOrder.total_amount,
+    orderedDateTime: firstOrder.ordered_date_time,
+    paymentDocuments: "", // Update based on your requirements
+    expectingDeliveryDate: firstOrder.expecting_delivery_date,
+    orderCapacity: firstOrder.order_capacity,
   };
-  return new Promise((resolve) => setTimeout(() => resolve(mockData), 1000));
 }
 
-const OrderPage = ({ params }: { params: { orderId: string } }) => {
+const OrderPage = ({ params }: { params: { orderId: number } }) => {
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [loading, setLoading] = useState(true);
-  const { orderId } = params; // Dynamic parameter from URL
+  const { orderId } = params;
 
   useEffect(() => {
-    // Fetch order details based on the dynamic orderId
-    fetchOrderDetails(orderId).then((data) => {
-      setOrderDetails(data);
-      setLoading(false);
-    });
+    fetchOrderDetails(orderId)
+      .then((data) => {
+        setOrderDetails(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   }, [orderId]);
 
   if (loading) {
@@ -55,10 +91,15 @@ const OrderPage = ({ params }: { params: { orderId: string } }) => {
           Order Details - {orderId}
         </h1>
 
-        {/* Order status component */}
-        <OrderStatus currentStage={orderDetails.status} />
+        <OrderStatus 
+          currentStage={orderDetails.status}
+          orderId={orderDetails.id}
+          orderedDateTime={orderDetails.orderedDateTime}
+          totalAmount={orderDetails.totalAmount}
+          expectingDeliveryDate={orderDetails.expectingDeliveryDate}
+          orderCapacity={orderDetails.orderCapacity}
+        />
 
-        {/* Order Items Table */}
         <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card mt-6">
           <div className="px-4 py-6 md:px-6 xl:px-9">
             <h4 className="text-body-2xlg font-bold text-dark dark:text-white">
@@ -110,7 +151,6 @@ const OrderPage = ({ params }: { params: { orderId: string } }) => {
           ))}
         </div>
 
-        {/* Total Amount */}
         <div className="mt-6">
           <h2 className="text-xl font-medium">Total: ${orderDetails.totalAmount}</h2>
         </div>
