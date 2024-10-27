@@ -35,12 +35,11 @@ export default function Home() {
   useEffect(() => {
     const fetchUnconfirmedOrders = async () => {
       try {
-        const response = await fetch("/api/finance/get-unconfirmed-orders", {
-          method: "POST",
+        const response = await fetch("/api/finance/get-confirmed-orders", {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ store_id: 1 }), // Replace with the actual store_id as needed
         });
 
         if (!response.ok) {
@@ -63,11 +62,11 @@ export default function Home() {
     <DashboardLayout>
       <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
         <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
-          Orders Pending Confirmation
+          Confirmed Orders
         </h4>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-4 sm:grid-cols-6">
+          <div className="grid grid-cols-5 sm:grid-cols-7">
             <div className="px-2 pb-3.5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">Order ID</h5>
             </div>
@@ -79,6 +78,9 @@ export default function Home() {
             </div>
             <div className="hidden px-2 pb-3.5 text-center sm:block">
               <h5 className="text-sm font-medium uppercase xsm:text-base">Total Amount</h5>
+            </div>
+            <div className="hidden px-2 pb-3.5 text-center sm:block">
+              <h5 className="text-sm font-medium uppercase xsm:text-base">Nearest Store ID</h5>
             </div>
             <div className="hidden px-2 pb-3.5 text-center sm:block">
               <h5 className="text-sm font-medium uppercase xsm:text-base">Payment Documents</h5>
@@ -95,7 +97,7 @@ export default function Home() {
           ) : (
             unconfirmedOrders.map((order, index) => (
               <div
-                className={`grid grid-cols-4 sm:grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3`}
+                className={`grid grid-cols-5 sm:grid-cols-7 border-t border-stroke px-4 py-4.5 dark:border-dark-3`}
                 key={order.order_id}
               >
                 <div className="px-2 pb-3.5">
@@ -103,7 +105,7 @@ export default function Home() {
                 </div>
                 <div className="px-2 pb-3.5 text-center">
                   <p className="text-body-sm font-medium text-dark dark:text-dark-6">
-                    {new Date(order.ordered_date_time).toLocaleString()} {/* Format date */}
+                    {new Date(order.ordered_date_time).toLocaleString()}
                   </p>
                 </div>
                 <div className="px-2 pb-3.5 text-center">
@@ -113,10 +115,17 @@ export default function Home() {
                   <p className="text-body-sm font-medium text-dark dark:text-dark-6">${order.total_amount}</p>
                 </div>
                 <div className="hidden px-2 pb-3.5 text-center sm:block">
+                  <p className="text-body-sm font-medium text-dark dark:text-dark-6">{order.nearest_store_id}</p>
+                </div>
+                <div className="hidden px-2 pb-3.5 text-center sm:block">
                   <p className="text-body-sm font-medium text-dark dark:text-dark-6">{order.payment_documents}</p>
                 </div>
                 <div className="px-2 pb-3.5 text-center">
-                  <ButtonDefault label="Confirm" customClasses="bg-green text-white rounded-full px-10 py-3.5 lg:px-8 xl:px-10" onClick={() => console.log(`Confirm order ${order.order_id}`)} />
+                  <ButtonDefault
+                    label="Confirm"
+                    customClasses="bg-green text-white rounded-full px-10 py-3.5 lg:px-8 xl:px-10"
+                    onClick={() => console.log(`Confirm order ${order.order_id}`)}
+                  />
                 </div>
               </div>
             ))

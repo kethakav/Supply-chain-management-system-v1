@@ -25,9 +25,11 @@ const menuItemsByUserType = {
     // { label: "Truck Management", route: "/dashboard/hr/truck" },
   ],
   financeManager: [
-    { label: "Overview", route: "/dashboard/finance/overview" },
-    { label: "Payment Confirmation", route: "/dashboard/finance/payments" },
+    { label: "Pending Orders", route: "/dashboard/finance/pending-orders" },
+    { label: "Confirmed Orders", route: "/dashboard/finance/confirmed-orders" },
+    { label: "Trains", route: "/dashboard/finance/trains" },
     { label: "Train Deliveries", route: "/dashboard/finance/train-deliveries" },
+
   ],
   storeManager: [
     { label: "Overview", route: "/dashboard/store/overview" },

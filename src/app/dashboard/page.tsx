@@ -39,7 +39,7 @@ const DashboardPage = () => {
       // Define the redirect paths based on user type
       const redirectPaths: { [key: string]: string } = {
         hrManager: "/dashboard/hr/overview",
-        financeManager: "/dashboard/finance/overview",
+        financeManager: "/dashboard/finance/pending-orders",
         storeManager: "/dashboard/store/overview",
         driver: "/dashboard/driver/overview",
         assistantDriver: "/dashboard/assistant-driver/overview",
