@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     // const { store_id } = await req.json();
 
     // Call the stored procedure to get unconfirmed orders
-    const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL show_unconfirmed_orders()');
+    const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL show_confirmed_orders()');
 
     return NextResponse.json(rows);
   } catch (error) {

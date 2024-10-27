@@ -15,20 +15,34 @@ interface OrderData {
     // Additional fields can be added here as needed
 }
 
+interface User {
+    id: number;
+    type: string;
+  }
+
 export default function Home() {
     const [orders, setOrders] = useState<OrderData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const storeId = 1; // Replace with the actual store ID you want to use
+    const [user, setUser] = useState<User | null>(null);
+    // const storeId = 1; // Replace with the actual store ID you want to use
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          const parsedUser: User = JSON.parse(storedUser);
+          setUser(parsedUser);
+        }
+      }, []);
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const response = await fetch("/api/finance/get-unconfirmed-orders", {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ store_id: storeId }),
+                    // body: JSON.stringify({ store_id: storeId }),
                 });
 
                 if (!response.ok) {
@@ -38,17 +52,41 @@ export default function Home() {
                 const data = await response.json();
                 setOrders(data[0]); // Assuming the orders are in the first element of the response
             } catch (error) {
-                console.error('Error fetching orders:', error);
+                console.error("Error fetching orders:", error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchOrders();
-    }, [storeId]);
+    }, []);
+
+    const handleConfirm = async (order_id: number) => {
+        try {
+            const response = await fetch("/api/finance/confirm-order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    order_id,
+                    finance_manager_id: user?.id, // Replace with actual finance manager ID if available
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to confirm payment");
+            }
+
+            // Remove the confirmed order from the orders list
+            setOrders((prevOrders) => prevOrders.filter((order) => order.order_id !== order_id));
+        } catch (error) {
+            console.error("Error confirming payment:", error);
+        }
+    };
 
     if (loading) {
-        return <div>Loading...</div>; // You can customize your loading state here
+        return <div>Loading...</div>; // Customize your loading state here
     }
 
     return (
@@ -113,13 +151,13 @@ export default function Home() {
 
                             <div className="flex items-center justify-center px-2 py-4">
                                 <p className="font-medium text-dark dark:text-white">
-                                    {order.customer_id} {/* Assuming customer_id represents the customer, you can modify accordingly */}
+                                    {order.customer_id}
                                 </p>
                             </div>
 
                             <div className="hidden items-center justify-center px-2 py-4 sm:flex">
                                 <p className="font-medium text-dark dark:text-white">
-                                    {`$${order.total_amount}`} {/* Format amount as currency */}
+                                    {`$${order.total_amount}`}
                                 </p>
                             </div>
 
@@ -132,7 +170,7 @@ export default function Home() {
                             <div className="mb-7.5 flex flex-wrap gap-5 xl:gap-20 items-center justify-center h-full">
                                 <ButtonDefault 
                                     label="Confirm" 
-                                    onClick={() => console.log("Confirm action for order", order.order_id)} // Placeholder for action
+                                    onClick={() => handleConfirm(order.order_id)} 
                                     customClasses="bg-green text-white rounded-full px-10 py-3.5 lg:px-8 xl:px-10"
                                 />
                             </div>

@@ -218,6 +218,28 @@ const Home: React.FC = () => {
     }
   };
 
+  const handleRemove = async (productId: number) => {
+    try {
+      const res = await fetch("/api/cart/remove-item", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer_ID: user?.id,
+          product_ID: productId,
+        }),
+      });
+
+      if (!res.ok) throw new Error(`Failed to remove item: ${res.status} ${res.statusText}`);
+
+      // Refresh cart data after removal
+      fetchCart(user!.id);
+      alert("Item removed successfully.");
+    } catch (error) {
+      console.error("Failed to remove item from cart:", error);
+      alert("Failed to remove item. Please try again.");
+    }
+  };
+
   // Load user data on component mount
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -247,24 +269,17 @@ const Home: React.FC = () => {
           <h4 className="text-body-2xlg font-bold text-dark dark:text-white">Your Cart</h4>
         </div>
 
-        <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-8 md:px-6 2xl:px-7.5">
-          <div className="col-span-3 flex items-center">
-            <p className="font-medium">Product Name</p>
-          </div>
-          <div className="col-span-2 hidden items-center sm:flex">
-            <p className="font-medium">Quantity</p>
-          </div>
-          <div className="col-span-1 flex items-center">
-            <p className="font-medium">Price</p>
-          </div>
-          <div className="col-span-1 flex items-center">
-            <p className="font-medium">Total</p>
-          </div>
+        <div className="grid grid-cols-7 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-9 md:px-6 2xl:px-7.5">
+          <div className="col-span-3 flex items-center"><p className="font-medium">Product Name</p></div>
+          <div className="col-span-2 hidden items-center sm:flex"><p className="font-medium">Quantity</p></div>
+          <div className="col-span-1 flex items-center"><p className="font-medium">Price</p></div>
+          <div className="col-span-1 flex items-center"><p className="font-medium">Total</p></div>
+          <div className="col-span-1 flex items-center justify-center"><p className="font-medium">Remove</p></div>
         </div>
 
         {cartData.length > 0 ? (
           cartData.map((product, key) => (
-            <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-8 md:px-6 2xl:px-7.5" key={key}>
+            <div className="grid grid-cols-7 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-9 md:px-6 2xl:px-7.5" key={key}>
               <div className="col-span-3 flex items-center">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                   <div className="h-12.5 w-15 rounded-md">
@@ -280,9 +295,15 @@ const Home: React.FC = () => {
                 <p className="text-body-sm font-medium text-dark dark:text-dark-6">${product.product_price}</p>
               </div>
               <div className="col-span-1 flex items-center">
-                <p className="text-body-sm font-medium text-dark dark:text-dark-6">
-                  ${(product.product_price * product.quantity).toFixed(2)}
-                </p>
+                <p className="text-body-sm font-medium text-dark dark:text-dark-6">${(product.product_price * product.quantity).toFixed(2)}</p>
+              </div>
+              <div className="col-span-1 flex items-center justify-center">
+                <button
+                  onClick={() => handleRemove(product.product_id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Remove
+                </button>
               </div>
             </div>
           ))
@@ -290,9 +311,7 @@ const Home: React.FC = () => {
           <div className="px-4 py-4 text-body-sm text-dark dark:text-dark-6">Your cart is empty.</div>
         )}
 
-        <div className="px-4 py-4 text-body-lg font-bold text-dark dark:text-white">
-          Total: ${totalPrice.toFixed(2)}
-        </div>
+        <div className="px-4 py-4 text-body-lg font-bold text-dark dark:text-white">Total: ${totalPrice.toFixed(2)}</div>
       </div>
 
       {/* Order Placement Form */}

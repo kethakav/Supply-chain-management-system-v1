@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE PROCEDURE show_confirmed_orders(in_store_id INT)
+CREATE PROCEDURE show_confirmed_orders()
 BEGIN
 	SELECT * FROM orders 
 	WHERE confirm_payments = true ;
