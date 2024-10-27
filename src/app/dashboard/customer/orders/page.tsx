@@ -6,31 +6,32 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
 import OrderStatus from "@/components/OrderStatus";
 
-// Define the order interface for TypeScript
 interface Order {
   order_id: number;
-  stage: number; // This will be calculated based on order status
-  ordered_date_time: string; // Date and time of the order
-  total_amount: number; // Total amount of the order
-  payment_documents: string; // Payment documents associated with the order
-  expecting_delivery_date: string; // Expected delivery date
-  order_capacity: number; // Capacity of the order
+  stage: number;
+  ordered_date_time: string;
+  total_amount: number;
+  payment_documents: string;
+  expecting_delivery_date: string;
+  order_capacity: number;
+  confirm_payments?: number; // Added optional properties
+  recieved_to_store?: number; // Added optional properties
+  sent_by_train?: number; // Added optional properties
+  delivered_confirmation?: number; // Added optional properties
 }
 
 export default function Home() {
-  const [orders, setOrders] = useState<Order[]>([]); // State to store orders
-  const [currentOrder, setCurrentOrder] = useState<Order | null>(null); // State for the current order
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
 
-  // Load user data and fetch orders on component mount
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      fetchOrders(parsedUser.id); // Fetch orders using user ID
+      fetchOrders(parsedUser.id);
     }
   }, []);
 
-  // Function to fetch orders based on user ID
   const fetchOrders = async (userId: number) => {
     try {
       const response = await fetch("/api/get-current-orders", {
@@ -40,31 +41,44 @@ export default function Home() {
           "Content-Type": "application/json",
         },
       });
-  
+
       const data = await response.json();
       console.log("Response Data:", data);
-  
-      // Access the first element of the returned array
-      if (Array.isArray(data) && typeof data[0] === 'object') {
-        const ordersObj = data[0]; // The first element contains the orders as an object
-        // Extract values that are of type Order
+
+      if (Array.isArray(data) && typeof data[0] === "object") {
+        const ordersObj = data[0];
         const ordersArray: Order[] = Object.values(ordersObj).filter(
-          (order): order is Order => typeof order === 'object' && order !== null
+          (order): order is Order => typeof order === "object" && order !== null
         );
-  
-        console.log("Orders Array:", ordersArray); // Log the extracted orders array
-  
-        setOrders(ordersArray); // Set all orders to state
-  
-        // Optionally set the current order based on the first order (if available)
-        if (ordersArray.length > 0) {
-          setCurrentOrder(ordersArray[0]); // Set the first order as the current order
-          console.log("Current Order Set:", ordersArray[0]); // Log the current order
+
+        // Calculate the stage for each order
+        const ordersWithStages = ordersArray.map((order) => {
+          let stage = 0;
+          if (order.confirm_payments === 1) {
+            if (order.recieved_to_store === 1 || order.sent_by_train === 1) {
+              stage = 2;
+            } else {
+              stage = 1;
+            }
+            if (order.delivered_confirmation === 1) {
+              stage = 3;
+            }
+          }
+          return { ...order, stage };
+        });
+
+        console.log("Orders with Stages:", ordersWithStages);
+
+        setOrders(ordersWithStages);
+
+        if (ordersWithStages.length > 0) {
+          setCurrentOrder(ordersWithStages[0]);
+          console.log("Current Order Set:", ordersWithStages[0]);
         } else {
-          console.log("No orders found in the orders array."); // Log if the orders array is empty
+          console.log("No orders found in the orders array.");
         }
       } else {
-        console.log("Data is not in the expected format."); // Log if the data structure is unexpected
+        console.log("Data is not in the expected format.");
       }
     } catch (error) {
       console.error("Failed to fetch orders:", error);
@@ -73,11 +87,10 @@ export default function Home() {
 
   return (
     <DashboardLayout>
-      {/* Check if there are orders to display */}
       {orders.length > 0 ? (
         orders.map((order) => (
           <OrderStatus
-            key={order.order_id} // Use order_id as a unique key
+            key={order.order_id}
             currentStage={order.stage}
             orderId={order.order_id}
             orderedDateTime={order.ordered_date_time}

@@ -16,6 +16,7 @@ export async function POST(req: Request) {
     // Call the stored procedure to get order history for the customer
     const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL show_order_history_customer(?)', [customer_ID]);
 
+    console.log("Rows:", rows);
     // Assuming the order history details are in the first result set of the procedure
     const orderHistory = rows;
 
