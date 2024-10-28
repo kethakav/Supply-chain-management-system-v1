@@ -1,6 +1,4 @@
-DELIMITER //
-
-CREATE PROCEDURE GetAllTrainDeliveries()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllTrainDeliveries`()
 BEGIN
     SELECT 
         td.train_delivery_id,
@@ -15,7 +13,7 @@ BEGIN
     FROM 
         Train_delivery AS td
     JOIN 
-        train AS t ON td.train_id = t.train_id;
-END //
-
-DELIMITER ;
+        train AS t ON td.train_id = t.train_id
+    WHERE 
+        td.sent = FALSE or td.sent is null;  -- Only return rows where sent is false
+END
