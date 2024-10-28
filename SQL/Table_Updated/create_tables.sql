@@ -132,6 +132,7 @@ CREATE TABLE `Train_delivery` (
   `train_delivery_id` INT NOT NULL AUTO_INCREMENT,
   `train_id` INT,
   `allocated_capacity` INT,
+  'sent' BOOLEAN,
   PRIMARY KEY (`train_delivery_id`),
   FOREIGN KEY (`train_id`) REFERENCES `Train`(`train_id`)
 );
