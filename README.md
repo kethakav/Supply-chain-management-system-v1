@@ -54,7 +54,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```bash
 npm run build
 npm run start
-or yarn start
+or 
+yarn start
 ```
 
 This will start the project in production mode.
