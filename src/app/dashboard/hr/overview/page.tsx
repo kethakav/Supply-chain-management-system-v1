@@ -1,5 +1,6 @@
 "use client";
 
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
 
@@ -60,6 +61,7 @@ export default function Home() {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="HR Manager Overview" />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         {dataStatsList.map((item, index) => (
           <div

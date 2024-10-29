@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import { useRouter } from 'next/navigation';
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 
 interface StoreData {
@@ -321,6 +322,7 @@ export default function StoreDetails({
 
     return (
         <DashboardLayout>
+            <Breadcrumb pageName={store ? `Manage Store ${store.store_id}` : "Store Not Found"} />
             <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
                 <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
                     Store Details
