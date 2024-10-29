@@ -4,14 +4,19 @@ import React, { useState } from "react";
 // Define the structure of the options prop
 interface SelectGroupThreeProps {
   options: { value: string; label: string }[]; // Array of value-label objects
+  name: string; // Name of the select input
+  onChange: (value: string) => void; // Callback to handle changes
 }
 
-const SelectGroupThree: React.FC<SelectGroupThreeProps> = ({ options }) => {
+const SelectGroupThree: React.FC<SelectGroupThreeProps> = ({ options, name, onChange }) => {
   const [selectedOption, setSelectedOption] = useState<string>(""); // Track selected option
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false); // Track if an option is selected
 
-  const changeTextColor = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedOption(value); // Update the selected option
     setIsOptionSelected(true); // Change color once an option is selected
+    onChange(value); // Notify the parent component of the change
   };
 
   return (
@@ -20,10 +25,8 @@ const SelectGroupThree: React.FC<SelectGroupThreeProps> = ({ options }) => {
       <div className="dark:bg-form-input relative z-20 bg-transparent">
         <select
           value={selectedOption} // Controlled input value
-          onChange={(e) => {
-            setSelectedOption(e.target.value); // Update the selected option
-            changeTextColor(); // Change text color on selection
-          }}
+          onChange={handleChange}
+          name={name} // Ensure name is passed to the select
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary ${
             isOptionSelected ? "text-dark dark:text-white" : "" // Conditional text color change
           }`}

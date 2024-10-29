@@ -34,9 +34,9 @@ const menuItemsByUserType = {
   manager: [
     { label: "Overview", route: "/dashboard/store/overview" },
     { label: "Receive Inventory", route: "/dashboard/store/receive" },
-    { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },
+    // { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },
     { label: "Delivery Scheduling", route: "/dashboard/store/scheduling" },
-    { label: "History", route: "/dashboard/store/history" },
+    // { label: "History", route: "/dashboard/store/history" },
   ],
   driver: [
     { label: "Overview", route: "/dashboard/driver/overview" },

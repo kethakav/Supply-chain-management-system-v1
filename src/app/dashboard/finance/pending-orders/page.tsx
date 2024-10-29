@@ -18,7 +18,7 @@ interface OrderData {
 interface User {
     id: number;
     type: string;
-  }
+}
 
 export default function Home() {
     const [orders, setOrders] = useState<OrderData[]>([]);

@@ -52,19 +52,19 @@ export async function POST(req: Request) {
                 break;
             case 'manager':
                 [user] = await connection.execute(
-                    `SELECT manager_id AS id, manager_first_name AS firstName, manager_last_name AS lastName, manager_email AS email, password, 'manager' AS type FROM Manager WHERE user_name = ? LIMIT 1`,
+                    `SELECT manager_id AS id, store_id AS store_ID, manager_first_name AS firstName, manager_last_name AS lastName, manager_email AS email, password, 'manager' AS type FROM Manager WHERE user_name = ? LIMIT 1`,
                     [username]
                 );
                 break;
             case 'driver':
                 [user] = await connection.execute(
-                    `SELECT driver_id AS id, driver_first_name AS firstName, driver_last_name AS lastName, driver_email AS email, password, 'driver' AS type FROM Driver WHERE user_name = ? LIMIT 1`,
+                    `SELECT driver_id AS id, store_id AS store_ID, driver_first_name AS firstName, driver_last_name AS lastName, driver_email AS email, password, 'driver' AS type FROM Driver WHERE user_name = ? LIMIT 1`,
                     [username]
                 );
                 break;
             case 'assistant_driver':
                 [user] = await connection.execute(
-                    `SELECT ast_driver_id AS id, ast_driver_first_name AS firstName, ast_driver_last_name AS lastName, ast_driver_email AS email, password, 'assistantDriver' AS type FROM Assistant_Driver WHERE user_name = ? LIMIT 1`,
+                    `SELECT ast_driver_id AS id, store_id AS store_ID, ast_driver_first_name AS firstName, ast_driver_last_name AS lastName, ast_driver_email AS email, password, 'assistantDriver' AS type FROM Assistant_Driver WHERE user_name = ? LIMIT 1`,
                     [username]
                 );
                 break;
@@ -102,6 +102,16 @@ export async function POST(req: Request) {
 
         // Step 5: Return the user data if the password is correct
         console.log(`User data found: ${JSON.stringify(userInfo)}`);
+
+        if(userInfo.store_ID) {
+            return NextResponse.json({
+                id: userInfo.id,
+                name: `${userInfo.firstName} ${userInfo.lastName}`,
+                email: userInfo.email,
+                type: userInfo.type,
+                store_ID: userInfo.store_ID,
+            });
+        }
         return NextResponse.json({
             id: userInfo.id,
             name: `${userInfo.firstName} ${userInfo.lastName}`,
