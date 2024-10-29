@@ -1,3 +1,5 @@
+DELIMITER //
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTrainDetailsByDeliveryId`(IN delivery_id INT)
 BEGIN
     SELECT 
@@ -16,4 +18,6 @@ BEGIN
         Train_delivery td ON t.train_id = td.train_id
     WHERE 
         td.train_delivery_id = delivery_id;
-END
+END //
+
+DELIMITER ;
