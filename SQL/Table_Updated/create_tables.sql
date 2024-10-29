@@ -1,4 +1,3 @@
-
 CREATE TABLE `Store` (
   `store_id` INT NOT NULL AUTO_INCREMENT,
   `store_city` VARCHAR(50),
@@ -132,7 +131,7 @@ CREATE TABLE `Train_delivery` (
   `train_delivery_id` INT NOT NULL AUTO_INCREMENT,
   `train_id` INT,
   `allocated_capacity` INT,
-  'sent' BOOLEAN,
+  `sent` BOOLEAN,
   PRIMARY KEY (`train_delivery_id`),
   FOREIGN KEY (`train_id`) REFERENCES `Train`(`train_id`)
 );
@@ -225,5 +224,3 @@ CREATE TABLE `cart` (
 	FOREIGN KEY (`customer_id`) REFERENCES `Customer`(`customer_id`)
     
 );
-
-

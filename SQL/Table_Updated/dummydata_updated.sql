@@ -22,13 +22,14 @@ VALUES
 (20, 'manuja_p', NULL, 'Manuja', 'Pathirana', 'wholesaler', 778654321, 'manuja.pathirana@biz.com', '34, Lotus Grove, Batticaloa', NULL);
 
 -- ******************************************************************************************
-INSERT INTO Product (product_id, product_name, product_price, Product_capacity)
+INSERT INTO Product (product_id, product_name, product_price, Product_capacity,product_image_url)
 VALUES
-(1, 'Laptop', 200000,10 ),
-(2, 'Monitor', 15000, 20),
-(3, 'Washing Machine', 75000, 200),
-(4, 'Refrigerator', 100000, 250),
-(5, 'Oven', 200000, 150);
+(1,'Hisence UHD TV',20000,100,'/images/product/tv1.png'),
+(2,'INNOVEX 32 Inch TV',9600,200,'/images/product/tv2.png'),
+(3,'Abans 42 Inch TV',13000,300,'/images/product/tv3.png'),
+(4,'Abans 32 Inch HD TV',10000,250,'/images/product/tv4.png'),
+(5,'Samsung Smart TV',20000,150,'/images/product/tv5.png');
+
 
 -- ******************************************************************************************
 INSERT INTO FinanceAndOrder_Manager (finance_manager_ID, user_name, password, manager_first_name, manager_last_name, manager_contact, manager_email, manager_image_URL)
@@ -276,31 +277,32 @@ VALUES
 (7,5,14);
 -- ******************************************************************************************
 -- Order 
-INSERT INTO `Orders` (order_id, customer_id, ordered_date_time, total_amount, payment_documents, order_capacity, expecting_delivery_date, delivery_address, nearest_store_id, route_description_input, finance_manager_id, confirm_payments, sent_by_train, train_delivery_id, recieved_to_store, delivery_id, delivered_confirmation, delivered_date_time) VALUES
+INSERT INTO `Orders` (order_id, customer_id, ordered_date_time, total_amount, payment_documents, order_capacity, expecting_delivery_date, nearest_store_id, route_description_input, finance_manager_id, confirm_payments, sent_by_train, train_delivery_id, recieved_to_store, delivery_id, delivered_confirmation, delivered_date_time) VALUES
 -- Delivered orders
-(1, 1, '2024-10-01 08:30:00', 17500, 'online_payment_201.jpg', 2, '2024-10-04', '45, Sedawatta Road, Kelaniya', 1, 'From Technical Junction, pass Panchikawatta, then continue along Baseline Road to reach Kelaniya', 1, 1, 1, 1, 1, 1, 1, '2024-10-05 12:30:00'),
-(2, 2, '2024-10-01 09:45:00', 18000, 'bank_transfer_102.jpg', 3, '2024-10-05', '15, Galle Road, Moratuwa', 1, 'From Mount Lavinia, continue along Galle Road to reach the address in Moratuwa', 1, 1, 1, 1, 1, 2, 1, '2024-10-05 2:30:00'),
+(1, 1, '2024-10-01 08:30:00', 17500, 'online_payment_201.jpg', 2, '2024-10-04', 1, 'From Technical Junction, pass Panchikawatta, then continue along Baseline Road to reach Kelaniya', 1, 1, 1, 1, 1, 1, 1, '2024-10-05 12:30:00'),
+(2, 2, '2024-10-01 09:45:00', 18000, 'bank_transfer_102.jpg', 3, '2024-10-05', 1, 'From Mount Lavinia, continue along Galle Road to reach the address in Moratuwa', 1, 1, 1, 1, 1, 2, 1, '2024-10-05 2:30:00'),
 -- Received to the store but not delivered
-(3, 3, '2024-10-02 10:20:00', 22000, 'cash_on_delivery_103.jpg', 4, '2024-10-06', '45, High Level Road, Maharagama', 1, 'From Borella, pass Narahenpita, then follow High Level Road to reach Maharagama', 1, 1, 1, 2, 1, 3, 0, NULL),
-(4, 4, '2024-10-02 11:00:00', 12000, 'online_payment_104.jpg', 1, '2024-10-03', '90, Negombo Road, Seeduwa', 2, 'From Kurana, continue along Negombo Road to reach Seeduwa', 4, 1, 1, 3, 1, 4, 0, NULL),
-(5, 4, '2024-10-02 12:15:00', 16500, 'online_payment_205.jpg', 3, '2024-10-05', '48, Kandawala Road, Katana', 2, 'From Koppara Junction, continue along Giriulla Road to reach Kandawala', 5, 1, 1, 3, 1, 5, 0, NULL),
-(6, 5, '2024-10-03 08:45:00', 15500, 'bank_transfer_206.jpg', 2, '2024-10-06', '22, St. Anne\'s Road, Kochchikade', 2, 'From Kattuwa, take the Puttalam-Colombo main road and continue to reach Kochchikade', 2, 1, 1, 3, 1, 6, 0, NULL),
-(7, 6, '2024-10-03 09:30:00', 17000, 'online_payment_207.jpg', 3, '2024-10-05', '85, Beddegama Road, Wakwella', 3, 'From Hapugala, continue towards Wakwella and then reach Ginimellagaha', 3, 1, 1, 4, 1, 7, 0, NULL),
-(8, 7, '2024-10-03 10:15:00', 18500, 'bank_transfer_208.jpg', 3, '2024-10-06', '34, Kumarakanda Road, Hikkaduwa', 3, 'From Galle, passing Bossa, turn left onto Kumarakanda Road to reach the address in Hikkaduwa', 4, 1, 1, 4, 1, 8, 0, NULL),
-(9, 8, '2024-10-04 07:50:00', 16000, 'online_payment_209.jpg', 4, '2024-10-05', '78, Kabalana Beach Road, Ahangama', 3, 'From Galle, passing Unawatuna and Thalpe, turn right onto Kabalana Beach Road to reach Ahangama', 2, 1, 1, 4, 1, 9, 0, NULL),
-(10, 8, '2024-10-04 08:00:00', 14000, 'cash_on_delivery_210.jpg', 3, '2024-10-05', '21, Mirissa Road, Weligama', 4, 'From Matara, pass Mirissa Junction, and take Mirissa Road to reach Weligama', 5, 1, 1, 5, 1, 10, 0, NULL),
-(11, 8, '2024-10-04 09:25:00', 17500, 'online_payment_211.jpg', 4, '2024-10-05', '53, Akuressa Road, Thelijjawila', 4, 'From Matara, pass Malimbada Junction and take Akuressa Road to reach Thelijjawila', 3, 1, 1, 5, 1, 11, 0, NULL),
-(12, 9, '2024-10-04 10:35:00', 16000, 'bank_transfer_212.jpg', 3, '2024-10-05', '67, Gandara Junction, Dikwella', 4, 'From Matara, pass Gandara Junction and continue on New Tangalle Road to reach Dikwella', 4, 1, 1, 5, 1, 12, 0, NULL),
+(3, 3, '2024-10-02 10:20:00', 22000, 'cash_on_delivery_103.jpg', 4, '2024-10-06',1, 'From Borella, pass Narahenpita, then follow High Level Road to reach Maharagama', 1, 1, 1, 2, 1, 3, 0, NULL),
+(4, 4, '2024-10-02 11:00:00', 12000, 'online_payment_104.jpg', 1, '2024-10-03', 2, 'From Kurana, continue along Negombo Road to reach Seeduwa', 4, 1, 1, 3, 1, 4, 0, NULL),
+(5, 4, '2024-10-02 12:15:00', 16500, 'online_payment_205.jpg', 3, '2024-10-05', 2, 'From Koppara Junction, continue along Giriulla Road to reach Kandawala', 5, 1, 1, 3, 1, 5, 0, NULL),
+(6, 5, '2024-10-03 08:45:00', 15500, 'bank_transfer_206.jpg', 2, '2024-10-06', 2, 'From Kattuwa, take the Puttalam-Colombo main road and continue to reach Kochchikade', 2, 1, 1, 3, 1, 6, 0, NULL),
+(7, 6, '2024-10-03 09:30:00', 17000, 'online_payment_207.jpg', 3, '2024-10-05', 3, 'From Hapugala, continue towards Wakwella and then reach Ginimellagaha', 3, 1, 1, 4, 1, 7, 0, NULL),
+(8, 7, '2024-10-03 10:15:00', 18500, 'bank_transfer_208.jpg', 3, '2024-10-06', 3, 'From Galle, passing Bossa, turn left onto Kumarakanda Road to reach the address in Hikkaduwa', 4, 1, 1, 4, 1, 8, 0, NULL),
+(9, 8, '2024-10-04 07:50:00', 16000, 'online_payment_209.jpg', 4, '2024-10-05', 3, 'From Galle, passing Unawatuna and Thalpe, turn right onto Kabalana Beach Road to reach Ahangama', 2, 1, 1, 4, 1, 9, 0, NULL),
+(10, 8, '2024-10-04 08:00:00', 14000, 'cash_on_delivery_210.jpg', 3, '2024-10-05', 4, 'From Matara, pass Mirissa Junction, and take Mirissa Road to reach Weligama', 5, 1, 1, 5, 1, 10, 0, NULL),
+(11, 8, '2024-10-04 09:25:00', 17500, 'online_payment_211.jpg', 4, '2024-10-05', 4, 'From Matara, pass Malimbada Junction and take Akuressa Road to reach Thelijjawila', 3, 1, 1, 5, 1, 11, 0, NULL),
+(12, 9, '2024-10-04 10:35:00', 16000, 'bank_transfer_212.jpg', 3, '2024-10-05', 4, 'From Matara, pass Gandara Junction and continue on New Tangalle Road to reach Dikwella', 4, 1, 1, 5, 1, 12, 0, NULL),
 -- Sent by train but yet to be received to the store
-(13, 10, '2024-10-05 11:00:00', 17000, 'online_payment_213.jpg', 2, '2024-10-05', '45, KKS Road, Tellippalai', 5, 'From Jaffna, pass Eluppayady Junction, then proceed on KKS Road to reach Tellippalai', 3, 1, 1, 6, 0, 13, 0, NULL),
+(13, 10, '2024-10-05 11:00:00', 17000, 'online_payment_213.jpg', 2, '2024-10-05', 5, 'From Jaffna, pass Eluppayady Junction, then proceed on KKS Road to reach Tellippalai', 3, 1, 1, 6, 0, 13, 0, NULL),
 -- Assigned a train and a truck but yet to be sent
-(14, 11, '2024-10-05 12:45:00', 13500, 'cash_on_delivery_214.jpg', 3, '2024-10-05', '39, Karainagar Road, Vaddukoddai', 5, 'From Jaffna, pass Jayanthan Junction, continue along Karativu Road to reach Vaddukoddai', 1, 1, 0, 7, 0, 14, 0, NULL),
+(14, 11, '2024-10-05 12:45:00', 13500, 'cash_on_delivery_214.jpg', 3, '2024-10-05', 5, 'From Jaffna, pass Jayanthan Junction, continue along Karativu Road to reach Vaddukoddai', 1, 1, 0, 7, 0, 14, 0, NULL),
 -- Confirmed but yet to be assigned a train and a truck
-(15, 12, '2024-10-05 13:30:00', 16500, 'online_payment_215.jpg', 4, '2024-10-05', '19, Thondaimanaru Road, Nelliady', 5, 'From Jaffna, pass Nallur Junction, and continue along Thondaimanaru Road to reach Nelliady', 2, 1, 0, NULL, 0, NULL, 0, NULL),
-(16, 13, '2024-10-05 14:15:00', 15000, 'bank_transfer_216.jpg', 3, '2024-10-05', '87, Kinniya Bridge Road, Kinniya', 6, 'From Trincomalee, continue along Kandy Road, crossing Kinniya Bridge to reach the address', 3, 1, 0, NULL, 0, NULL, 0, NULL),
+(15, 12, '2024-10-05 13:30:00', 16500, 'online_payment_215.jpg', 4, '2024-10-05', 5, 'From Jaffna, pass Nallur Junction, and continue along Thondaimanaru Road to reach Nelliady', 2, 1, 0, NULL, 0, NULL, 0, NULL),
+(16, 13, '2024-10-05 14:15:00', 15000, 'bank_transfer_216.jpg', 3, '2024-10-05', 6, 'From Trincomalee, continue along Kandy Road, crossing Kinniya Bridge to reach the address', 3, 1, 0, NULL, 0, NULL, 0, NULL),
 -- Yet to be confirmed
-(17, 14, '2024-10-05 15:50:00', 15500, 'online_payment_217.jpg', 2, '2024-10-05', '12, Muttur Town, Trincomalee', 6, 'From Trincomalee, pass Sampur, and continue on Trincomalee-Muttur Road to reach Muttur Town', 5, 0, 0, NULL, 0, NULL, 0, NULL),
-(18, 15, '2024-10-05 16:30:00', 14000, 'cash_on_delivery_218.jpg', 2, '2024-10-05', '89, Nilaveli Road, Kuchchaveli', 6, 'From Trincomalee, pass Nilaveli on Pulmoddai Road to reach Kuchchaveli', 4, 0, 0, NULL, 0, NULL, 0, NULL);
+(17, 14, '2024-10-05 15:50:00', 15500, 'online_payment_217.jpg', 2, '2024-10-05', 6, 'From Trincomalee, pass Sampur, and continue on Trincomalee-Muttur Road to reach Muttur Town', 5, 0, 0, NULL, 0, NULL, 0, NULL),
+(18, 15, '2024-10-05 16:30:00', 14000, 'cash_on_delivery_218.jpg', 2, '2024-10-05', 6, 'From Trincomalee, pass Nilaveli on Pulmoddai Road to reach Kuchchaveli', 4, 0, 0, NULL, 0, NULL, 0, NULL);
+
 
 -- ******************************************************************************************
 -- Ordered_products
