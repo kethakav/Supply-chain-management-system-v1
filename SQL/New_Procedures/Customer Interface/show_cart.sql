@@ -1,6 +1,6 @@
 DELIMITER //
 
-PROCEDURE `show_cart`(customer_ID INT)
+CREATE PROCEDURE `show_cart`(customer_ID INT)
 BEGIN
     SELECT 
         c.customer_id,
