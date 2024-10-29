@@ -266,15 +266,15 @@ VALUES
 (14, 14, 14, 14, 14, 0);
 -- ******************************************************************************************
 -- Train_Delivery
-INSERT INTO train_delivery (train_delivery_id, train_id, allocated_capacity)
+INSERT INTO train_delivery (train_delivery_id, train_id, allocated_capacity, sent)
 VALUES
-(1,1,5),
-(2,1,4),
-(3,2,4),
-(4,3,10),
-(5,4,4),
-(6,5,4),
-(7,5,14);
+(1,1,5,0),
+(2,1,4,0),
+(3,2,4,0),
+(4,3,10,0),
+(5,4,4,0),
+(6,5,4,0),
+(7,5,14,0);
 -- ******************************************************************************************
 -- Order 
 INSERT INTO `Orders` (order_id, customer_id, ordered_date_time, total_amount, payment_documents, order_capacity, expecting_delivery_date, nearest_store_id, route_description_input, finance_manager_id, confirm_payments, sent_by_train, train_delivery_id, recieved_to_store, delivery_id, delivered_confirmation, delivered_date_time) VALUES

@@ -31,7 +31,7 @@ const menuItemsByUserType = {
     { label: "Train Deliveries", route: "/dashboard/finance/train-deliveries" },
 
   ],
-  storeManager: [
+  manager: [
     { label: "Overview", route: "/dashboard/store/overview" },
     { label: "Receive Inventory", route: "/dashboard/store/receive" },
     { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },

@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 const routePermissions = {
   hrManager: ['/dashboard/hr', '/profile', '/orders'],
   financeManager: ['/dashboard/finance', '/profile', '/orders'],
-  storeManager: ['/dashboard/store', '/profile', '/orders'],
+  manager: ['/dashboard/store', '/profile', '/orders'],
   driver: ['/dashboard/driver', '/profile', '/orders'],
   assistantDriver: ['/dashboard/assistant-driver', '/profile', '/orders'],
   customer: ['/dashboard/customer', '/orders', '/profile'],
