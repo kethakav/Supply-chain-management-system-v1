@@ -5,6 +5,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useState, useEffect } from "react";
 import SwitcherOne from "@/components/FormElements/Switchers/SwitcherOne";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface OrderData {
     orderId: number;
@@ -118,6 +119,7 @@ export default function Home() {
 
     return (
         <DashboardLayout>
+            <Breadcrumb pageName="Recieve Inventory" />
             <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
                 <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
                     Orders Pending Confirmation

@@ -219,7 +219,7 @@ BEGIN
     VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email);
 END$$
 
-//procedure to get truck information according to store id
+-- procedure to get truck information according to store id
 CREATE PROCEDURE GetTrucksByStore(IN storeId INT)
 BEGIN
     SELECT 
@@ -234,9 +234,9 @@ BEGIN
         Store s ON t.store_id = s.store_id
     WHERE 
         t.store_id = storeId;
-END;
+END$$
 
-//procedure to get the information of all drivers of a given store
+-- procedure to get the information of all drivers of a given store
 DELIMITER $$
 
 CREATE PROCEDURE GetDriversByStore(IN p_store_id INT)
@@ -372,7 +372,23 @@ END $$
 
 DELIMITER ;
 
-//procedure to create truck deliveries
+delimiter //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterStoreManager`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO manager (user_name, password, manager_first_name, manager_last_name, manager_contact, manager_email, store_id)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id);
+END//
+
+
+-- procedure to create truck deliveries
 DELIMITER $$
 
 CREATE PROCEDURE CreateTruckDelivery(
@@ -403,4 +419,32 @@ BEGIN
     );
 END $$
 
-DELIMITER ;
+DELIMITER //
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterDriver`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO driver (user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, store_id, worked_hours, availability)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id, 0, 1);
+END//
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterAstDriver`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO assistant_driver (user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, store_id, worked_hours, availability)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id, 0, 1);
+END//
