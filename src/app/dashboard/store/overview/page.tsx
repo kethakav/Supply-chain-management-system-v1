@@ -1,5 +1,6 @@
 "use client";
 
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
 
@@ -54,6 +55,7 @@ export default function Home() {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Overview" />
       <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <div className="flex gap-4 md:gap-6 2xl:gap-7.5">
           <div className="flex flex-col gap-4 md:gap-6 2xl:gap-7.5 w-full md:w-1/3">
