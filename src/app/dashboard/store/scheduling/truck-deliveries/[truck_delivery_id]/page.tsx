@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import PercentageBar from "@/components/PercentageBar";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface TruckDetail {
   truck_delivery_id: number;
@@ -300,6 +301,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
 
   return (
     <DashboardLayout>
+    <Breadcrumb pageName={`Truck Delivery ${truck_delivery_id}`} />
       <div className="p-6 bg-white shadow-lg rounded-lg dark:bg-gray-dark dark:shadow-card">
         <h2 className="text-xl font-bold mb-4 text-dark dark:text-white">Truck Details</h2>
         
