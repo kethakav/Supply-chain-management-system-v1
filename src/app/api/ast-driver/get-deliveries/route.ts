@@ -14,11 +14,11 @@ const pool = mysql.createPool({
 
 // Define the API endpoint to get assigned deliveries for a driver
 export async function POST(req: NextRequest, res: NextResponse) {
-    const { astDriverId } = await req.json(); // Get driverId from the request body
-    console.log(astDriverId);
+    const { driver_id } = await req.json(); // Get driverId from the request body
+    console.log(driver_id);
 
     try {
-        const [rows] = await pool.query(`CALL GetAssignedDeliveriesForAssistantDriver(${astDriverId})`);
+        const [rows] = await pool.query(`CALL GetAssignedDeliveriesForAssistantDriver(${driver_id})`);
         console.log(rows);
         return NextResponse.json(rows, { status: 200 }); // Use NextResponse for the response
     } catch (error) {

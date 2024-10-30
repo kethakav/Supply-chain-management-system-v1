@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE PROCEDURE GetOrdersOnCurrentDelivery(IN deliveryId INT)
+CREATE PROCEDURE GetDeliveredOrdersOnCurrentDelivery(IN deliveryId INT)
 BEGIN
     SELECT 
         o.order_id,
@@ -25,7 +25,7 @@ BEGIN
     INNER JOIN 
         Customer c ON o.customer_id = c.customer_id
     WHERE 
-        o.delivery_id = deliveryId and o.delivered_confirmation = false;
+        o.delivery_id = deliveryId and o.delivered_confirmation = true;
 END //
 
 DELIMITER ;

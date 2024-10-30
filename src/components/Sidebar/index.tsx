@@ -39,16 +39,16 @@ const menuItemsByUserType = {
     // { label: "History", route: "/dashboard/store/history" },
   ],
   driver: [
-    { label: "Overview", route: "/dashboard/driver/overview" },
+    // { label: "Overview", route: "/dashboard/driver/overview" },
     { label: "Assigned Deliveries", route: "/dashboard/driver/deliveries" },
-    { label: "Route Details", route: "/dashboard/driver/route" },
-    { label: "Delivery Confirmation", route: "/dashboard/driver/confirmation" },
-    { label: "Hours Worked", route: "/dashboard/driver/hours" },
+    // { label: "Route Details", route: "/dashboard/driver/route" },
+    // { label: "Delivery Confirmation", route: "/dashboard/driver/confirmation" },
+    // { label: "Hours Worked", route: "/dashboard/driver/hours" },
   ],
   assistantDriver: [
-    { label: "Overview", route: "/dashboard/assistant-driver/overview" },
+    // { label: "Overview", route: "/dashboard/assistant-driver/overview" },
     { label: "Assigned Deliveries", route: "/dashboard/assistant-driver/deliveries" },
-    { label: "Hours Worked", route: "/dashboard/assistant-driver/hours" },
+    // { label: "Hours Worked", route: "/dashboard/assistant-driver/hours" },
   ],
   customer: [
     { label: "Overview", route: "/dashboard/customer/overview" },

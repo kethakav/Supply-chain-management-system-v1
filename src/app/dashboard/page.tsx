@@ -43,8 +43,8 @@ const DashboardPage = () => {
         hrManager: "/dashboard/hr/overview",
         financeManager: "/dashboard/finance/pending-orders",
         manager: "/dashboard/store/overview",
-        driver: "/dashboard/driver/overview",
-        assistantDriver: "/dashboard/assistant-driver/overview",
+        driver: "/dashboard/driver/deliveries",
+        assistantDriver: "/dashboard/assistant-driver/deliveries",
         customer: "/dashboard/customer/overview",
       };
 
