@@ -38,7 +38,7 @@ CREATE PROCEDURE GetOrdersOnCurrentDelivery(IN deliveryId INT)
 
 BEGIN
 
-    SELECT * FROM Orders WHERE delivery_id = deliveryId;
+    SELECT * FROM Orders WHERE delivery_id = deliveryId and delivered_confirmation = false;
 
 END //
 
