@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import Image from "next/image";
-
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 // Define interfaces
 interface CartProduct {
   customer_id: number;
@@ -263,6 +263,7 @@ const Home: React.FC = () => {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Cart" />
       {/* Cart Display Section */}
       <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
         <div className="px-4 py-6 md:px-6 xl:px-9">

@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/Layouts/DashboardLayout';
 import Image from 'next/image';
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface Product {
   product_id: number;
@@ -108,6 +109,7 @@ export default function ProductsPage() {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Overview" />
       <div className="container mx-auto px-4">
         <h1 className="text-2xl font-bold mb-8 text-gray-800">Our Products</h1>
         
