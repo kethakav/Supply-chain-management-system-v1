@@ -340,9 +340,6 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
             <div className="mb-4">
               <strong className="text-dark dark:text-white">Store City:</strong> {truckDetail.store_city}
             </div>
-            <div className="mb-4">
-              <strong className="text-dark dark:text-white">Store Truck Count:</strong> {truckDetail.store_truck_count}
-            </div>
           </div>
         </div>
 
