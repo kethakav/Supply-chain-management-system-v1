@@ -1,18 +1,15 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
-
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-});
+import pool from '@/utils/db/pool';
 
 export async function POST(req: Request) {
     try {
         const { order_id, truck_delivery_id } = await req.json();
 
         // Call the stored procedure
+        if (!pool) {
+            throw new Error('Database connection pool is not initialized.');
+        }
         await pool.query('CALL add_orders_to_truck(?, ?)', [order_id, truck_delivery_id]);
 
         return NextResponse.json({ message: 'Order assigned to truck successfully' });

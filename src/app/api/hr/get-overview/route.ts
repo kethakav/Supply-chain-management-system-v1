@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
+import pool from '@/utils/db/pool';
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
 
 export async function POST() {
   try {
     // Query each function separately
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+    }
     const [driversResult] = await pool.query<mysql.RowDataPacket[]>('SELECT count_all_drivers() AS drivers');
     const [managersResult] = await pool.query<mysql.RowDataPacket[]>('SELECT count_all_managers() AS managers');
     const [storesResult] = await pool.query<mysql.RowDataPacket[]>('SELECT count_all_stors() AS stores');

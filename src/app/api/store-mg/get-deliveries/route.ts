@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
-
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
+import pool from '@/utils/db/pool';
 
 export async function POST(req: Request) {
   try {
@@ -14,6 +8,9 @@ export async function POST(req: Request) {
     console.log(store_ID);
 
     // Call the stored procedure to get deliveries linked to the store_ID
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+    }
     const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL GetDeliveriesByStoreID(?)', [store_ID]);
 
     // Assuming the deliveries are in the first result set of the procedure

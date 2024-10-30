@@ -1,12 +1,7 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
+import pool from '@/utils/db/pool';
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
 
 export async function POST(req: Request) {
   try {
@@ -14,6 +9,9 @@ export async function POST(req: Request) {
     console.log(`Removing product ${product_ID} for customer ${customer_ID}`);
     
     // Call the stored procedure to remove item from cart
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+    }
     const [result] = await pool.query<mysql.RowDataPacket[]>('CALL remove_from_cart(?, ?)', [customer_ID, product_ID]);
 
     console.log(result);
