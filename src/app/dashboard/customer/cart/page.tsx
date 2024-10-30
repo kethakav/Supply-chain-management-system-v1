@@ -253,7 +253,9 @@ const Home: React.FC = () => {
     0
   );
 
-  if (isLoading) return <div>Loading your cart...</div>;
+  if (isLoading) return (
+    <Loader />
+  );
   if (!user) return <div>Loading user data...</div>;
   if (error) return <div>{error}</div>;
 
