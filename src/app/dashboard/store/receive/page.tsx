@@ -15,6 +15,7 @@ interface OrderData {
     paymentDocuments: string;
     confirmation: string;
     customer: string;
+    route_id: number;
 }
 
 interface User {
@@ -60,6 +61,7 @@ export default function Home() {
                         paymentDocuments: order.payment_documents || "N/A",
                         confirmation: order.confirm_payments ? "Confirmed" : "Pending",
                         customer: `Customer #${order.customer_id}`,
+                        route_id: order.route_id,
                     }));
 
                     setOrders(formattedOrders);
@@ -133,7 +135,7 @@ export default function Home() {
                 {error && <p className="text-red-600">{error}</p>} {/* Display error message */}
 
                 <div className="flex flex-col">
-                    <div className="grid grid-cols-4 sm:grid-cols-6">
+                    <div className="grid grid-cols-4 sm:grid-cols-7">
                         <div className="px-2 pb-3.5">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Order ID</h5>
                         </div>
@@ -147,6 +149,9 @@ export default function Home() {
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Total Amount</h5>
                         </div>
                         <div className="hidden px-2 pb-3.5 text-center sm:block">
+                            <h5 className="text-sm font-medium uppercase xsm:text-base">Route ID</h5>
+                        </div>
+                        <div className="hidden px-2 pb-3.5 text-center sm:block">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Payment Documents</h5>
                         </div>
                         <div className="px-2 pb-3.5 text-center">
@@ -156,7 +161,7 @@ export default function Home() {
 
                     {orders.map((order, key) => (
                         <div
-                            className={`grid grid-cols-4 sm:grid-cols-6 ${
+                            className={`grid grid-cols-4 sm:grid-cols-7 ${
                                 key === orders.length - 1 ? "" : "border-b border-stroke dark:border-dark-3"
                             }`}
                             key={key}
@@ -175,6 +180,10 @@ export default function Home() {
 
                             <div className="hidden items-center justify-center px-2 py-4 sm:flex">
                                 <p className="font-medium text-dark dark:text-white">{order.totalAmount}</p>
+                            </div>
+
+                            <div className="hidden items-center justify-center px-2 py-4 sm:flex">
+                                <p className="font-medium text-dark dark:text-white">{order.route_id}</p>
                             </div>
 
                             <div className="hidden items-center justify-center px-2 py-4 sm:flex">

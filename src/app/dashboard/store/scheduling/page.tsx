@@ -24,18 +24,20 @@ interface Driver {
   driver_id: number;
   driver_first_name: string;
   driver_last_name: string;
+  worked_hours: number;
 }
 
 interface AstDriver {
   ast_driver_id: number;
   ast_driver_first_name: string;
   ast_driver_last_name: string;
+  worked_hours: number;
 }
 
 interface Truck {
   truck_id: number;
   store_id: number;
-  vehicle_number: string; // Ensure this is a string
+  vehicle_number: string;
   availability: number;
 }
 
@@ -46,9 +48,8 @@ interface Delivery {
   truck_id: string;
   route_id: string;
   departureDate: string;
-  orders: string[]; // assuming orders are stored as an array of strings
+  orders: string[];
 }
-
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -66,8 +67,10 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [availableDrivers, setAvailableDrivers] = useState<Driver[]>([]);
-  const [availableAssistantDrivers, setAvailableAssistantDrivers] = useState<AstDriver[]>([]); // Initialize as an empty array
-  const [availableTrucks, setAvailableTrucks] = useState<Truck[]>([]); // Change to Truck[]
+  const [availableAssistantDrivers, setAvailableAssistantDrivers] = useState<AstDriver[]>([]);
+  const [availableTrucks, setAvailableTrucks] = useState<Truck[]>([]);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -173,7 +176,7 @@ export default function Home() {
       driver_id: formData.driver,
       ast_driver_id: formData.assistant,
       route_id: formData.route,
-      store_id: user?.store_ID, // Ensure user is available and store_ID is correct
+      store_id: user?.store_ID,
     };
 
     try {
@@ -183,31 +186,41 @@ export default function Home() {
         body: JSON.stringify(deliveryData),
       });
 
-      if (!response.ok) throw new Error("Failed to schedule delivery");
-      const result = await response.json();
-
-      // Optionally handle the result or any success feedback here
-      console.log(result.message);
-
-      // Update deliveries state if needed
-      // setDeliveries((prevDeliveries) => [...prevDeliveries, formData]);
-
-      // Reset form
-      setFormData({
-        driver: "",
-        assistant: "",
-        truck: "",
-        route: "",
-        departureDate: "",
-        orders: [],
-      });
+      if (!response.ok) {
+        const result = await response.json();
+        if (result.error && result.error.includes("Driver or Assistant Driver Limit Exceeded")) {
+          setErrorMessage(result.error);
+          setShowErrorMessage(true);
+        } else {
+          throw new Error("Failed to schedule delivery");
+        }
+      } else {
+        const result = await response.json();
+        console.log(result.message);
+        setDeliveries((prevDeliveries) => [
+          ...prevDeliveries,
+          {
+            delivery_id: Date.now(), // or another unique identifier
+            driver_id: formData.driver,
+            assistant_driver_id: formData.assistant,
+            truck_id: formData.truck,
+            route_id: formData.route,
+            departureDate: formData.departureDate,
+            orders: formData.orders,
+          },
+        ]);
+        setFormData({
+          driver: "",
+          assistant: "",
+          truck: "",
+          route: "",
+          departureDate: "",
+          orders: [],
+        });
+      }
     } catch (error) {
       console.error("Error scheduling delivery:", error);
     }
-  };
-
-  const handleRemoveDelivery = (index: number) => {
-    setDeliveries((prevDeliveries) => prevDeliveries.filter((_, i) => i !== index));
   };
 
   return (
@@ -219,9 +232,31 @@ export default function Home() {
             <div className="border-b border-stroke px-6.5 py-4 dark:border-dark-3">
               <h3 className="font-semibold text-dark dark:text-white">New Delivery</h3>
             </div>
+            {showErrorMessage && (
+              <div className="bg-red-100 text-red-800 px-4 py-3 rounded mb-4">
+                {errorMessage}
+              </div>
+            )}
             <form onSubmit={handleSubmit}>
-              <div className="p-6.5">
-                <label htmlFor="drivers">Select Driver:</label>
+              <div className="p-6.5 ">
+              <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Route</label>
+                <select
+                  name="route"
+                  value={formData.route}
+                  onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                  disabled={routes.length === 0}
+                >
+                  <option value="" disabled>
+                    {routes.length ? "Select a Route" : "No routes available"}
+                  </option>
+                  {routes.map((route) => (
+                    <option key={route.route_id} value={route.route_id}>
+                      {route.end_point} ({route.distance} km, {route.max_time} min) (Route ID: {route.route_id})
+                    </option>
+                  ))}
+                </select>
+                <label className="pt-3 mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Driver</label>
                 <select
                   id="drivers"
                   name="driver"
@@ -233,7 +268,7 @@ export default function Home() {
                   {availableDrivers && availableDrivers.length > 0 ? (
                     availableDrivers.map((driver) => (
                       <option key={driver.driver_id} value={driver.driver_id}>
-                        {driver.driver_first_name} {driver.driver_last_name}
+                        {driver.driver_first_name} {driver.driver_last_name} (Worked {driver.worked_hours} hours)
                       </option>
                     ))
                   ) : (
@@ -241,7 +276,7 @@ export default function Home() {
                   )}
                 </select>
 
-                <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Assistant Driver</label>
+                <label className="pt-3 mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Assistant Driver</label>
                 <select
                   name="assistant"
                   value={formData.assistant}
@@ -252,7 +287,7 @@ export default function Home() {
                   {availableAssistantDrivers && availableAssistantDrivers.length > 0 ? (
                     availableAssistantDrivers.map((assistant) => (
                       <option key={assistant.ast_driver_id} value={assistant.ast_driver_id}>
-                        {assistant.ast_driver_first_name} {assistant.ast_driver_last_name}
+                        {assistant.ast_driver_first_name} {assistant.ast_driver_last_name} (Worked {assistant.worked_hours} hours)
                       </option>
                     ))
                   ) : (
@@ -260,7 +295,7 @@ export default function Home() {
                   )}
                 </select>
 
-                <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Truck</label>
+                <label className="pt-3 mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Truck</label>
                 <select
                   name="truck"
                   value={formData.truck}
@@ -279,25 +314,7 @@ export default function Home() {
                   )}
                 </select>
 
-                <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">Select Route</label>
-                <select
-                  name="route"
-                  value={formData.route}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-                  disabled={routes.length === 0}
-                >
-                  <option value="" disabled>
-                    {routes.length ? "Select a Route" : "No routes available"}
-                  </option>
-                  {routes.map((route) => (
-                    <option key={route.route_id} value={route.route_id}>
-                      {route.end_point} ({route.distance} km, {route.max_time} min)
-                    </option>
-                  ))}
-                </select>
-
-                <div className="mt-4">
+                <div className="pt-3 mt-4">
                   <button type="submit" className="bg-primary text-white rounded-full px-4 py-2">
                     Add Delivery
                   </button>
@@ -355,6 +372,7 @@ export default function Home() {
 
         </div>
       </div>
+      
     </DashboardLayout>
   );
 }
