@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import PercentageBar from "@/components/PercentageBar";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface TrainDetail {
   train_id: number;
@@ -261,6 +262,7 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Train Delivery Details" />
       <div className="p-6 bg-white shadow-lg rounded-lg dark:bg-gray-dark dark:shadow-card">
         <h2 className="text-xl font-bold mb-4 text-dark dark:text-white">Train Details</h2>
         

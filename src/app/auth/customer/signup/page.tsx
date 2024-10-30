@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import LoginLayout from "@/components/Layouts/LoginLayout";
 
 const CustomerSignup = () => {
   const router = useRouter();
@@ -65,7 +65,7 @@ const CustomerSignup = () => {
   };
 
   return (
-    <DefaultLayout>
+    <LoginLayout>
       <Breadcrumb pageName="Customer Signup" />
 
       <form onSubmit={handleSubmit}>
@@ -219,7 +219,7 @@ const CustomerSignup = () => {
           </div>
         </div>
       </form>
-    </DefaultLayout>
+    </LoginLayout>
   );
 };
 

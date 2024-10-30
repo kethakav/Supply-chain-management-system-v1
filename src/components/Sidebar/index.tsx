@@ -26,7 +26,7 @@ const menuItemsByUserType = {
   ],
   financeManager: [
     { label: "Pending Orders", route: "/dashboard/finance/pending-orders" },
-    { label: "Confirmed Orders", route: "/dashboard/finance/confirmed-orders" },
+    // { label: "Confirmed Orders", route: "/dashboard/finance/confirmed-orders" },
     { label: "Trains", route: "/dashboard/finance/trains" },
     { label: "Train Deliveries", route: "/dashboard/finance/train-deliveries" },
 
@@ -51,7 +51,7 @@ const menuItemsByUserType = {
     // { label: "Hours Worked", route: "/dashboard/assistant-driver/hours" },
   ],
   customer: [
-    { label: "Overview", route: "/dashboard/customer/overview" },
+    { label: "Products", route: "/dashboard/customer/products" },
     { label: "Active Orders", route: "/dashboard/customer/orders" },
     { label: "Order History", route: "/dashboard/customer/history" },
     { label: "Your Cart", route: "/dashboard/customer/cart" },
@@ -87,29 +87,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         }`}
       >
         {/* <!-- SIDEBAR HEADER --> */}
-        <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 xl:py-10">
+        <div className="flex items-center justify-between gap-2 px-8 py-5.5 lg:py-6.5 xl:py-9">
           <Link href="/">
-            {/* <Image
+            <Image
               width={176}
               height={32}
-              src={"/images/logo/logo-dark.svg"}
+              src={"/images/logo/Logo Complete.svg"}
               alt="Logo"
               priority
               className="dark:hidden"
               style={{ width: "auto", height: "auto" }}
-            /> */}
-            {/* <Image
+            />
+            <Image
               width={176}
               height={32}
-              src={"/images/logo/logo.svg"}
+              src={"/images/logo/logo complete light.svg"}
               alt="Logo"
               priority
               className="hidden dark:block"
               style={{ width: "auto", height: "auto" }}
-            /> */}
-            <h1 className="mb-0.5 text-heading-5 font-bold text-dark dark:text-white">
-              Dashboard
-            </h1>
+            />
+        
           </Link>
 
           <button

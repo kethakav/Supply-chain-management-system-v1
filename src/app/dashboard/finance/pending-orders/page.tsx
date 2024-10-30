@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import Link from "next/link"; // Import Link for dynamic routing
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface OrderData {
     order_id: number;
@@ -91,11 +92,9 @@ export default function Home() {
 
     return (
         <DashboardLayout>
+            <Breadcrumb pageName="Pending Orders" />
             <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
-                <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
-                    Orders Pending Confirmation
-                </h4>
-
+                
                 <div className="flex flex-col">
                     <div className="grid grid-cols-4 sm:grid-cols-6">
                         <div className="px-2 pb-3.5">

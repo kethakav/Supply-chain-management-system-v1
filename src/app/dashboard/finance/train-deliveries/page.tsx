@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link'; // Import Link from next/link
 import DashboardLayout from '@/components/Layouts/DashboardLayout';
 import PercentageBar from '@/components/PercentageBar'; // Import the PercentageBar component
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 
 type Train = {
   train_delivery_id: number;
@@ -39,10 +40,11 @@ const TrainTable = () => {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Train Deliveries" />
       <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
-        <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
+        {/* <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
           Train Schedule
-        </h4>
+        </h4> */}
 
         <div className="flex flex-col">
           <div className="grid grid-cols-8">

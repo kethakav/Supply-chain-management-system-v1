@@ -45,7 +45,7 @@ const DashboardPage = () => {
         manager: "/dashboard/store/overview",
         driver: "/dashboard/driver/deliveries",
         assistantDriver: "/dashboard/assistant-driver/deliveries",
-        customer: "/dashboard/customer/overview",
+        customer: "/dashboard/customer/products",
       };
 
       // Redirect to the appropriate overview page

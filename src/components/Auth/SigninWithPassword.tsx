@@ -159,7 +159,7 @@ export default function SigninWithPassword() {
       <p className="text-center text-base">
         Don't have an account?{" "}
         <Link
-          href="/auth/signup"
+          href="/auth/customer/signup"
           className="text-primary hover:underline"
         >
           Sign Up
