@@ -38,13 +38,13 @@ const OrderStatus: React.FC<OrderStatusProps> = ({
 
   return (
     <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-1 dark:bg-gray-dark">
-      <h2 className="text-lg font-bold mb-4">Order ID: {orderId}</h2>
-      <div className="mb-4">
+      {/* <h2 className="text-lg font-bold mb-4">Order Status</h2> */}
+      {/* <div className="mb-4">
         <p><strong>Ordered Date:</strong> {new Date(orderedDateTime).toLocaleString()}</p>
         <p><strong>Total Amount:</strong> ${totalAmount}</p>
         <p><strong>Expected Delivery:</strong> {new Date(expectingDeliveryDate).toLocaleDateString()}</p>
         <p><strong>Order Capacity:</strong> {orderCapacity}</p>
-      </div>
+      </div> */}
       <div className="flex w-full max-w-4xl items-center justify-between">
         {stages.map((stage, index) => (
           <div className="flex items-center flex-1" key={stage}>

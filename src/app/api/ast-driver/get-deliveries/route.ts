@@ -3,14 +3,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse, NextRequest } from 'next/server';
 import mysql from 'mysql2/promise';
-
-// Create a MySQL connection pool
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-});
+import pool from '@/utils/db/pool';
 
 // Define the API endpoint to get assigned deliveries for a driver
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -18,6 +11,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log(driver_id);
 
     try {
+        if (!pool) {
+            throw new Error('Database connection pool is not initialized.');
+        }
         const [rows] = await pool.query(`CALL GetAssignedDeliveriesForAssistantDriver(${driver_id})`);
         console.log(rows);
         return NextResponse.json(rows, { status: 200 }); // Use NextResponse for the response

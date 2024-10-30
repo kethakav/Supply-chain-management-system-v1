@@ -52,9 +52,9 @@ const menuItemsByUserType = {
   ],
   customer: [
     { label: "Overview", route: "/dashboard/customer/overview" },
-    { label: "Order Status", route: "/dashboard/customer/orders" },
+    { label: "Active Orders", route: "/dashboard/customer/orders" },
     { label: "Order History", route: "/dashboard/customer/history" },
-    { label: "Cart", route: "/dashboard/customer/cart" },
+    { label: "Your Cart", route: "/dashboard/customer/cart" },
   ],
 };
 
