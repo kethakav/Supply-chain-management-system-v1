@@ -613,7 +613,7 @@ export default function StoreDetails({
 
                 <div className="mt-5">
                     <ButtonDefault 
-                        label="Add Assistant Driver" 
+                        label="Add Truck" 
                         onClick={handleAddTruck}
                         customClasses="bg-green text-white rounded-full px-8 py-3"
                     />

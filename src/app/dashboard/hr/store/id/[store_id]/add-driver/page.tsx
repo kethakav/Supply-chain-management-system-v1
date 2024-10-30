@@ -192,7 +192,7 @@ const AddStoreManager = () => {
                   }`}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Adding Manager..." : "Add Manager"}
+                  {isLoading ? "Adding Driver..." : "Add Driver"}
                 </button>
               </div>
             </div>
