@@ -66,7 +66,9 @@ const RetailerSignup = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="WholeSaler Signup" />
+
+      <Breadcrumb pageName="Wholesaler Signup" />
+
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">

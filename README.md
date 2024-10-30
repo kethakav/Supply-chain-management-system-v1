@@ -33,28 +33,43 @@ To install the dependencies and set up the project locally, follow these steps:
    yarn install
    ```
 
+4. Set up the environment variables:
+
+   Create a `.env.local` file in the root of your project and add the following configuration:
+
+   ```env
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASS="1234"
+   DB_NAME=scms-2
+   ```
+
+   Make sure to replace the values with your actual database credentials if they differ.
+
 ## Usage
 
 To run the project, use the following commands:
 
 ### Development
+
 ```bash
 npm run dev
-or
+# or
 yarn dev
-or 
+# or 
 pnpm dev
-or 
+# or 
 bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 ### Production
+
 ```bash
 npm run build
 npm run start
-or 
+# or 
 yarn start
 ```
 
