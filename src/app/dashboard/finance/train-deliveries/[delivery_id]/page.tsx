@@ -5,6 +5,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import PercentageBar from "@/components/PercentageBar";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader";
 
 interface TrainDetail {
   train_id: number;
@@ -230,11 +231,7 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
 
   if (loading) {
     return (
-      <DashboardLayout>
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-lg">Loading train details...</div>
-        </div>
-      </DashboardLayout>
+      <Loader />
     );
   }
 

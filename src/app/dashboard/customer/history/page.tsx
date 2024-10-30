@@ -5,6 +5,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Link from "next/link"; // Import Link from next/link
+import Loader from "@/components/common/Loader";
 
 interface Order {
   order_id: string;
@@ -55,6 +56,12 @@ export default function Home() {
 
     fetchOrderHistory();
   }, []);
+
+  if (loading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <>

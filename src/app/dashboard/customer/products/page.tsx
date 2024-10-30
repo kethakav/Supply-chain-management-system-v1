@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/Layouts/DashboardLayout';
 import Image from 'next/image';
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from '@/components/common/Loader';
 
 interface Product {
   product_id: number;
@@ -91,11 +92,7 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <DashboardLayout>
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-        </div>
-      </DashboardLayout>
+      <Loader />
     );
   }
 

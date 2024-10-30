@@ -5,6 +5,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonDefault from "@/components/Buttons/ButtonDefault"; // Assuming you have a button component
+import Loader from "@/components/common/Loader";
 
 interface Order {
   order_id: number;
@@ -57,6 +58,12 @@ export default function Home() {
 
     fetchUnconfirmedOrders();
   }, []);
+
+  if (loading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <DashboardLayout>

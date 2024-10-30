@@ -6,6 +6,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import Link from "next/link"; // Import Link for dynamic routing
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader";
 
 interface OrderData {
     order_id: number;
@@ -87,8 +88,10 @@ export default function Home() {
     };
 
     if (loading) {
-        return <div>Loading...</div>; // Customize your loading state here
-    }
+        return (
+          <Loader />
+        );
+      }
 
     return (
         <DashboardLayout>

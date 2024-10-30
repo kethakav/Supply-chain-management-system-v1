@@ -5,6 +5,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import Loader from "@/components/common/Loader";
 
 
 interface ManagerData {
@@ -73,8 +74,10 @@ export default function HRDashboard() {
     };
 
     if (loading) {
-        return <div>Loading...</div>; // Show loading message while data is being fetched
-    }
+        return (
+          <Loader />
+        );
+      }
 
     return (
         <DashboardLayout>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader";
 // Define interfaces
 interface CartProduct {
   customer_id: number;
@@ -64,12 +65,7 @@ const RouteSelector = ({ routeID, setRouteID, storeID }: { routeID: number | nul
 
   if (loading) {
     return (
-      <div className="mb-4">
-        <label className="block text-dark dark:text-white mb-2">Route</label>
-        <select disabled className="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white">
-          <option>Loading routes...</option>
-        </select>
-      </div>
+      <Loader />
     );
   }
 

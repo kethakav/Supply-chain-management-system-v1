@@ -7,6 +7,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import { useRouter } from 'next/navigation';
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader";
 
 
 interface StoreData {
@@ -317,7 +318,11 @@ export default function StoreDetails({
         router.push(`/dashboard/hr/store/id/${params.store_id}/add-truck`);
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) {
+        return (
+          <Loader />
+        );
+      }
     if (!store) return <div>Store not found</div>;
 
     return (

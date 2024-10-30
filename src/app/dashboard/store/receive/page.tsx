@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import SwitcherOne from "@/components/FormElements/Switchers/SwitcherOne";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader";
 
 interface OrderData {
     orderId: number;
@@ -115,7 +116,11 @@ export default function Home() {
         }
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+        return (
+          <Loader />
+        );
+      }
 
     return (
         <DashboardLayout>

@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { useEffect, useState } from "react";
 import Link from 'next/link';
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Loader from "@/components/common/Loader";
 
 interface StoreData {
     store_id: number;
@@ -35,8 +36,10 @@ export default function HRDashboard() {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
-    }
+        return (
+          <Loader />
+        );
+      }
 
     return (
         <DashboardLayout>
