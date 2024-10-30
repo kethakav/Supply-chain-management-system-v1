@@ -1,18 +1,16 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
+import pool from '@/utils/db/pool';
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
 
 export async function POST(req: Request) {
   try {
     const { driver_id } = await req.json();
     console.log(driver_id);
 
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+  }
     // Call the stored procedure to get assigned deliveries for the driver
     const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL GetAssignedDeliveriesForDriver(?)', [driver_id]);
 

@@ -3,7 +3,6 @@ import mysql from 'mysql2/promise';
 import argon2 from 'argon2';
 import pool from '@/utils/db/pool';
 
-
 export async function POST(req: Request) {
     console.log(process.env.DB_HOST);
     const { username, fm_email, password, fm_first_name, fm_last_name, fm_contact } = await req.json();
