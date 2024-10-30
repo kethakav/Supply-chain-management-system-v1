@@ -1,21 +1,16 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import argon2 from 'argon2';
-
-
-// Create a MySQL connection pool
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-});
+import pool from '@/utils/db/pool';
 
 export async function POST(req: Request) {
     const { id } = await req.json();
 
     try {
         // Step 3: Fetch the newly created user data
+        if (!pool) {
+            throw new Error('Database connection pool is not initialized.');
+        }
         const [userData] = await pool.query<mysql.RowDataPacket[]>(
             `SELECT 
                 customer_id,
