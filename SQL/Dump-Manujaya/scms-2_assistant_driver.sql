@@ -1,0 +1,62 @@
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+--
+-- Host: localhost    Database: scms-2
+-- ------------------------------------------------------
+-- Server version	8.0.39
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `assistant_driver`
+--
+
+DROP TABLE IF EXISTS `assistant_driver`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `assistant_driver` (
+  `ast_driver_id` int NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(20) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `ast_driver_first_name` varchar(100) DEFAULT NULL,
+  `ast_driver_last_name` varchar(100) DEFAULT NULL,
+  `ast_driver_contact` int DEFAULT NULL,
+  `ast_driver_email` varchar(200) DEFAULT NULL,
+  `ast_driver_image_url` varchar(500) DEFAULT NULL,
+  `store_id` int DEFAULT NULL,
+  `worked_hours` int DEFAULT NULL,
+  `availability` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`ast_driver_id`),
+  KEY `store_id` (`store_id`),
+  CONSTRAINT `assistant_driver_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `assistant_driver`
+--
+
+LOCK TABLES `assistant_driver` WRITE;
+/*!40000 ALTER TABLE `assistant_driver` DISABLE KEYS */;
+INSERT INTO `assistant_driver` VALUES (20,'astdr1','$argon2id$v=19$m=65536,t=3,p=4$RcQHVIZ2Xw0vWI9wkM+pxA$n24YdZozBGHNI4imRpz4ZJS6Oiyha092hlUwECtookw','AssistentDriver','harshila',783764064,'gayathri@gmail.com',NULL,1,0,0),(21,'astdr2','$argon2id$v=19$m=65536,t=3,p=4$mGiyZVnVJ089XWm/kh0cCg$2Huimepz9zLWtkJhDCvdpFjVDPUfUF9q8vL4SeCzsag','AstDr2','harshila',783764064,'gayathri@gmail.com',NULL,2,0,1),(23,'Kaveesha','$argon2id$v=19$m=65536,t=3,p=4$o9t3kFv1/HyKifDIaPycGA$WBijXX+GeQs13orFYbWtunDUanAMiH1Q3K7AOh/LhC0','kaveesha','priyanjith',115248789,'kaveesha@gmail.com',NULL,1,30,1);
+/*!40000 ALTER TABLE `assistant_driver` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-10-30 22:15:19
