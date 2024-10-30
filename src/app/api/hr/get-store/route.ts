@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
-
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
+import pool from '@/utils/db/pool';
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -20,6 +14,9 @@ export async function GET(req: Request) {
   }
 
   try {
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+    }
     const [rows] = await pool.query<mysql.RowDataPacket[]>(
       'SELECT * FROM store WHERE store_id = ?',
       [store_id]

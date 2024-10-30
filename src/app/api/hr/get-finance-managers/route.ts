@@ -2,17 +2,15 @@
 
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
+import pool from '@/utils/db/pool';
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
 
 export async function GET() {
   try {
     // Call the stored procedure to get all finance and order managers
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+    }
     const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL GetAllFinanceOrderManagers()');
 
     // Assuming the procedure returns the results in the first result set
