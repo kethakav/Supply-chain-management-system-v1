@@ -3,6 +3,7 @@
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { useEffect, useState } from "react";
 import Link from 'next/link';
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface StoreData {
     store_id: number;
@@ -39,6 +40,7 @@ export default function HRDashboard() {
 
     return (
         <DashboardLayout>
+            <Breadcrumb pageName="Store Management"></Breadcrumb>
             <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
                 <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
                     Store Managers
