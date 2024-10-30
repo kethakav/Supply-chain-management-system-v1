@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
+import pool from '@/utils/db/pool';
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-});
 
 export async function POST(req: Request) {
     try {
@@ -14,7 +9,9 @@ export async function POST(req: Request) {
         
         // Log the incoming data for debugging
         console.log('Received:', { order_id, train_delivery_id });
-
+        if (!pool) {
+            throw new Error('Database connection pool is not initialized.');
+        }
         // Call the stored procedure
         await pool.query('CALL remove_orders_from_train(?, ?)', [order_id, train_delivery_id]);
 
