@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import DashboardLayout from '@/components/Layouts/DashboardLayout';
 import PercentageBar from '@/components/PercentageBar';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 
 type Delivery = {
   delivery_id: number;
@@ -51,6 +52,7 @@ const TruckTable = () => {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName='Deliveries' />
       <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
         <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
           Truck Deliveries
