@@ -965,3 +965,100 @@ BEGIN
 	VALUES (in_truck_id,in_driver_id,in_ast_driver_id,in_route_id,in_store_id ) ;
 END //
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetDeliveriesByStoreID(IN storeId INT)
+BEGIN
+    SELECT *
+    FROM Truck_Delivery
+    WHERE store_id = storeId and sent_datetime is null;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetOrdersByTruckDeliveryId(IN p_truck_delivery_id INT)
+BEGIN
+    SELECT *
+    FROM Orders
+    WHERE delivery_id = p_truck_delivery_id and recieved_to_store = true and delivered_confirmation = false;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetTruckDeliveryDetails(IN truck_delivery_id INT)
+BEGIN
+    SELECT 
+        td.delivery_id,
+        td.sent_datetime,
+        td.compleated AS completed,
+        t.truck_id,
+        t.vehicle_number,
+        t.availability AS truck_availability,
+        d.driver_id,
+        CONCAT(d.driver_first_name, ' ', d.driver_last_name) AS driver_name,
+        d.driver_contact AS driver_contact,
+        ad.ast_driver_id,
+        CONCAT(ad.ast_driver_first_name, ' ', ad.ast_driver_last_name) AS assistant_driver_name,
+        ad.ast_driver_contact AS assistant_driver_contact,
+        r.route_id,
+        r.end_point AS route_end_point,
+        r.route_description,
+        r.distance AS route_distance,
+        r.max_time AS route_max_time,
+        s.store_id,
+        s.store_city AS store_city,
+        s.truck_count AS store_truck_count
+    FROM 
+        Truck_Delivery td
+    JOIN 
+        Truck t ON td.truck_id = t.truck_id
+    LEFT JOIN 
+        Driver d ON td.driver_id = d.driver_id
+    LEFT JOIN 
+        Assistant_Driver ad ON td.ast_driver_id = ad.ast_driver_id
+    JOIN 
+        Route r ON td.route_id = r.route_id
+    JOIN 
+        Store s ON td.store_id = s.store_id
+    WHERE 
+        td.delivery_id = truck_delivery_id;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetDeliveredOrdersOnCurrentDelivery(IN deliveryId INT)
+BEGIN
+    SELECT 
+        o.order_id,
+        o.customer_id,
+        c.customer_first_name,
+        c.customer_last_name,
+        o.ordered_date_time,
+        o.total_amount,
+        o.order_capacity,
+        o.expecting_delivery_date,
+        p.product_id,
+        p.product_name,
+        op.quantity,
+        op.price AS unit_price,
+        (op.quantity * op.price) AS total_product_price
+    FROM 
+        Orders o
+    INNER JOIN 
+        Ordered_products op ON o.order_id = op.order_id
+    INNER JOIN 
+        Product p ON op.product_id = p.product_id
+    INNER JOIN 
+        Customer c ON o.customer_id = c.customer_id
+    WHERE 
+        o.delivery_id = deliveryId and o.delivered_confirmation = true;
+END //
+
+DELIMITER ;
