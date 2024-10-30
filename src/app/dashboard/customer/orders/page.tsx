@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
 import OrderStatus from "@/components/OrderStatus";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 interface Order {
   order_id: number;
@@ -87,6 +88,7 @@ export default function Home() {
 
   return (
     <DashboardLayout>
+      <Breadcrumb pageName="Order" />
       {orders.length > 0 ? (
         orders.map((order) => (
           <OrderStatus
