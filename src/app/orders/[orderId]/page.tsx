@@ -11,6 +11,7 @@ interface OrderDetails {
   customer_first_name: string;
   customer_last_name: string;
   customer_address: string;
+  customer_contact: number;
   ordered_date_time: string;
   total_amount: number;
   order_capacity: number;
@@ -89,6 +90,7 @@ async function fetchOrderDetails(orderId: number): Promise<OrderDetails> {
     customer_first_name: firstItem.customer_first_name,
     customer_last_name: firstItem.customer_last_name,
     customer_address: firstItem.customer_address,
+    customer_contact: firstItem.customer_contact,
     ordered_date_time: firstItem.ordered_date_time,
     total_amount: firstItem.total_amount,
     order_capacity: firstItem.order_capacity,
@@ -168,6 +170,7 @@ const OrderPage = ({ params }: { params: { orderId: number } }) => {
             <div className="space-y-2">
               <p><span className="font-medium">Name:</span> {orderDetails.customer_first_name} {orderDetails.customer_last_name}</p>
               <p><span className="font-medium">Address:</span> {orderDetails.customer_address}</p>
+              <p><span className="font-medium">Contact No:</span> {orderDetails.customer_contact}</p>
               <p><span className="font-medium">Customer ID:</span> {orderDetails.customer_id}</p>
             </div>
           </div>

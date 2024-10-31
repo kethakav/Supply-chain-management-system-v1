@@ -14,6 +14,7 @@ interface OrderData {
     ordered_date_time: string;
     total_amount: number;
     payment_documents: string;
+    nearest_store_id: number;
     // Additional fields can be added here as needed
 }
 
@@ -99,7 +100,7 @@ export default function Home() {
             <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
                 
                 <div className="flex flex-col">
-                    <div className="grid grid-cols-4 sm:grid-cols-6">
+                    <div className="grid grid-cols-4 sm:grid-cols-7">
                         <div className="px-2 pb-3.5">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">
                                 Order ID
@@ -113,6 +114,11 @@ export default function Home() {
                         <div className="px-2 pb-3.5 text-center">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">
                                 Customer
+                            </h5>
+                        </div>
+                        <div className="px-2 pb-3.5 text-center">
+                            <h5 className="text-sm font-medium uppercase xsm:text-base">
+                                Store ID
                             </h5>
                         </div>
                         <div className="hidden px-2 pb-3.5 text-center sm:block">
@@ -134,7 +140,7 @@ export default function Home() {
 
                     {orders.map((order) => (
                         <div
-                            className={`grid grid-cols-4 sm:grid-cols-6 border-b border-stroke dark:border-dark-3`}
+                            className={`grid grid-cols-4 sm:grid-cols-7 border-b border-stroke dark:border-dark-3`}
                             key={order.order_id}
                         >
                             <div className="flex items-center gap-3.5 px-2 py-4">
@@ -154,6 +160,12 @@ export default function Home() {
                             <div className="flex items-center justify-center px-2 py-4">
                                 <p className="font-medium text-dark dark:text-white">
                                     {order.customer_id}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center justify-center px-2 py-4">
+                                <p className="font-medium text-dark dark:text-white">
+                                    {order.nearest_store_id}
                                 </p>
                             </div>
 

@@ -50,21 +50,18 @@ export default function HRDashboard() {
                 </h4>
 
                 <div className="flex flex-col">
-                    <div className="grid grid-cols-3 sm:grid-cols-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-2">
                         <div className="px-2 pb-3.5">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Store ID</h5>
                         </div>
                         <div className="px-2 pb-3.5">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Store City</h5>
                         </div>
-                        <div className="px-2 pb-3.5">
-                            <h5 className="text-sm font-medium uppercase xsm:text-base">Truck Count</h5>
-                        </div>
                     </div>
                     {managers.map((manager, key) => (
                         <Link href={`/dashboard/hr/store/id/${manager.store_id}`} key={manager.store_id}>
                             <div
-                                className={`grid grid-cols-3 sm:grid-cols-3 ${
+                                className={`grid grid-cols-2 sm:grid-cols-2 ${
                                     key === managers.length - 1 ? "" : "border-b border-stroke dark:border-dark-3"
                                 }`}
                             >
@@ -73,9 +70,6 @@ export default function HRDashboard() {
                                 </div>
                                 <div className="flex items-center gap-3.5 px-2 py-4">
                                     <p className="font-medium text-dark dark:text-white">{manager.store_city}</p>
-                                </div>
-                                <div className="flex items-center gap-3.5 px-2 py-4">
-                                    <p className="font-medium text-dark dark:text-white">{manager.truck_count}</p>
                                 </div>
                             </div>
                         </Link>

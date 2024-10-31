@@ -61,7 +61,7 @@ const TruckTable = () => {
         </h4>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-8">
+          <div className="grid grid-cols-7">
             <div className="px-2 pb-3.5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">Delivery ID</h5>
             </div>
@@ -74,9 +74,7 @@ const TruckTable = () => {
             <div className="px-2 pb-3.5 text-center">
               <h5 className="text-sm font-medium uppercase xsm:text-base">Destination</h5>
             </div>
-            <div className="px-2 pb-3.5 text-center">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">Route Description</h5>
-            </div>
+
             <div className="px-2 pb-3.5 text-center">
               <h5 className="text-sm font-medium uppercase xsm:text-base">Distance</h5>
             </div>
@@ -90,7 +88,7 @@ const TruckTable = () => {
 
           {deliveries.map((delivery) => (
             <Link href={`/dashboard/assistant-driver/deliveries/truck-deliveries/${delivery.delivery_id}`} key={delivery.delivery_id}>
-              <div className="grid grid-cols-8 border-b border-stroke dark:border-dark-3 cursor-pointer hover:bg-gray-100">
+              <div className="grid grid-cols-7 border-b border-stroke dark:border-dark-3 cursor-pointer hover:bg-gray-100">
                 <div className="flex items-center gap-3.5 px-2 py-4">
                   <p className="font-medium text-dark dark:text-white">{delivery.delivery_id}</p>
                 </div>
@@ -103,9 +101,7 @@ const TruckTable = () => {
                 <div className="flex items-center justify-center px-2 py-4">
                   <p className="font-medium text-dark dark:text-white">{delivery.destination}</p>
                 </div>
-                <div className="flex items-center justify-center px-2 py-4">
-                  <p className="font-medium text-dark dark:text-white">{delivery.route_description}</p>
-                </div>
+  
                 <div className="flex items-center justify-center px-2 py-4">
                   <p className="font-medium text-dark dark:text-white">{delivery.distance}</p>
                 </div>

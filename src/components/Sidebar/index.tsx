@@ -39,6 +39,7 @@ const menuItemsByUserType = {
     // { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },
     { label: "Delivery Scheduling", route: "/dashboard/store/scheduling" },
     { label: "Working Hours", route: "/dashboard/store/working-hours" },
+    { label: "Order History", route: "/dashboard/store/history" },
   ],
   driver: [
     // { label: "Overview", route: "/dashboard/driver/overview" },

@@ -139,9 +139,9 @@ export default function ProductsPage() {
                   <span className="text-lg font-bold text-blue-600">
                     ${product.product_price.toLocaleString()}
                   </span>
-                  <span className="text-sm text-gray-600">
+                  {/* <span className="text-sm text-gray-600">
                     Stock: {product.Product_capacity}
-                  </span>
+                  </span> */}
                 </div>
 
                 <div className="flex items-center mb-2">

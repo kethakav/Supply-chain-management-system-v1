@@ -313,13 +313,10 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
               <strong className="text-dark dark:text-white">Route Distance:</strong> {truckDetail.route_distance} km
             </div>
             <div className="mb-4">
-              <strong className="text-dark dark:text-white">Max Time:</strong> {truckDetail.route_max_time} minutes
+              <strong className="text-dark dark:text-white">Max Time:</strong> {truckDetail.route_max_time} hours
             </div>
             <div className="mb-4">
               <strong className="text-dark dark:text-white">Store City:</strong> {truckDetail.store_city}
-            </div>
-            <div className="mb-4">
-              <strong className="text-dark dark:text-white">Store Truck Count:</strong> {truckDetail.store_truck_count}
             </div>
           </div>
         </div>
@@ -341,7 +338,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
             </h4>
 
             <div className="flex flex-col">
-                <div className="grid grid-cols-6">
+                <div className="grid grid-cols-7">
                 <div className="px-2 pb-3.5">
                     <h5 className="text-sm font-medium uppercase xsm:text-base">Order ID</h5>
                 </div>
@@ -358,42 +355,51 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                     <h5 className="text-sm font-medium uppercase xsm:text-base">Store ID</h5>
                 </div>
                 <div className="px-2 pb-3.5 text-center">
-                    <h5 className="text-sm font-medium uppercase xsm:text-base">Action</h5>
+                    <h5 className="text-sm font-medium uppercase xsm:text-base">Customer Description</h5>
                 </div>
+                <div className="px-2 pb-3.5 text-center">
+                    <h5 className="text-sm font-medium uppercase xsm:text-base">Actions</h5>
+                </div>
+                {/* <div className="px-2 pb-3.5 text-center">
+                    <h5 className="text-sm font-medium uppercase xsm:text-base">Customer Description</h5>
+                </div> */}
                 </div>
 
                 {assignedOrders.map((order) => (
-                    <div key={order.order_id} className="grid grid-cols-6 border-b border-stroke dark:border-dark-3 cursor-pointer hover:bg-gray-100">
-                        <Link href={`/orders/${order.order_id}`} className="col-span-5">
-                            <div className="grid grid-cols-5">
-                                <div className="flex items-center gap-3.5 px-2 py-4">
-                                    <p className="font-medium text-dark dark:text-white">{order.order_id}</p>
-                                </div>
-                                <div className="flex items-center justify-center px-2 py-4">
-                                    <p className="font-medium text-dark dark:text-white">
-                                        {new Date(order.ordered_date_time).toLocaleDateString()}
-                                    </p>
-                                </div>
-                                <div className="flex items-center justify-center px-2 py-4">
-                                    <p className="font-medium text-dark dark:text-white">{order.customer_id}</p>
-                                </div>
-                                <div className="flex items-center justify-center px-2 py-4">
-                                    <p className="font-medium text-dark dark:text-white">${order.total_amount}</p>
-                                </div>
-                                <div className="flex items-center justify-center px-2 py-4">
-                                    <p className="font-medium text-dark dark:text-white">{order.nearest_store_id}</p>
-                                </div>
-                            </div>
-                        </Link>
-                        <div className="flex items-center justify-center px-2 py-4">
-                            <ButtonDefault 
-                                label="Confirm Delivery" 
-                                onClick={() => confirmOrder(order.order_id)}
-                                customClasses="bg-primary text-white rounded-full px-4 py-2"
-                            />
-                        </div>
-                    </div>
-                ))}
+                  <div key={order.order_id} className="grid grid-cols-7 border-b border-stroke dark:border-dark-3 cursor-pointer hover:bg-gray-100">
+                      <Link href={`/orders/${order.order_id}`} className="col-span-6">
+                          <div className="grid grid-cols-6">
+                              <div className="flex items-center gap-3.5 px-2 py-4">
+                                  <p className="font-medium text-dark dark:text-white">{order.order_id}</p>
+                              </div>
+                              <div className="flex items-center justify-center px-2 py-4">
+                                  <p className="font-medium text-dark dark:text-white">
+                                      {new Date(order.ordered_date_time).toLocaleDateString()}
+                                  </p>
+                              </div>
+                              <div className="flex items-center justify-center px-2 py-4">
+                                  <p className="font-medium text-dark dark:text-white">{order.customer_id}</p>
+                              </div>
+                              <div className="flex items-center justify-center px-2 py-4">
+                                  <p className="font-medium text-dark dark:text-white">${order.total_amount}</p>
+                              </div>
+                              <div className="flex items-center justify-center px-2 py-4">
+                                  <p className="font-medium text-dark dark:text-white">{order.nearest_store_id}</p>
+                              </div>
+                              <div className="flex items-center justify-center px-2 py-4">
+                                  <p className="font-medium text-dark dark:text-white">{order.route_description_input}</p>
+                              </div>
+                          </div>
+                      </Link>
+                      <div className="flex items-center justify-center px-2 py-4">
+                          <ButtonDefault 
+                              label="Confirm Delivery" 
+                              onClick={() => confirmOrder(order.order_id)}
+                              customClasses="bg-primary text-white rounded-full px-4 py-2"
+                          />
+                      </div>
+                  </div>
+              ))}
             </div>
         </div>
 
@@ -416,19 +422,19 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                 </div>
                 <div className="px-2 pb-3.5 text-center">
                     <h5 className="text-sm font-medium uppercase xsm:text-base">Amount</h5>
-                </div>
+                    </div>
                 <div className="px-2 pb-3.5 text-center">
                     <h5 className="text-sm font-medium uppercase xsm:text-base">Store ID</h5>
-                </div>
-                <div className="px-2 pb-3.5 text-center">
-                    <h5 className="text-sm font-medium uppercase xsm:text-base">Action</h5>
+                
+                </div><div className="px-2 pb-3.5 text-center">
+                    <h5 className="text-sm font-medium uppercase xsm:text-base">Customer Descrption</h5>
                 </div>
                 </div>
 
                 {deliveredOrders.map((order) => (
                     <div key={order.order_id} className="grid grid-cols-6 border-b border-stroke dark:border-dark-3 cursor-pointer hover:bg-gray-100">
-                        <Link href={`/orders/${order.order_id}`} className="col-span-5">
-                            <div className="grid grid-cols-5">
+                        <Link href={`/orders/${order.order_id}`} className="col-span-6">
+                            <div className="grid grid-cols-6">
                                 <div className="flex items-center gap-3.5 px-2 py-4">
                                     <p className="font-medium text-dark dark:text-white">{order.order_id}</p>
                                 </div>
@@ -446,15 +452,12 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                                 <div className="flex items-center justify-center px-2 py-4">
                                     <p className="font-medium text-dark dark:text-white">{order.nearest_store_id}</p>
                                 </div>
+                                <div className="flex items-center justify-center px-2 py-4">
+                                    <p className="font-medium text-dark dark:text-white">{order.route_description_input}</p>
+                                </div>
                             </div>
                         </Link>
-                        <div className="flex items-center justify-center px-2 py-4">
-                            <ButtonDefault 
-                                label="Confirm Delivery" 
-                                onClick={() => confirmOrder(order.order_id)}
-                                customClasses="bg-primary text-white rounded-full px-4 py-2"
-                            />
-                        </div>
+                        
                     </div>
                 ))}
             </div>

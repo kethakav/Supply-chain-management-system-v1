@@ -325,9 +325,13 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
             </div>
           </div>
           <div>
-            <div className="mb-4">
+          <div className="mb-4">
+          <div className="mb-4">
+              <strong className="text-dark dark:text-white">Route ID:</strong> {truckDetail.route_id}
+            </div>
               <strong className="text-dark dark:text-white">Route End Point:</strong> {truckDetail.route_end_point}
             </div>
+            
             <div className="mb-4">
               <strong className="text-dark dark:text-white">Route Description:</strong> {truckDetail.route_description}
             </div>
@@ -335,7 +339,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
               <strong className="text-dark dark:text-white">Route Distance:</strong> {truckDetail.route_distance} km
             </div>
             <div className="mb-4">
-              <strong className="text-dark dark:text-white">Max Time:</strong> {truckDetail.route_max_time} minutes
+              <strong className="text-dark dark:text-white">Max Time:</strong> {truckDetail.route_max_time} hours
             </div>
             <div className="mb-4">
               <strong className="text-dark dark:text-white">Store City:</strong> {truckDetail.store_city}
@@ -362,7 +366,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                   <th className="px-4 py-2">Date</th>
                   <th className="px-4 py-2">Customer ID</th>
                   <th className="px-4 py-2">Amount</th>
-                  <th className="px-4 py-2">Store ID</th>
+                  <th className="px-4 py-2">Route ID</th>
                   <th className="px-4 py-2">Action</th>
                 </tr>
               </thead>
@@ -373,7 +377,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                     <td className="px-4 py-2 text-center">{new Date(order.ordered_date_time).toLocaleDateString()}</td>
                     <td className="px-4 py-2 text-center">{order.customer_id}</td>
                     <td className="px-4 py-2 text-center">${order.total_amount}</td>
-                    <td className="px-4 py-2 text-center">{order.nearest_store_id}</td>
+                    <td className="px-4 py-2 text-center">{order.route_id}</td>
                     <td className="px-4 py-2 text-center">
                       <ButtonDefault
                         label="Add to truck"
@@ -401,7 +405,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                   <th className="px-4 py-2">Date</th>
                   <th className="px-4 py-2">Customer ID</th>
                   <th className="px-4 py-2">Amount</th>
-                  <th className="px-4 py-2">Store ID</th>
+                  <th className="px-4 py-2">Route ID</th>
                   <th className="px-4 py-2">Action</th>
                 </tr>
               </thead>
@@ -412,7 +416,7 @@ export default function TruckDeliveryDetailsPage({ params }: PageProps) {
                     <td className="px-4 py-2 text-center">{new Date(order.ordered_date_time).toLocaleDateString()}</td>
                     <td className="px-4 py-2 text-center">{order.customer_id}</td>
                     <td className="px-4 py-2 text-center">${order.total_amount}</td>
-                    <td className="px-4 py-2 text-center">{order.nearest_store_id}</td>
+                    <td className="px-4 py-2 text-center">{order.route_id}</td>
                         <td className="px-2 py-3.5 text-center">
                         <ButtonDefault 
                             label="Remove from truck" 

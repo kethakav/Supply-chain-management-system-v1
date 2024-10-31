@@ -318,6 +318,7 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
                   <th className="px-4 py-2">Customer ID</th>
                   <th className="px-4 py-2">Amount</th>
                   <th className="px-4 py-2">Store ID</th>
+                  <th className="px-4 py-2">Capacity</th>
                   <th className="px-4 py-2">Action</th>
                 </tr>
               </thead>
@@ -329,6 +330,7 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
                     <td className="px-4 py-2 text-center">{order.customer_id}</td>
                     <td className="px-4 py-2 text-center">${order.total_amount}</td>
                     <td className="px-4 py-2 text-center">{order.nearest_store_id}</td>
+                    <td className="px-4 py-2 text-center">{order.order_capacity}</td>
                     <td className="px-4 py-2 text-center">
                       <ButtonDefault
                         label="Add to train"
@@ -357,6 +359,7 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
                   <th className="px-4 py-2">Customer ID</th>
                   <th className="px-4 py-2">Amount</th>
                   <th className="px-4 py-2">Store ID</th>
+                  <th className="px-4 py-2">Capacity</th>
                   <th className="px-4 py-2">Action</th>
                 </tr>
               </thead>
@@ -368,6 +371,7 @@ const TrainDetails: React.FC<{ params: { delivery_id: string } }> = ({ params })
                     <td className="px-4 py-2 text-center">{order.customer_id}</td>
                     <td className="px-4 py-2 text-center">${order.total_amount}</td>
                     <td className="px-4 py-2 text-center">{order.nearest_store_id}</td>
+                    <td className="px-4 py-2 text-center">{order.order_capacity}</td>
                         <td className="px-2 py-3.5 text-center">
                         <ButtonDefault 
                             label="Remove from train" 

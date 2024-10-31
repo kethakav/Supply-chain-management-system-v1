@@ -252,7 +252,7 @@ export default function Home() {
                   </option>
                   {routes.map((route) => (
                     <option key={route.route_id} value={route.route_id}>
-                      {route.end_point} ({route.distance} km, {route.max_time} min) (Route ID: {route.route_id})
+                      {route.end_point} ({route.distance} km, {route.max_time} hours) (Route ID: {route.route_id})
                     </option>
                   ))}
                 </select>
