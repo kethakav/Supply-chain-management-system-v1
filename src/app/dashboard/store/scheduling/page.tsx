@@ -197,18 +197,18 @@ export default function Home() {
       } else {
         const result = await response.json();
         console.log(result.message);
-        setDeliveries((prevDeliveries) => [
-          ...prevDeliveries,
-          {
-            delivery_id: Date.now(), // or another unique identifier
-            driver_id: formData.driver,
-            assistant_driver_id: formData.assistant,
-            truck_id: formData.truck,
-            route_id: formData.route,
-            departureDate: formData.departureDate,
-            orders: formData.orders,
-          },
-        ]);
+        // setDeliveries((prevDeliveries) => [
+        //   ...prevDeliveries,
+        //   {
+        //     delivery_id: Date.now(), // or another unique identifier
+        //     driver_id: formData.driver,
+        //     assistant_driver_id: formData.assistant,
+        //     truck_id: formData.truck,
+        //     route_id: formData.route,
+        //     departureDate: formData.departureDate,
+        //     orders: formData.orders,
+        //   },
+        // ]);
         setFormData({
           driver: "",
           assistant: "",
