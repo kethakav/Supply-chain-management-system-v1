@@ -1,56 +1,32 @@
+import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="bg-[url('/images/bg.png')] bg-cover bg-center h-screen relative">
-      {/* Top Navigation Bar */}
-      <nav className="bg-black text-white p-4 fixed w-full shadow-md">
-  <div className="flex justify-center items-center max-w-6xl mx-auto">
-    <div className="text-lg font-bold mr-auto">PrimeScreen</div>
-    <div className="flex space-x-8">
-      <Link href="/" passHref>
-        <button className="relative text-white group py-2 px-4">
-          <span className="absolute inset-0 bg-transparent transition-all duration-300 transform skew-y-2 group-hover:bg-gray-700 rounded-lg" />
-          <span className="relative z-10 transition duration-300 ease-in-out">Home</span>
-        </button>
-      </Link>
-      <Link href="/auth/customer/signup" passHref>
-        <button className="relative text-white-400 group py-2 px-4">
-          <span className="absolute inset-0 bg-transparent transition-all duration-300 transform skew-y-2 group-hover:bg-blue-600 rounded-lg" />
-          <span className="relative z-10 transition duration-300 ease-in-out">Sign up</span>
-        </button>
-      </Link>
-      <Link href="/auth/signin" passHref>
-        <button className="relative text-white-400 group py-2 px-4">
-          <span className="absolute inset-0 bg-transparent transition-all duration-300 transform skew-y-2 group-hover:bg-blue-600 rounded-lg" />
-          <span className="relative z-10 transition duration-300 ease-in-out">Login</span>
-        </button>
-      </Link>
-    </div>
-  </div>
-</nav>
-
-
-
-
-
+    <div className="bg-[url('/images/bg.png')] bg-cover bg-center h-screen relative text-dark-5 dark:text-dark-6">
+      <Header sidebarOpen={false} setSidebarOpen={true} />
 
       {/* Main Content */}
-      <div className="pt-[70px] flex items-start justify-center">
-        <div className="bg-white bg-opacity-80 p-4 rounded-md flex items-center space-x-4  m-10">
-          <img
+      <div className="pt-[80px] flex flex-col items-center justify-center h-full">
+        {/* <div className="bg-white dark:bg-dark-2 bg-opacity-80 p-6 rounded-md flex items-center space-x-4 m-10 shadow-md">
+          <Image
             src="/images/logo/PrimeScreen%20Logo.svg"
             alt="PrimeScreen"
+            width={64}
+            height={64}
             className="w-16 h-16"
           />
-          <h1 className="text-6xl font-bold text-black">
+          <h1 className="text-6xl font-bold text-dark dark:text-dark-6">
             PrimeScreen
           </h1>
-        </div>
+        </div> */}
+        <Link href="/dashboard" passHref>
+          <button className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
+            Go to Dashboard
+          </button>
+        </Link>
       </div>
     </div>
   );
 }
-
-
