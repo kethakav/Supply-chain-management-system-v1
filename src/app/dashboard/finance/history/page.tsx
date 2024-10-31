@@ -26,12 +26,12 @@ export default function Home() {
         const parsedUser = JSON.parse(storedUser);
 
         try {
-          const response = await fetch("/api/store-mg/get-order-history", {
+          const response = await fetch("/api/finance/get-order-history", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ store_id: parsedUser.store_ID }),
+            // body: JSON.stringify({ customer_ID: parsedUser.id }),
           });
 
           if (response.ok) {

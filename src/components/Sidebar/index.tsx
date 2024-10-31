@@ -26,9 +26,11 @@ const menuItemsByUserType = {
   ],
   financeManager: [
     { label: "Pending Orders", route: "/dashboard/finance/pending-orders" },
-    // { label: "Confirmed Orders", route: "/dashboard/finance/confirmed-orders" },
     { label: "Trains", route: "/dashboard/finance/trains" },
     { label: "Train Deliveries", route: "/dashboard/finance/train-deliveries" },
+    { label: "Reports", route: "/dashboard/finance/report" },
+    { label: "History", route: "/dashboard/finance/history" },
+
 
   ],
   manager: [
@@ -36,7 +38,7 @@ const menuItemsByUserType = {
     { label: "Receive Inventory", route: "/dashboard/store/receive" },
     // { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },
     { label: "Delivery Scheduling", route: "/dashboard/store/scheduling" },
-    // { label: "Drivers", route: "/dashboard/store/drivers" },
+    { label: "Working Hours", route: "/dashboard/store/working-hours" },
   ],
   driver: [
     // { label: "Overview", route: "/dashboard/driver/overview" },
