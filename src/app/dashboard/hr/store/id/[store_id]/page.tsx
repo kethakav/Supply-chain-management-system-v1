@@ -334,22 +334,18 @@ export default function StoreDetails({
                 </h4>
                 <p><strong>Store ID:</strong> {store.store_id}</p>
                 <p><strong>City:</strong> {store.store_city}</p>
-                <p><strong>Truck Count:</strong> {store.truck_count}</p>
 
                 <h4 className="mt-8 mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
                     Store Managers
                 </h4>
 
                 <div className="flex flex-col">
-                    <div className="grid grid-cols-6 sm:grid-cols-6">
+                    <div className="grid grid-cols-5 sm:grid-cols-5">
                         <div className="px-2 pb-3.5">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">First Name</h5>
                         </div>
                         <div className="px-2 pb-3.5">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Last Name</h5>
-                        </div>
-                        <div className="px-2 pb-3.5">
-                            <h5 className="text-sm font-medium uppercase xsm:text-base">Store ID</h5>
                         </div>
                         <div className="px-2 pb-3.5 text-center">
                             <h5 className="text-sm font-medium uppercase xsm:text-base">Contact</h5>
@@ -364,7 +360,7 @@ export default function StoreDetails({
 
                     {managers.map((manager, key) => (
                         <div
-                            className={`grid grid-cols-6 sm:grid-cols-6 ${
+                            className={`grid grid-cols-5 sm:grid-cols-5 ${
                                 key === managers.length - 1 ? "" : "border-b border-stroke dark:border-dark-3"
                             }`}
                             key={manager.manager_id}
@@ -375,10 +371,6 @@ export default function StoreDetails({
 
                             <div className="flex items-center gap-3.5 px-2 py-4">
                                 <p className="font-medium text-dark dark:text-white">{manager.manager_last_name}</p>
-                            </div>
-
-                            <div className="flex items-center gap-3.5 px-2 py-4">
-                                <p className="font-medium text-dark dark:text-white">{manager.store_id}</p>
                             </div>
 
                             <div className="flex items-center justify-center px-2 py-4">
