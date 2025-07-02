@@ -1,0 +1,8 @@
+DELIMITER //
+
+CREATE PROCEDURE show_all_stores()
+BEGIN
+	SELECT * FROM store;
+END //
+
+DELIMITER ;

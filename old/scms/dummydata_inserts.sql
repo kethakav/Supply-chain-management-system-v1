@@ -81,127 +81,126 @@ VALUES
 
 -- ******************************************************************************************
 -- Trucks for Colombo (Store ID: 001)
-INSERT INTO Truck (truck_id, store_id, vehicle_number)
+INSERT INTO Truck (truck_id, store_id, vehicle_number, availability)
 VALUES 
-(1, 1, 5678),
-(2, 1, 1234),
-(3, 1, 3456);
+(1, 1, 5678, 1),
+(2, 1, 1234, 1),
+(3, 1, 3456, 1);
 -- Trucks for Negombo (Store ID: 002)
-INSERT INTO Truck (truck_id, store_id, vehicle_number)
+INSERT INTO Truck (truck_id, store_id, vehicle_number, availability)
 VALUES 
-(4, 2, 7890),
-(5, 2, 2345),
-(6, 2, 6789);
+(4, 2, 7890, 1),
+(5, 2, 2345, 1),
+(6, 2, 6789, 1);
 -- Trucks for Galle (Store ID: 003)
-INSERT INTO Truck (truck_id, store_id, vehicle_number)
+INSERT INTO Truck (truck_id, store_id, vehicle_number, availability)
 VALUES 
-(7, 3, 1357),
-(8, 3, 2468),
-(9, 3, 9876);
+(7, 3, 1357, 1),
+(8, 3, 2468, 1),
+(9, 3, 9876, 1);
 -- Trucks for Matara (Store ID: 004)
-INSERT INTO Truck (truck_id, store_id, vehicle_number)
+INSERT INTO Truck (truck_id, store_id, vehicle_number, availability)
 VALUES 
-(10, 4, 5432),
-(11, 4, 8765),
-(12, 4, 1359);
+(10, 4, 5432, 1),
+(11, 4, 8765, 1),
+(12, 4, 1359, 1);
 -- Trucks for Jaffna (Store ID: 005)
-INSERT INTO Truck (truck_id, store_id, vehicle_number)
+INSERT INTO Truck (truck_id, store_id, vehicle_number, availability)
 VALUES 
-(13, 5, 9638),
-(14, 5, 8524),
-(15, 5, 7412);
+(13, 5, 9638, 1),
+(14, 5, 8524, 1),
+(15, 5, 7412, 1);
 -- Trucks for Trincomalee (Store ID: 006)
-INSERT INTO Truck (truck_id, store_id, vehicle_number)
+INSERT INTO Truck (truck_id, store_id, vehicle_number, availability)
 VALUES 
-(16, 6, 9517),
-(17, 6, 8423),
-(18, 6, 7539);
+(16, 6, 9517, 1),
+(17, 6, 8423, 1),
+(18, 6, 7539, 1);
 
 -- ******************************************************************************************
 -- Drivers for Store ID 1 (Colombo)
-INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours)
+INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(1, NULL, NULL, 'Amal', 'Perera', 771234567, 'amal.perera@email.com', NULL, 1, 0),
-(2, NULL, NULL, 'Nimal', 'Fernando', 772345678, 'nimal.fernando@email.com', NULL, 1, 0),
-(13, NULL, NULL, 'Asela', 'Kumara', 779123456, 'asela.kumara@email.com', NULL, 1, 0);  -- New Driver for Store ID 1
+(1, NULL, NULL, 'Amal', 'Perera', 771234567, 'amal.perera@email.com', NULL, 1, 0, 1),
+(2, NULL, NULL, 'Nimal', 'Fernando', 772345678, 'nimal.fernando@email.com', NULL, 1, 0, 1),
+(13, NULL, NULL, 'Asela', 'Kumara', 779123456, 'asela.kumara@email.com', NULL, 1, 0, 1);  -- New Driver for Store ID 1
 
 -- Drivers for Store ID 2 (Negombo)
-INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours)
+INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(3, NULL, NULL, 'Sunil', 'Weerasinghe', 773456789, 'sunil.weerasinghe@email.com', NULL, 2, 0),
-(4, NULL, NULL, 'Saman', 'Jayasinghe', 774567890, 'saman.jayasinghe@email.com', NULL, 2, 0),
-(14, NULL, NULL, 'Chamara', 'Perera', 771234569, 'chamara.perera@email.com', NULL, 2, 0);  -- New Driver for Store ID 2
+(3, NULL, NULL, 'Sunil', 'Weerasinghe', 773456789, 'sunil.weerasinghe@email.com', NULL, 2, 0, 1),
+(4, NULL, NULL, 'Saman', 'Jayasinghe', 774567890, 'saman.jayasinghe@email.com', NULL, 2, 0, 1),
+(14, NULL, NULL, 'Chamara', 'Perera', 771234569, 'chamara.perera@email.com', NULL, 2, 0, 1);  -- New Driver for Store ID 2
 
 -- Drivers for Store ID 3 (Galle)
-INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours)
+INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(5, NULL, NULL, 'Kamal', 'Gunawardena', 775678901, 'kamal.gunawardena@email.com', NULL, 3, 0),
-(6, NULL, NULL, 'Dinesh', 'Ranasinghe', 776789012, 'dinesh.ranasinghe@email.com', NULL, 3, 0),
-(15, NULL, NULL, 'Indika', 'Senanayake', 772345670, 'indika.senanayake@email.com', NULL, 3, 0);  -- New Driver for Store ID 3
+(5, NULL, NULL, 'Kamal', 'Gunawardena', 775678901, 'kamal.gunawardena@email.com', NULL, 3, 0, 1),
+(6, NULL, NULL, 'Dinesh', 'Ranasinghe', 776789012, 'dinesh.ranasinghe@email.com', NULL, 3, 0, 1),
+(15, NULL, NULL, 'Indika', 'Senanayake', 772345670, 'indika.senanayake@email.com', NULL, 3, 0, 1);  -- New Driver for Store ID 3
 
 -- Drivers for Store ID 4 (Matara)
-INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours)
+INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(7, NULL, NULL, 'Ruwan', 'Abeysekara', 777890123, 'ruwan.abeysekara@email.com', NULL, 4, 0),
-(8, NULL, NULL, 'Mahesh', 'Edirisinghe', 778901234, 'mahesh.edirisinghe@email.com', NULL, 4, 0),
-(16, NULL, NULL, 'Sujith', 'Bandara', 773456781, 'sujith.bandara@email.com', NULL, 4, 0);  -- New Driver for Store ID 4
+(7, NULL, NULL, 'Ruwan', 'Abeysekara', 777890123, 'ruwan.abeysekara@email.com', NULL, 4, 0, 1),
+(8, NULL, NULL, 'Mahesh', 'Edirisinghe', 778901234, 'mahesh.edirisinghe@email.com', NULL, 4, 0, 1),
+(16, NULL, NULL, 'Sujith', 'Bandara', 773456781, 'sujith.bandara@email.com', NULL, 4, 0, 1);  -- New Driver for Store ID 4
 
 -- Drivers for Store ID 5 (Jaffna)
-INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours)
+INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(9, NULL, NULL, 'Ajith', 'De Silva', 779012345, 'ajith.desilva@email.com', NULL, 5, 0),
-(10, NULL, NULL, 'Prasanna', 'Rathnayake', 771234568, 'prasanna.rathnayake@email.com', NULL, 5, 0),
-(17, NULL, NULL, 'Ramesh', 'Kumar', 774567892, 'ramesh.kumar@email.com', NULL, 5, 0);  -- New Driver for Store ID 5
+(9, NULL, NULL, 'Ajith', 'De Silva', 779012345, 'ajith.desilva@email.com', NULL, 5, 0, 1),
+(10, NULL, NULL, 'Prasanna', 'Rathnayake', 771234568, 'prasanna.rathnayake@email.com', NULL, 5, 0, 1),
+(17, NULL, NULL, 'Ramesh', 'Kumar', 774567892, 'ramesh.kumar@email.com', NULL, 5, 0, 1);  -- New Driver for Store ID 5
 
 -- Drivers for Store ID 6 (Trincomalee)
-INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours)
+INSERT INTO Driver (driver_id, user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, driver_image_URL, store_ID, worked_hours, availability)
 VALUES
-(11, NULL, NULL, 'Bandara', 'Seneviratne', 772345679, 'bandara.seneviratne@email.com', NULL, 6, 0),
-(12, NULL, NULL, 'Sarath', 'Liyanage', 773456780, 'sarath.liyanage@email.com', NULL, 6, 0),
-(18, NULL, NULL, 'Nuwan', 'Jayalath', 775678903, 'nuwan.jayalath@email.com', NULL, 6, 0);  -- New Driver for Store ID 6
+(11, NULL, NULL, 'Bandara', 'Seneviratne', 772345679, 'bandara.seneviratne@email.com', NULL, 6, 0, 1),
+(12, NULL, NULL, 'Sarath', 'Liyanage', 773456780, 'sarath.liyanage@email.com', NULL, 6, 0, 1),
+(18, NULL, NULL, 'Nuwan', 'Jayalath', 775678903, 'nuwan.jayalath@email.com', NULL, 6, 0, 1);  -- New Driver for Store ID 6
 
 
 -- Assistant Drivers for Store ID 1 (Colombo)
-INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours)
+INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(1, NULL, NULL, 'Ruwan', 'Perera', 761234567, 'ruwan.perera@email.com', NULL, 1, 0),
-(2, NULL, NULL, 'Sarath', 'Fernando', 762345678, 'sarath.fernando@email.com', NULL, 1, 0),
-(13, NULL, NULL, 'Suresh', 'Perera', 764567891, 'suresh.perera@email.com', NULL, 1, 0);  -- New Assistant Driver for Store ID 1
+(1, NULL, NULL, 'Ruwan', 'Perera', 761234567, 'ruwan.perera@email.com', NULL, 1, 0, 1),
+(2, NULL, NULL, 'Sarath', 'Fernando', 762345678, 'sarath.fernando@email.com', NULL, 1, 0, 1),
+(13, NULL, NULL, 'Suresh', 'Perera', 764567891, 'suresh.perera@email.com', NULL, 1, 0, 1);  -- New Assistant Driver for Store ID 1
 
 -- Assistant Drivers for Store ID 2 (Negombo)
-INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours)
+INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(3, NULL, NULL, 'Pradeep', 'Weerasinghe', 763456789, 'pradeep.weerasinghe@email.com', NULL, 2, 0),
-(4, NULL, NULL, 'Thilina', 'Jayasinghe', 764567890, 'thilina.jayasinghe@email.com', NULL, 2, 0),
-(14, NULL, NULL, 'Sanjaya', 'Perera', 765678902, 'sanjaya.perera@email.com', NULL, 2, 0);  -- New Assistant Driver for Store ID 2
+(3, NULL, NULL, 'Pradeep', 'Weerasinghe', 763456789, 'pradeep.weerasinghe@email.com', NULL, 2, 0, 1),
+(4, NULL, NULL, 'Thilina', 'Jayasinghe', 764567890, 'thilina.jayasinghe@email.com', NULL, 2, 0, 1),
+(14, NULL, NULL, 'Sanjaya', 'Perera', 765678902, 'sanjaya.perera@email.com', NULL, 2, 0, 1);  -- New Assistant Driver for Store ID 2
 
 -- Assistant Drivers for Store ID 3 (Galle)
-INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours)
+INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours, availability)
 VALUES 
-(5, NULL, NULL, 'Chathura', 'Gunawardena', 765678901, 'chathura.gunawardena@email.com', NULL, 3, 0),
-(6, NULL, NULL, 'Rasika', 'Ranasinghe', 766789012, 'rasika.ranasinghe@email.com', NULL, 3, 0),
-(15, NULL, NULL, 'Lahiru', 'Perera', 766789013, 'lahiru.perera@email.com', NULL, 3, 0);  -- New Assistant Driver for Store ID 3
+(5, NULL, NULL, 'Chathura', 'Gunawardena', 765678901, 'chathura.gunawardena@email.com', NULL, 3, 0, 1),
+(6, NULL, NULL, 'Rasika', 'Ranasinghe', 766789012, 'rasika.ranasinghe@email.com', NULL, 3, 0, 1),
+(15, NULL, NULL, 'Lahiru', 'Perera', 766789013, 'lahiru.perera@email.com', NULL, 3, 0, 1);  -- New Assistant Driver for Store ID 3
 
 -- Assistant Drivers for Store ID 4 (Matara)
-INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours)
+INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours, availability)
 VALUES
-(7, NULL, NULL, 'Chaminda', 'Abeysekara', 767890123, 'chaminda.abeysekara@email.com', NULL, 4, 0),
-(8, NULL, NULL, 'Upul', 'Edirisinghe', 768901234, 'upul.edirisinghe@email.com', NULL, 4, 0),
-(16, NULL, NULL, 'Saman', 'Perera', 767890124, 'saman.perera@email.com', NULL, 4, 0);  -- New Assistant Driver for Store ID 4
+(7, NULL, NULL, 'Chaminda', 'Abeysekara', 767890123, 'chaminda.abeysekara@email.com', NULL, 4, 0, 1),
+(8, NULL, NULL, 'Upul', 'Edirisinghe', 768901234, 'upul.edirisinghe@email.com', NULL, 4, 0, 1),
+(16, NULL, NULL, 'Saman', 'Perera', 767890124, 'saman.perera@email.com', NULL, 4, 0, 1);  -- New Assistant Driver for Store ID 4
 
 -- Assistant Drivers for Store ID 5 (Jaffna)
-INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours)
+INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours, availability)
 VALUES
-(9, NULL, NULL, 'Kannan', 'Selvarajah', 769012345, 'kannan.selvarajah@email.com', NULL, 5, 0),
-(10, NULL, NULL, 'Sutharsan', 'Murugesu', 761234568, 'sutharsan.murugesu@email.com', NULL, 5, 0),
-(17, NULL, NULL, 'Prasad', 'De Silva', 769012346, 'prasad.desilva@email.com', NULL, 5, 0);  -- New Assistant Driver for Store ID 5
+(9, NULL, NULL, 'Kannan', 'Selvarajah', 769012345, 'kannan.selvarajah@email.com', NULL, 5, 0, 1),
+(10, NULL, NULL, 'Sutharsan', 'Murugesu', 761234568, 'sutharsan.murugesu@email.com', NULL, 5, 0, 1),
+(17, NULL, NULL, 'Prasad', 'De Silva', 769012346, 'prasad.desilva@email.com', NULL, 5, 0, 1);  -- New Assistant Driver for Store ID 5
 
 -- Assistant Drivers for Store ID 6 (Trincomalee)
-INSERT INTO Assistant_Driver (ast_driver_id
-, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours)
+INSERT INTO Assistant_Driver (ast_driver_id, user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, ast_driver_image_URL, store_ID, worked_hours, availability)
 VALUES
-(11, NULL, NULL, 'Rajapaksha', 'Seneviratne', 762345679, 'rajapaksha.seneviratne@email.com', NULL, 6, 0),
-(12, NULL, NULL, 'Kumara', 'Liyanage', 763456780, 'kumara.liyanage@email.com', NULL, 6, 0);
+(11, NULL, NULL, 'Rajapaksha', 'Seneviratne', 762345679, 'rajapaksha.seneviratne@email.com', NULL, 6, 0, 1),
+(12, NULL, NULL, 'Kumara', 'Liyanage', 763456780, 'kumara.liyanage@email.com', NULL, 6, 0, 1);
 
 -- ******************************************************************************************
 -- Routes for Store ID 1 (Colombo)

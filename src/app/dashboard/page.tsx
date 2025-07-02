@@ -36,14 +36,16 @@ const DashboardPage = () => {
       const userData = JSON.parse(storedUser);
       const userType = userData.type;
 
+      console.log(userData);
+
       // Define the redirect paths based on user type
       const redirectPaths: { [key: string]: string } = {
         hrManager: "/dashboard/hr/overview",
-        financeManager: "/dashboard/finance/overview",
-        storeManager: "/dashboard/store/overview",
-        driver: "/dashboard/driver/overview",
-        assistantDriver: "/dashboard/assistant-driver/overview",
-        customer: "/dashboard/customer/overview",
+        financeManager: "/dashboard/finance/pending-orders",
+        manager: "/dashboard/store/overview",
+        driver: "/dashboard/driver/deliveries",
+        assistantDriver: "/dashboard/assistant-driver/deliveries",
+        customer: "/dashboard/customer/products",
       };
 
       // Redirect to the appropriate overview page

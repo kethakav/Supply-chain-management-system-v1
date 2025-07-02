@@ -1,0 +1,16 @@
+DELIMITER //
+
+CREATE FUNCTION count_all_stors() 
+RETURNS INT
+DETERMINISTIC
+BEGIN
+	DECLARE C INT ;
+    
+	SELECT COUNT(*) INTO C
+    FROM store ;
+    
+    RETURN C ;
+    
+END //
+
+DELIMITER ;

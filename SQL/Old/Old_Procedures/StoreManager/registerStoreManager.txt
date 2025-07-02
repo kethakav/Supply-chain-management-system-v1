@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterStoreManager`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO manager (user_name, password, manager_first_name, manager_last_name, manager_contact, manager_email, store_id)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id);
+END

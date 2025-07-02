@@ -73,35 +73,35 @@ const Header: React.FC<HeaderProps> = ({ sidebarOpen, setSidebarOpen }) => {
             </span>
           </button>
 
-          <Link className="block flex-shrink-0 lg:hidden" href="/">
+          {/* <Link className="block flex-shrink-0 lg:hidden" href="/">
             <Image
               width={32}
               height={32}
               src={"/images/logo/logo-icon.svg"}
               alt="Logo"
             />
-          </Link>
+          </Link> */}
         </div>
 
         <div className="hidden xl:block">
           <div>
             <h1 className="mb-0.5 text-heading-5 font-bold text-dark dark:text-white">
-              Dashboard
+              PrimeScreen Dashboard
             </h1>
-            <p className="font-medium">Next.js Admin Dashboard Solution</p>
+            <p className="font-medium">Sri Lanka's best quality TVs</p>
           </div>
         </div>
 
         <div className="flex items-center justify-normal gap-2 2xsm:gap-4 lg:w-full lg:justify-between xl:w-auto xl:justify-normal">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* Search Form */}
-            <SearchForm />
+            {/* <SearchForm /> */}
 
             {/* Dark Mode Toggle */}
             <DarkModeSwitcher />
 
             {/* Notification Menu Area */}
-            {userAuthenticated && <DropdownNotification />}
+            {/* {userAuthenticated && <DropdownNotification />} */}
           </ul>
 
           <div className="flex items-center gap-3">

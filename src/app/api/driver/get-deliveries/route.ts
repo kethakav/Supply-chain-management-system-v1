@@ -1,28 +1,30 @@
-// src/app/api/driver/get-deliveries/route.ts
+import { NextResponse } from "next/server";
+import mysql from "mysql2/promise";
+import pool from '@/utils/db/pool';
 
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse, NextRequest } from 'next/server';
-import mysql from 'mysql2/promise';
 
-// Create a MySQL connection pool
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-});
+export async function POST(req: Request) {
+  try {
+    const { driver_id } = await req.json();
+    console.log(driver_id);
 
-// Define the API endpoint to get assigned deliveries for a driver
-export async function POST(req: NextRequest, res: NextResponse) {
-    const { driverId } = await req.json(); // Get driverId from the request body
-    console.log(driverId);
+    if (!pool) {
+      throw new Error('Database connection pool is not initialized.');
+  }
+    // Call the stored procedure to get assigned deliveries for the driver
+    const [rows] = await pool.query<mysql.RowDataPacket[]>('CALL GetAssignedDeliveriesForDriver(?)', [driver_id]);
 
-    try {
-        const [rows] = await pool.query(`CALL GetAssignedDeliveriesForDriver(${driverId})`);
-        console.log(rows);
-        return NextResponse.json(rows, { status: 200 }); // Use NextResponse for the response
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 }); // Use NextResponse for error response
-    }
+    // Assuming the assigned deliveries are in the first result set
+    const assignedDeliveries = rows[0];
+
+    console.log(assignedDeliveries);
+
+    return NextResponse.json(assignedDeliveries);
+  } catch (error) {
+    console.error('Error fetching assigned deliveries:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch assigned deliveries' },
+      { status: 500 }
+    );
+  }
 }

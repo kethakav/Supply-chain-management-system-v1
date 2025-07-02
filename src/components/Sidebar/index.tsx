@@ -16,124 +16,48 @@ interface SidebarProps {
 // Define menu items for each user type
 const menuItemsByUserType = {
   hrManager: [
-    {
-      label: "Overview",
-      route: "/dashboard/hr/overview",
-    },
-    {
-      label: "Employee Management",
-      route: "/dashboard/hr/employees",
-    },
-    {
-      label: "Asset Management",
-      route: "/dashboard/hr/assets",
-    },
-    {
-      label: "Store Management",
-      route: "/dashboard/hr/stores",
-    },
-    {
-      label: "Reports Section",
-      route: "/dashboard/hr/reports",
-    },
+    { label: "Overview", route: "/dashboard/hr/overview" },
+    { label: "Finance & Order Managers", route: "/dashboard/hr/finance" },
+    // { label: "Store Managers", route: "/dashboard/hr/store-mg" },
+    // { label: "Driver Management", route: "/dashboard/hr/driver" },
+    // { label: "Assistant Driver Management", route: "/dashboard/hr/ast-driver" },
+    { label: "Store Management", route: "/dashboard/hr/store" },
+    // { label: "Truck Management", route: "/dashboard/hr/truck" },
   ],
   financeManager: [
-    {
-      label: "Overview",
-      route: "/dashboard/finance/overview",
-    },
-    {
-      label: "Payment Confirmation",
-      route: "/dashboard/finance/payments",
-    },
-    // {
-    //   label: "Order Overview",
-    //   route: "/dashboard/finance/orders",
-    // },
-    {
-      label: "Train Deliveries",
-      route: "/dashboard/finance/train-deliveries",
-    },
-    // {
-    //   label: "Delivery Status",
-    //   route: "/dashboard/finance/delivery-status",
-    // },
+    { label: "Pending Orders", route: "/dashboard/finance/pending-orders" },
+    { label: "Trains", route: "/dashboard/finance/trains" },
+    { label: "Train Deliveries", route: "/dashboard/finance/train-deliveries" },
+    { label: "Reports", route: "/dashboard/finance/report" },
+    { label: "History", route: "/dashboard/finance/history" },
+
+
   ],
-  storeManager: [
-    {
-      label: "Overview",
-      route: "/dashboard/store/overview",
-    },
-    {
-      label: "Delivery Scheduling",
-      route: "/dashboard/store/scheduling",
-    },
-    {
-      label: "Delivery Confirmation",
-      route: "/dashboard/store/delivery-confirmation",
-    },
-    {
-      label: "Inventory Management",
-      route: "/dashboard/store/inventory",
-    },
-    {
-      label: "Communication Tools",
-      route: "/dashboard/store/communication",
-    },
+  manager: [
+    { label: "Overview", route: "/dashboard/store/overview" },
+    { label: "Receive Inventory", route: "/dashboard/store/receive" },
+    // { label: "Orders to Deliver", route: "/dashboard/store/orders-to-deliver" },
+    { label: "Delivery Scheduling", route: "/dashboard/store/scheduling" },
+    { label: "Working Hours", route: "/dashboard/store/working-hours" },
+    { label: "Order History", route: "/dashboard/store/history" },
   ],
   driver: [
-    {
-      label: "Overview",
-      route: "/dashboard/driver/overview",
-    },
-    {
-      label: "Assigned Deliveries",
-      route: "/dashboard/driver/deliveries",
-    },
-    {
-      label: "Route Details",
-      route: "/dashboard/driver/route",
-    },
-    {
-      label: "Delivery Confirmation",
-      route: "/dashboard/driver/confirmation",
-    },
-    {
-      label: "Hours Worked",
-      route: "/dashboard/driver/hours",
-    },
+    // { label: "Overview", route: "/dashboard/driver/overview" },
+    { label: "Assigned Deliveries", route: "/dashboard/driver/deliveries" },
+    // { label: "Route Details", route: "/dashboard/driver/route" },
+    // { label: "Delivery Confirmation", route: "/dashboard/driver/confirmation" },
+    // { label: "Hours Worked", route: "/dashboard/driver/hours" },
   ],
   assistantDriver: [
-    {
-      label: "Overview",
-      route: "/dashboard/assistant-driver/overview",
-    },
-    {
-      label: "Assigned Deliveries",
-      route: "/dashboard/assistant-driver/deliveries",
-    },
-    {
-      label: "Hours Worked",
-      route: "/dashboard/assistant-driver/hours",
-    },
+    // { label: "Overview", route: "/dashboard/assistant-driver/overview" },
+    { label: "Assigned Deliveries", route: "/dashboard/assistant-driver/deliveries" },
+    // { label: "Hours Worked", route: "/dashboard/assistant-driver/hours" },
   ],
   customer: [
-    {
-      label: "Overview",
-      route: "/dashboard/customer/overview",
-    },
-    {
-      label: "Order Status",
-      route: "/dashboard/customer/orders",
-    },
-    {
-      label: "Order History",
-      route: "/dashboard/customer/history",
-    },
-    {
-      label: "Support Section",
-      route: "/dashboard/customer/support",
-    },
+    { label: "Products", route: "/dashboard/customer/products" },
+    { label: "Active Orders", route: "/dashboard/customer/orders" },
+    { label: "Order History", route: "/dashboard/customer/history" },
+    { label: "Your Cart", route: "/dashboard/customer/cart" },
   ],
 };
 
@@ -154,8 +78,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   }, []);
 
   // Get menu items based on user type
-  // const menuItems = menuItemsByUserType[user.type] || [];
-    // Get menu items based on user type
   const menuItems = menuItemsByUserType[user.type as keyof typeof menuItemsByUserType] || [];
 
   return (
@@ -168,12 +90,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         }`}
       >
         {/* <!-- SIDEBAR HEADER --> */}
-        <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 xl:py-10">
+        <div className="flex items-center justify-between gap-2 px-8 py-5.5 lg:py-6.5 xl:py-9">
           <Link href="/">
             <Image
               width={176}
               height={32}
-              src={"/images/logo/logo-dark.svg"}
+              src={"/images/logo/Logo Complete.svg"}
               alt="Logo"
               priority
               className="dark:hidden"
@@ -182,12 +104,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <Image
               width={176}
               height={32}
-              src={"/images/logo/logo.svg"}
+              src={"/images/logo/logo complete light.svg"}
               alt="Logo"
               priority
               className="hidden dark:block"
               style={{ width: "auto", height: "auto" }}
             />
+        
           </Link>
 
           <button
@@ -214,9 +137,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
           {/* <!-- Sidebar Menu --> */}
           <nav className="mt-1 px-4 lg:px-6">
-            <h3 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">
+            {/* <h3 className="mb-5 text-sm font-medium text-dark-4 dark:text-dark-6">
               MAIN MENU
-            </h3>
+            </h3> */}
             <ul className="mb-6 flex flex-col gap-2">
               {menuItems.map((menuItem, menuIndex) => (
                 <SidebarItem
@@ -224,6 +147,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   item={menuItem}
                   pageName={pageName}
                   setPageName={setPageName}
+                  closeSidebar={() => setSidebarOpen(false)} // Close sidebar on item click
                 />
               ))}
             </ul>

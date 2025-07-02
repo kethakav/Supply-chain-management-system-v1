@@ -1,17 +1,7 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import argon2 from 'argon2';
-// import dotenv from 'dotenv';
- 
-// dotenv.config();
-
-// Create a MySQL connection pool
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-});
+import pool from '@/utils/db/pool';
 
 export async function POST(req: Request) {
     console.log(process.env.DB_HOST);
@@ -19,6 +9,9 @@ export async function POST(req: Request) {
 
     try {
         // Step 1: Identify if the username exists in any table
+        if (!pool) {
+            throw new Error('Database connection pool is not initialized.');
+        }
         const [rows]: any = await pool.query(
             `SELECT identify_table(?) AS table_name`,
             [username]

@@ -1,0 +1,450 @@
+//Get Assigned Deliveries for an Assistant Driver:
+
+DELIMITER //
+CREATE PROCEDURE GetAssignedDeliveriesForAssistantDriver(IN astDriverId INT)
+BEGIN
+    SELECT td.delivery_id, td.truck_id, td.route_id, r.end_point, r.route_description, r.distance, r.max_time
+    FROM Truck_Delivery td
+    JOIN Route r ON td.route_id = r.route_id
+    WHERE td.ast_driver_id = astDriverId;
+END //
+DELIMITER ;
+
+//Get Driver for a Specific Delivery:
+
+DELIMITER //
+CREATE PROCEDURE GetDriverForDelivery(IN deliveryId INT)
+BEGIN
+    SELECT d.driver_id, d.driver_first_name, d.driver_last_name, d.driver_contact, d.driver_email
+    FROM Truck_Delivery td
+    JOIN Driver d ON td.driver_id = d.driver_id
+    WHERE td.delivery_id = deliveryId;
+END //
+DELIMITER ;
+
+-- Procedures for customer
+DELIMITER //
+
+-- Returns all products in the system
+CREATE PROCEDURE get_all_products()
+BEGIN
+    SELECT * FROM product;
+END //
+
+-- places an empty order for a customer
+CREATE PROCEDURE place_order(
+    IN customer_id INT,
+    IN delivery_address VARCHAR(1000),
+    IN nearest_store_id INT)
+BEGIN
+    -- Insert into the `Order` table
+    INSERT INTO `Order` (
+        customer_id,
+        ordered_date_time,
+        expecting_delivery_date,
+        delivery_address,
+        nearest_store_id
+    )
+    VALUES (
+        customer_id, 
+        now(),
+        DATE(DATE_ADD(NOW(), INTERVAL 7 DAY)),
+        delivery_address, 
+        nearest_store_id
+    );
+END //
+
+-- Adds a product to a given order
+CREATE PROCEDURE add_product_to_order(
+    IN order_id INT,
+    IN product_id INT,
+    IN quantity INT)
+BEGIN
+    INSERT INTO `Ordered_products` (order_id, product_id, quantity)
+    VALUES (order_id, product_id, quantity);
+END//
+
+CREATE PROCEDURE get_pending_orders(IN customer_id_input INT)
+BEGIN
+    SELECT * 
+    FROM `Order`
+    WHERE (`customer_id` = customer_id_input AND `delivered_confirmation` = false);
+END//
+
+CREATE PROCEDURE get_history_orders(IN customer_id_input INT)
+BEGIN
+    SELECT * 
+    FROM `Order`
+    WHERE (`customer_id` = customer_id_input AND `delivered_confirmation` = true);
+END//
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterRetailerCustomer`(
+    IN p_user_name VARCHAR(20),
+    IN p_password VARCHAR(100),
+    IN p_first_name VARCHAR(20),
+    IN p_last_name VARCHAR(20),
+    IN p_contact INT,
+    IN p_email VARCHAR(50),
+    IN p_address VARCHAR(200)
+)
+BEGIN
+    INSERT INTO Customer (user_name, password, customer_first_name, customer_last_name, customer_type, customer_contact, customer_email, customer_address)
+    VALUES (p_user_name, p_password, p_first_name, p_last_name, 'retailer', p_contact, p_email, p_address);
+END//
+
+-- Procedure to get unconfirmed orders
+DELIMITER $$
+
+CREATE PROCEDURE GetUnconfirmedPayments()
+BEGIN
+    -- Select all orders where payments are not confirmed
+    SELECT * 
+    FROM `Order`
+    WHERE confirm_payments = FALSE;
+END$$
+
+DELIMITER ;
+
+-- Procedure to get confirmed orders
+DELIMITER $$
+
+CREATE PROCEDURE GetConfirmedPayments()
+BEGIN
+    -- Select all orders where payments are confirmed
+    SELECT * 
+    FROM `Order`
+    WHERE confirm_payments = 1;
+END$$
+
+DELIMITER ;
+
+-- Procedure to get all orders (both confirmed and unconfirmed)
+DELIMITER $$
+
+CREATE PROCEDURE GetPayments()
+BEGIN
+    -- Select all records from the Order table
+    SELECT * 
+    FROM `Order`;
+END$$
+
+DELIMITER ;
+
+-- Procedure to get all train data
+DELIMITER $$
+
+CREATE PROCEDURE GetTrains()
+BEGIN
+    -- Select all records from the train table
+    SELECT * 
+    FROM `train`;
+END$$
+
+DELIMITER ;
+
+-- Procedure to assign a train for a given order ID and update the train delivery
+DELIMITER $$
+
+CREATE PROCEDURE AssignTrainDelivery(
+    IN p_order_id INT,  -- Order ID to assign the train to
+    IN p_train_id INT   -- Train ID to assign
+)
+BEGIN
+    -- Declare variables to store payment status and nearest store ID
+    DECLARE v_nearest_store_id INT;
+    DECLARE v_confirm_payments BOOLEAN;
+
+    -- Fetch the payment status and nearest_store_id for the order
+    SELECT confirm_payments, nearest_store_id
+    INTO v_confirm_payments, v_nearest_store_id
+    FROM `Order`
+    WHERE order_id = p_order_id;
+
+    -- If payment is confirmed, proceed with updates
+    IF v_confirm_payments = 1 THEN
+        -- Update the Order table to assign the train delivery and mark as sent by train
+        UPDATE `Order`
+        SET train_delivery_id = p_train_id, 
+            sent_by_train = 1
+        WHERE order_id = p_order_id;
+
+        -- Insert the assigned train and capacity allocation into the train_delivery table
+        INSERT INTO train_delivery (train_id, store_id, allocated_capacity)
+        VALUES (p_train_id, v_nearest_store_id, 0);
+        
+    ELSE
+        -- If payment is not confirmed, raise an error
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Payment not confirmed for this order.';
+    END IF;
+    
+END$$
+
+DELIMITER ;
+
+-- Procedure to register a new finance and order manager
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE RegisterFinanceManager(
+    IN fm_user_name VARCHAR(20),  -- Username of the new finance manager
+    IN fm_password VARCHAR(100),  -- Password for the new finance manager
+    IN fm_first_name VARCHAR(20), -- First name of the new finance manager
+    IN fm_last_name VARCHAR(20),  -- Last name of the new finance manager
+    IN fm_contact INT,            -- Contact number of the new finance manager
+    IN fm_email VARCHAR(50)       -- Email of the new finance manager
+)
+BEGIN
+    -- Insert the provided data into the financeandorder_manager table
+    INSERT INTO financeandorder_manager (
+        user_name, 
+        password, 
+        manager_first_name, 
+        manager_last_name, 
+        manager_contact, 
+        manager_email
+    )
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterHrManager`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50)
+)
+BEGIN
+    INSERT INTO hr_manager (user_name, password, manager_first_name, manager_last_name, manager_contact, manager_email)
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email);
+END$$
+
+-- procedure to get truck information according to store id
+CREATE PROCEDURE GetTrucksByStore(IN storeId INT)
+BEGIN
+    SELECT 
+        t.truck_id, 
+        t.store_id, 
+        t.vehicle_number, 
+        s.store_city, 
+        s.truck_count
+    FROM 
+        Truck t
+    JOIN 
+        Store s ON t.store_id = s.store_id
+    WHERE 
+        t.store_id = storeId;
+END$$
+
+-- procedure to get the information of all drivers of a given store
+DELIMITER $$
+
+CREATE PROCEDURE GetDriversByStore(IN p_store_id INT)
+BEGIN
+    SELECT 
+        d.driver_id,
+        d.user_name,
+        d.driver_first_name,
+        d.driver_last_name,
+        d.driver_contact,
+        d.driver_email,
+        d.driver_image_url,
+        d.store_id,
+        s.store_city,
+        d.worked_hours
+    FROM 
+        Driver d
+    JOIN 
+        Store s ON d.store_id = s.store_id
+    WHERE 
+        d.store_id = p_store_id;
+END $$
+
+DELIMITER ;
+
+//procedure for getting the information of all assistant drivers
+DELIMITER $$
+
+CREATE PROCEDURE GetAssistantDriversByStore(IN p_store_id INT)
+BEGIN
+    SELECT 
+        ad.ast_driver_id,
+        ad.user_name,
+        ad.ast_driver_first_name,
+        ad.ast_driver_last_name,
+        ad.ast_driver_contact,
+        ad.ast_driver_email,
+        ad.ast_driver_image_url,
+        ad.store_id,
+        s.store_city,
+        ad.worked_hours
+    FROM 
+        Assistant_Driver ad
+    JOIN 
+        Store s ON ad.store_id = s.store_id
+    WHERE 
+        ad.store_id = p_store_id;
+END $$
+
+DELIMITER ;
+
+
+//procedure for getting all the active orders for the store(orders which have not yet been delivered)
+DELIMITER $$
+
+CREATE PROCEDURE GetActiveOrdersByStore(IN p_store_id INT)
+BEGIN
+    SELECT 
+        o.order_id,
+        o.customer_id,
+        o.ordered_date_time,
+        o.total_amount,
+        o.order_capacity,
+        o.expecting_delivery_date,
+        o.delivery_address,
+        o.route_description_input,
+        o.confirm_payments,
+        o.sent_by_train,
+        o.recieved_to_store,
+        o.delivered_confirmation,
+        c.customer_first_name,
+        c.customer_last_name,
+        c.customer_contact,
+        c.customer_email
+    FROM 
+        `Order` o
+    JOIN 
+        Customer c ON o.customer_id = c.customer_id
+    WHERE 
+        o.nearest_store_id = p_store_id
+        AND o.delivered_confirmation = FALSE;
+END $$
+
+DELIMITER ;
+
+//procedure to get available drivers and assistant drivers
+DELIMITER $$
+
+CREATE PROCEDURE GetAvailableDriversAndAssistantDrivers()
+BEGIN
+    -- Fetch available drivers who are not assigned to any active deliveries
+    SELECT 
+        d.driver_id,
+        d.user_name,
+        d.driver_first_name,
+        d.driver_last_name,
+        d.driver_contact,
+        d.driver_email,
+        d.driver_image_url,
+        d.store_id,
+        s.store_city,
+        d.worked_hours
+    FROM 
+        Driver d
+    JOIN 
+        Store s ON d.store_id = s.store_id
+    LEFT JOIN 
+        Truck_Delivery td ON d.driver_id = td.driver_id
+    WHERE 
+        td.delivery_id IS NULL;  -- If no matching delivery, driver is available
+
+    -- Fetch available assistant drivers who are not assigned to any active deliveries
+    SELECT 
+        ad.ast_driver_id,
+        ad.user_name,
+        ad.ast_driver_first_name,
+        ad.ast_driver_last_name,
+        ad.ast_driver_contact,
+        ad.ast_driver_email,
+        ad.ast_driver_image_url,
+        ad.store_id,
+        s.store_city,
+        ad.worked_hours
+    FROM 
+        Assistant_Driver ad
+    JOIN 
+        Store s ON ad.store_id = s.store_id
+    LEFT JOIN 
+        Truck_Delivery td ON ad.ast_driver_id = td.ast_driver_id
+    WHERE 
+        td.delivery_id IS NULL;  -- If no matching delivery, assistant driver is available
+END $$
+
+DELIMITER ;
+
+delimiter //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterStoreManager`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO manager (user_name, password, manager_first_name, manager_last_name, manager_contact, manager_email, store_id)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id);
+END//
+
+
+-- procedure to create truck deliveries
+DELIMITER $$
+
+CREATE PROCEDURE CreateTruckDelivery(
+    IN p_truck_id INT,
+    IN p_driver_id INT,
+    IN p_ast_driver_id INT,
+    IN p_route_id INT,
+    IN p_manager_id INT,
+    IN p_sent_datetime DATETIME
+)
+BEGIN
+    -- Insert the new delivery into the Truck_Delivery table
+    INSERT INTO Truck_Delivery (
+        truck_id, 
+        driver_id, 
+        ast_driver_id, 
+        route_id, 
+        manager_id, 
+        sent_datetime
+    )
+    VALUES (
+        p_truck_id, 
+        p_driver_id, 
+        p_ast_driver_id, 
+        p_route_id, 
+        p_manager_id, 
+        p_sent_datetime
+    );
+END $$
+
+DELIMITER //
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterDriver`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO driver (user_name, password, driver_first_name, driver_last_name, driver_contact, driver_email, store_id, worked_hours, availability)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id, 0, 1);
+END//
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegisterAstDriver`(
+    IN fm_user_name VARCHAR(20),
+    IN fm_password VARCHAR(100),
+    IN fm_first_name VARCHAR(20),
+    IN fm_last_name VARCHAR(20),
+    IN fm_contact INT,
+    IN fm_email VARCHAR(50),
+    IN fm_store_id INT  -- Add store_id as an input parameter
+)
+BEGIN
+    INSERT INTO assistant_driver (user_name, password, ast_driver_first_name, ast_driver_last_name, ast_driver_contact, ast_driver_email, store_id, worked_hours, availability)  -- Include store_id in the INSERT statement
+    VALUES (fm_user_name, fm_password, fm_first_name, fm_last_name, fm_contact, fm_email, fm_store_id, 0, 1);
+END//
